@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/cartlayout1"
+            android:layout_width="130dp"
+            android:layout_height="240dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+            <ImageView
+                    android:id="@+id/cartimage1"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"></ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:id="@+id/selectcartlayout1"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/cartproductname1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:gravity="left|center"
+                    android:text="Product Name"
+                    android:textColor="@color/colorWhite"></TextView>
+
+            <TextView
+                    android:id="@+id/cartproductprice1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:gravity="left|top"
+                    android:text="Product Price"
+                    android:textColor="@color/colorWhite"></TextView>
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+        </LinearLayout>
+
+        <Button
+                android:id="@+id/cartproductadd1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.95"
+                android:background="@drawable/buttonsetting"
+                android:gravity="center"
+                android:text="@string/addcart"
+                android:textColor="@color/colorWhite"
+                android:textSize="12dp"></Button>
+
+    </LinearLayout>
+
+</LinearLayout>

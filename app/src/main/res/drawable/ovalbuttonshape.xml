@@ -1,0 +1,24 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            >
+        <shape android:shape = "oval">
+            <solid
+                    android:color="@color/colorGray">
+            </solid>
+        </shape>
+    </item>
+</layer-list>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ripple xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:color="#FFFFFF"> &lt;!&ndash; Ripple Effect 색상 &ndash;&gt;-->
+
+<!--    &lt;!&ndash; 배경색 &ndash;&gt;-->
+<!--    <item android:id="@android:id/background">-->
+<!--        <shape android:shape="oval">-->
+<!--            <solid android:color="#FFFFFF"/>-->
+<!--        </shape>-->
+<!--    </item>-->
+
+<!--</ripple>-->

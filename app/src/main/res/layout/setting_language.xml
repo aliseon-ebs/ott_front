@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:gravity="center"
+              tools:context="com.aliseon.ott.activity.LanguageSettingActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+        <ImageView
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/phoneimage"
+                android:src="@drawable/phoneimage"
+                />
+        <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/googleplay"
+                    android:src="@drawable/googleplay"
+                    ></ImageView>
+            <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/appstore"
+                    android:src="@drawable/appstore"
+
+                    ></ImageView>
+        </LinearLayout>
+        <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+            <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/qrcode"
+                    android:src="@drawable/qrcode"
+                    ></ImageView>
+            <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/qrcode2"
+                    android:src="@drawable/qrcode2"
+
+                    ></ImageView>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/settinglanguage"
+            android:orientation="vertical"
+            android:gravity="left|center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/language_setting"
+                android:textStyle="bold"
+                android:textSize="30dp"
+
+                android:paddingBottom="10dp"
+
+                android:textColor="@color/colorWhite"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/want_setting"
+                android:paddingBottom="20dp"
+                android:textSize="15dp"
+
+
+                android:textColor="@color/colorWhite"
+        />
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/spinnerlayout"
+                        android:layout_gravity="left|center">
+
+            <Spinner
+                    android:gravity="left"
+                    android:id="@+id/spinner2"
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:nextFocusLeft="@id/spinner4"
+                    android:layout_marginRight="7dp"
+                    android:nextFocusRight="@+id/spinner3"
+                    android:nextFocusDown="@+id/button3"
+                    android:nextFocusUp="@+id/underline"
+                    android:background="@drawable/spinnersetting"
+
+            >
+            </Spinner>
+            <Spinner
+                    android:gravity="left"
+                    android:id="@+id/spinner3"
+                    android:layout_width="170dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:nextFocusRight="@+id/spinner4"
+                    android:nextFocusLeft="@+id/spinner2"
+                    android:nextFocusDown="@+id/button3"
+                    android:nextFocusUp="@+id/underline"
+                    android:background="@drawable/spinnersetting"
+
+            >
+            </Spinner>
+            <Spinner
+                    android:gravity="left"
+                    android:id="@+id/spinner4"
+                    android:layout_width="130dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="7dp"
+                    android:nextFocusLeft="@+id/spinner3"
+                    android:nextFocusRight="@id/spinner2"
+                    android:nextFocusDown="@+id/button3"
+                    android:nextFocusUp="@+id/underline"
+                    android:background="@drawable/spinnersetting"
+
+            >
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/buttonlayout"
+                android:orientation="horizontal"
+                android:layout_gravity="left|center">
+            <Button
+                    android:id="@+id/button3"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/blackbuttonsetting"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginRight="7dp"
+                    android:nextFocusUp="@+id/spinner2"
+                    android:nextFocusDown="@+id/underline"
+
+                    android:text="@string/complete"/>
+
+            <Button
+                    android:id="@+id/button4"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/blackbuttonsetting"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorWhite"
+
+                    android:text="@string/skip"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:background="@drawable/backgroundblack"
+              android:gravity="center"
+              tools:context="com.aliseon.ott.activity.InfoCheckActivity">
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+    <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/phoneimage"
+            android:src="@drawable/phoneimage"
+    />
+    <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+        <ImageView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="15dp"
+                android:id="@+id/googleplay"
+                android:src="@drawable/googleplay"
+        ></ImageView>
+        <ImageView
+                   android:layout_width="60dp"
+                   android:layout_height="30dp"
+                   android:scaleType="fitCenter"
+                   android:layout_marginLeft="15dp"
+                   android:id="@+id/appstore"
+                   android:src="@drawable/appstore"
+
+        ></ImageView>
+    </LinearLayout>
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+    >
+        <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="15dp"
+                android:id="@+id/qrcode"
+                android:src="@drawable/qrcode"
+        ></ImageView>
+        <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/qrcode2"
+                android:src="@drawable/qrcode2"
+
+        ></ImageView>
+    </LinearLayout>
+
+</LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="379dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/start"
+                android:textColor="@color/colorWhite"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/check_phone"
+                android:textColor="@color/colorWhite"
+                android:textSize="15dp"
+
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingBottom="20dp"
+                android:text="@string/aliseon_register_ad"
+                android:textColor="@color/colorGray"
+
+                android:textSize="12dp" />
+        </LinearLayout>
+
+<LinearLayout android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+              android:focusable="true"
+              android:focusableInTouchMode="true">
+
+    <Spinner
+            android:gravity="left"
+            android:id="@+id/spinner1"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:nextFocusUp="@id/button2"
+            android:nextFocusRight="@id/phonenumber"
+            android:nextFocusDown="@id/cnumber"
+            android:nextFocusLeft="@id/button1"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/spinnersetting"
+    >
+    </Spinner>
+
+
+
+    <EditText
+            android:id="@+id/phonenumber"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="@drawable/phonenumbersetting"
+            android:hint="@string/input_phone"
+            android:inputType="number"
+            android:textSize="10dp"
+            android:nextFocusUp="@id/button2"
+            android:nextFocusRight="@id/button1"
+            android:nextFocusDown="@id/cnumber"
+            android:nextFocusLeft="@id/spinner1"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="7dp"
+            android:paddingLeft="10dp"
+    />
+    <Button
+            android:id="@+id/button1"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:background="@drawable/sendsetting"
+            android:textSize="10dp"
+            android:nextFocusUp="@id/button2"
+            android:nextFocusRight="@id/spinner1"
+            android:nextFocusDown="@id/cnumber"
+            android:nextFocusLeft="@id/phonenumber"
+            android:textColor="@color/colorWhite"
+            android:text="@string/send"
+            android:layout_marginTop="15dp"
+    />
+</LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+
+
+            <EditText
+                    android:id="@+id/cnumber"
+                    android:layout_width="355dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/spinnersetting"
+                    android:hint="@string/code_number"
+                    android:inputType="number"
+                    android:nextFocusUp="@id/spinner1"
+                    android:nextFocusDown="@id/button2"
+                    android:textSize="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:paddingLeft="10dp"
+            />
+        </LinearLayout>
+
+    <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/button2"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/blackbuttonsetting"
+                android:nextFocusUp="@id/cnumber"
+                android:nextFocusDown="@id/spinner1"
+                android:textSize="10dp"
+                android:textColor="@color/colorWhite"
+                android:text="@string/check"
+        />
+
+        <Button
+                android:id="@+id/button3"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/blackbuttonsetting"
+                android:textSize="10dp"
+                android:textColor="@color/colorWhite"
+                android:text="@string/skip"
+                />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+</LinearLayout>

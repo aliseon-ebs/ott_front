@@ -1,0 +1,360 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#99000000"
+              android:layoutDirection="ltr"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/titlelayout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="left|center"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                    android:id="@+id/titlelayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left|bottom"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/title_tv1"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/titlelayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                    android:id="@+id/titlelayout2_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/title_tv2"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/titlelayout2_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        >
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:layout_marginRight="5dp"
+                        android:orientation="vertical"
+                        >
+                        <com.aliseon.ott.CircleImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/creator_profile">
+
+                        </com.aliseon.ott.CircleImageView>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical"
+                        >
+                    <TextView
+                            android:id="@+id/creator_name"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:orientation="vertical"
+                        >
+
+                    <Button
+                            android:id="@+id/creator_subscribe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/blackbuttonsetting"
+                            android:text="@string/subscribe"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="12dp" />
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/titlelayout3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|top"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/title_tv3"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/playerscrollview"
+            android:scrollbars="none"
+            android:overScrollMode="never">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/cartscrollview"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/cartlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:gravity="left|center"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@id/exo_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="10sp"
+                android:textStyle="bold"/>
+
+        <com.google.android.exoplayer2.ui.DefaultTimeBar
+                android:id="@id/exo_progress"
+                android:layout_width="0dp"
+                android:layout_height="26dp"
+                android:layout_weight="1"
+
+                app:played_color="@color/colorWhite"/>
+
+        <TextView
+                android:id="@id/exo_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="10sp"
+                android:textStyle="bold"/>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/menu"
+                android:orientation="horizontal">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:orientation="horizontal">
+                <ImageView android:layout_width="40dp"
+                           android:layout_height="40dp"
+                           android:layout_margin="5dp"
+                           android:padding="10dp"
+                           android:scaleType="fitCenter"
+                           android:layout_gravity="center"
+                           android:id="@+id/exoplayerback"
+                           android:clickable="true"
+                           android:src="@drawable/backarrow"
+                           android:focusableInTouchMode="true"/>
+            </LinearLayout>
+
+            <FrameLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_gravity="center"
+                          android:layout_weight="1">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/exo_framelayoutprogressbar"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+                    <ProgressBar
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/exo_progressbar">
+                    </ProgressBar>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:id="@+id/exo_framelayoutplaypause"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content">
+                    <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:scaleType="fitCenter"
+                            android:padding="5dp"
+                            android:id="@id/exo_play"
+                            android:shadowColor="@color/colorBlack"
+                            android:clickable="true"
+                            android:shadowRadius="5.0"
+                            android:shadowDx="5.0"
+                            android:shadowDy="5.0"
+                            android:tint="@color/colorWhite"
+                            android:tintMode="src_in"
+                            style="@style/ExoMediaButton.Play"/>
+
+                    <ImageButton
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:scaleType="fitCenter"
+                            android:padding="5dp"
+                            android:id="@id/exo_pause"
+                            android:shadowColor="@color/colorBlack"
+                            android:clickable="true"
+                            android:shadowRadius="5.0"
+                            android:shadowDx="5.0"
+                            android:shadowDy="5.0"
+                            android:tint="@color/colorWhite"
+                            android:tintMode="src_in"
+                            style="@style/ExoMediaButton.Pause"/>
+                </FrameLayout>
+            </FrameLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:gravity="center"
+                          android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:id="@+id/nextvideotimer"
+                    android:textSize="11dp">
+
+                </TextView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/contentscrollview"
+            android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:overScrollMode="never">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="202.5dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/contentlayout"
+                    android:orientation="horizontal"/>
+
+    </HorizontalScrollView>
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

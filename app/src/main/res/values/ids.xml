@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name = "viewback" type="id"></item>
+
+    <item name = "homehome" type ="id"></item>
+    <item name = "homesearch" type ="id"></item>
+    <item name = "homeuser" type ="id"></item>
+    <item name = "homecart" type="id"></item>
+
+    <item name = "homedetaillayout" type="id"></item>
+
+    <item name = "subscribehome" type ="id"></item>
+    <item name = "subscribesearch" type ="id"></item>
+    <item name = "subscribeuser" type ="id"></item>
+    <item name = "subscribecart" type="id"></item>
+    <item name = "subscribe1" type ="id"></item>
+    <item name = "subscribe2" type ="id"></item>
+    <item name = "subscribe3" type ="id"></item>
+    <item name = "subscribe4" type ="id"></item>
+
+    <item name = "carthome" type ="id"></item>
+    <item name = "cartsearch" type ="id"></item>
+    <item name = "cartuser" type ="id"></item>
+    <item name = "cartcart" type="id"></item>
+    <item name = "cart1" type ="id"></item>
+    <item name = "cart2" type ="id"></item>
+    <item name = "cart3" type ="id"></item>
+    <item name = "cart4" type ="id"></item>
+
+    <item name = "creator1" type ="id"></item>
+
+    <item name = "languagesettinghome" type ="id"></item>
+    <item name = "languagesettingsearch" type ="id"></item>
+    <item name = "languagesettinguser" type ="id"></item>
+    <item name = "languagesettingcart" type ="id"></item>
+    <item name = "languagesetting1" type ="id"></item>
+    <item name = "languagesetting2" type ="id"></item>
+    <item name = "languagesetting3" type ="id"></item>
+    <item name = "languagesetting4" type ="id"></item>
+    <item name = "languagesettingspinner" type ="id"></item>
+    <item name = "languagesettingbutton" type ="id"></item>
+
+
+    <item name = "accountmanagementhome" type ="id"></item>
+    <item name = "accountmanagementsearch" type ="id"></item>
+    <item name = "accountmanagementuser" type ="id"></item>
+    <item name = "accountmanagementcart" type ="id"></item>
+    <item name = "accountmanagement1" type ="id"></item>
+    <item name = "accountmanagement2" type ="id"></item>
+    <item name = "accountmanagement3" type ="id"></item>
+    <item name = "accountmanagement4" type ="id"></item>
+    <item name = "accountmanagementlogout" type ="id"></item>
+    <item name = "accountmanagementprofile1" type ="id"></item>
+    <item name = "accountmanagementprofile2" type ="id"></item>
+    <item name = "accountmanagementprofile3" type ="id"></item>
+    <item name = "accountmanagementprofile4" type ="id"></item>
+
+    <item name = "selectaccount1home" type ="id"></item>
+    <item name = "selectaccount1search" type ="id"></item>
+    <item name = "selectaccount1user" type ="id"></item>
+    <item name = "selectaccount1cart" type ="id"></item>
+    <item name = "selectaccount1_1" type ="id"></item>
+    <item name = "selectaccount1_2" type ="id"></item>
+    <item name = "selectaccount1_3" type ="id"></item>
+    <item name = "selectaccount1_4" type ="id"></item>
+    <item name = "selectaccount1logout" type ="id"></item>
+    <item name = "selectaccount1profile" type ="id"></item>
+
+    <item name = "selectaccount2home" type ="id"></item>
+    <item name = "selectaccount2search" type ="id"></item>
+    <item name = "selectaccount2user" type ="id"></item>
+    <item name = "selectaccount2cart" type ="id"></item>
+    <item name = "selectaccount2_1" type ="id"></item>
+    <item name = "selectaccount2_2" type ="id"></item>
+    <item name = "selectaccount2_3" type ="id"></item>
+    <item name = "selectaccount2_4" type ="id"></item>
+    <item name = "selectaccount2logout" type ="id"></item>
+    <item name = "selectaccount2profile" type ="id"></item>
+
+    <item name = "selectaccount3home" type ="id"></item>
+    <item name = "selectaccount3search" type ="id"></item>
+    <item name = "selectaccount3user" type ="id"></item>
+    <item name = "selectaccount3cart" type ="id"></item>
+    <item name = "selectaccount3_1" type ="id"></item>
+    <item name = "selectaccount3_2" type ="id"></item>
+    <item name = "selectaccount3_3" type ="id"></item>
+    <item name = "selectaccount3_4" type ="id"></item>
+    <item name = "selectaccount3logout" type ="id"></item>
+    <item name = "selectaccount3profile" type ="id"></item>
+
+    <item name = "allhome" type ="id"></item>
+    <item name = "allsearch" type ="id"></item>
+    <item name = "alluser" type ="id"></item>
+    <item name = "allcart" type ="id"></item>
+    <item name = "all1" type ="id"></item>
+    <item name = "all2" type ="id"></item>
+    <item name = "all3" type ="id"></item>
+    <item name = "all4" type ="id"></item>
+    <item name = "all5" type ="id"></item>
+    <item name = "all6" type ="id"></item>
+    <item name = "all7" type ="id"></item>
+    <item name = "all8" type ="id"></item>
+    <item name = "all9" type ="id"></item>
+    <item name = "all10" type ="id"></item>
+    <item name = "all11" type ="id"></item>
+    <item name = "all12" type ="id"></item>
+    <item name = "all13" type ="id"></item>
+    <item name = "all14" type ="id"></item>
+    <item name = "all15" type ="id"></item>
+    <item name = "all16" type ="id"></item>
+
+
+    <item name = "beautyhome" type ="id"></item>
+    <item name = "beautysearch" type ="id"></item>
+    <item name = "beautyuser" type ="id"></item>
+    <item name = "beautycart" type ="id"></item>
+    <item name = "beauty1" type ="id"></item>
+    <item name = "beauty2" type ="id"></item>
+    <item name = "beauty3" type ="id"></item>
+    <item name = "beauty4" type ="id"></item>
+    <item name = "beauty5" type ="id"></item>
+    <item name = "beauty6" type ="id"></item>
+    <item name = "beauty7" type ="id"></item>
+    <item name = "beauty8" type ="id"></item>
+    <item name = "beauty9" type ="id"></item>
+    <item name = "beauty10" type ="id"></item>
+    <item name = "beauty11" type ="id"></item>
+    <item name = "beauty12" type ="id"></item>
+    <item name = "beauty13" type ="id"></item>
+    <item name = "beauty14" type ="id"></item>
+    <item name = "beauty15" type ="id"></item>
+    <item name = "beauty16" type ="id"></item>
+
+    <item name = "lifehome" type ="id"></item>
+    <item name = "lifesearch" type ="id"></item>
+    <item name = "lifeuser" type ="id"></item>
+    <item name = "lifecart" type ="id"></item>
+    <item name = "life1" type ="id"></item>
+    <item name = "life2" type ="id"></item>
+    <item name = "life3" type ="id"></item>
+    <item name = "life4" type ="id"></item>
+    <item name = "life5" type ="id"></item>
+    <item name = "life6" type ="id"></item>
+    <item name = "life7" type ="id"></item>
+    <item name = "life8" type ="id"></item>
+    <item name = "life9" type ="id"></item>
+    <item name = "life10" type ="id"></item>
+    <item name = "life11" type ="id"></item>
+    <item name = "life12" type ="id"></item>
+    <item name = "life13" type ="id"></item>
+    <item name = "life14" type ="id"></item>
+    <item name = "life15" type ="id"></item>
+    <item name = "life16" type ="id"></item>
+
+    <item name = "fashionclotheshome" type ="id"></item>
+    <item name = "fashionclothessearch" type ="id"></item>
+    <item name = "fashionclothesuser" type ="id"></item>
+    <item name = "fashionclothescart" type ="id"></item>
+    <item name = "fashionclothes1" type ="id"></item>
+    <item name = "fashionclothes2" type ="id"></item>
+    <item name = "fashionclothes3" type ="id"></item>
+    <item name = "fashionclothes4" type ="id"></item>
+    <item name = "fashionclothes5" type ="id"></item>
+    <item name = "fashionclothes6" type ="id"></item>
+    <item name = "fashionclothes7" type ="id"></item>
+    <item name = "fashionclothes8" type ="id"></item>
+    <item name = "fashionclothes9" type ="id"></item>
+    <item name = "fashionclothes10" type ="id"></item>
+    <item name = "fashionclothes11" type ="id"></item>
+    <item name = "fashionclothes12" type ="id"></item>
+    <item name = "fashionclothes13" type ="id"></item>
+    <item name = "fashionclothes14" type ="id"></item>
+    <item name = "fashionclothes15" type ="id"></item>
+    <item name = "fashionclothes16" type ="id"></item>
+
+    <item name = "babyandkidhome" type ="id"></item>
+    <item name = "babyandkidsearch" type ="id"></item>
+    <item name = "babyandkiduser" type ="id"></item>
+    <item name = "babyandkidcart" type ="id"></item>
+    <item name = "babyandkid1" type ="id"></item>
+    <item name = "babyandkid2" type ="id"></item>
+    <item name = "babyandkid3" type ="id"></item>
+    <item name = "babyandkid4" type ="id"></item>
+    <item name = "babyandkid5" type ="id"></item>
+    <item name = "babyandkid6" type ="id"></item>
+    <item name = "babyandkid7" type ="id"></item>
+    <item name = "babyandkid8" type ="id"></item>
+    <item name = "babyandkid9" type ="id"></item>
+    <item name = "babyandkid10" type ="id"></item>
+    <item name = "babyandkid11" type ="id"></item>
+    <item name = "babyandkid12" type ="id"></item>
+    <item name = "babyandkid13" type ="id"></item>
+    <item name = "babyandkid14" type ="id"></item>
+    <item name = "babyandkid15" type ="id"></item>
+    <item name = "babyandkid16" type ="id"></item>
+
+    <item name = "foodshome" type ="id"></item>
+    <item name = "foodssearch" type ="id"></item>
+    <item name = "foodsuser" type ="id"></item>
+    <item name = "foodscart" type ="id"></item>
+    <item name = "foods1" type ="id"></item>
+    <item name = "foods2" type ="id"></item>
+    <item name = "foods3" type ="id"></item>
+    <item name = "foods4" type ="id"></item>
+    <item name = "foods5" type ="id"></item>
+    <item name = "foods6" type ="id"></item>
+    <item name = "foods7" type ="id"></item>
+    <item name = "foods8" type ="id"></item>
+    <item name = "foods9" type ="id"></item>
+    <item name = "foods10" type ="id"></item>
+    <item name = "foods11" type ="id"></item>
+    <item name = "foods12" type ="id"></item>
+    <item name = "foods13" type ="id"></item>
+    <item name = "foods14" type ="id"></item>
+    <item name = "foods15" type ="id"></item>
+    <item name = "foods16" type ="id"></item>
+
+    <item name = "sportsandleisurehome" type ="id"></item>
+    <item name = "sportsandleisuresearch" type ="id"></item>
+    <item name = "sportsandleisureuser" type ="id"></item>
+    <item name = "sportsandleisurecart" type ="id"></item>
+    <item name = "sportsandleisure1" type ="id"></item>
+    <item name = "sportsandleisure2" type ="id"></item>
+    <item name = "sportsandleisure3" type ="id"></item>
+    <item name = "sportsandleisure4" type ="id"></item>
+    <item name = "sportsandleisure5" type ="id"></item>
+    <item name = "sportsandleisure6" type ="id"></item>
+    <item name = "sportsandleisure7" type ="id"></item>
+    <item name = "sportsandleisure8" type ="id"></item>
+    <item name = "sportsandleisure9" type ="id"></item>
+    <item name = "sportsandleisure10" type ="id"></item>
+    <item name = "sportsandleisure11" type ="id"></item>
+    <item name = "sportsandleisure12" type ="id"></item>
+    <item name = "sportsandleisure13" type ="id"></item>
+    <item name = "sportsandleisure14" type ="id"></item>
+    <item name = "sportsandleisure15" type ="id"></item>
+    <item name = "sportsandleisure16" type ="id"></item>
+
+    <item name = "healthandsupplementshome" type ="id"></item>
+    <item name = "healthandsupplementssearch" type ="id"></item>
+    <item name = "healthandsupplementsuser" type ="id"></item>
+    <item name = "healthandsupplementscart" type ="id"></item>
+    <item name = "healthandsupplements1" type ="id"></item>
+    <item name = "healthandsupplements2" type ="id"></item>
+    <item name = "healthandsupplements3" type ="id"></item>
+    <item name = "healthandsupplements4" type ="id"></item>
+    <item name = "healthandsupplements5" type ="id"></item>
+    <item name = "healthandsupplements6" type ="id"></item>
+    <item name = "healthandsupplements7" type ="id"></item>
+    <item name = "healthandsupplements8" type ="id"></item>
+    <item name = "healthandsupplements9" type ="id"></item>
+    <item name = "healthandsupplements10" type ="id"></item>
+    <item name = "healthandsupplements11" type ="id"></item>
+    <item name = "healthandsupplements12" type ="id"></item>
+    <item name = "healthandsupplements13" type ="id"></item>
+    <item name = "healthandsupplements14" type ="id"></item>
+    <item name = "healthandsupplements15" type ="id"></item>
+    <item name = "healthandsupplements16" type ="id"></item>
+
+    <item name = "electronicshome" type ="id"></item>
+    <item name = "electronicssearch" type ="id"></item>
+    <item name = "electronicsuser" type ="id"></item>
+    <item name = "electronicscart" type ="id"></item>
+    <item name = "electronics1" type ="id"></item>
+    <item name = "electronics2" type ="id"></item>
+    <item name = "electronics3" type ="id"></item>
+    <item name = "electronics4" type ="id"></item>
+    <item name = "electronics5" type ="id"></item>
+    <item name = "electronics6" type ="id"></item>
+    <item name = "electronics7" type ="id"></item>
+    <item name = "electronics8" type ="id"></item>
+    <item name = "electronics9" type ="id"></item>
+    <item name = "electronics10" type ="id"></item>
+    <item name = "electronics11" type ="id"></item>
+    <item name = "electronics12" type ="id"></item>
+    <item name = "electronics13" type ="id"></item>
+    <item name = "electronics14" type ="id"></item>
+    <item name = "electronics15" type ="id"></item>
+    <item name = "electronics16" type ="id"></item>
+
+    <item name = "householditemshome" type ="id"></item>
+    <item name = "householditemssearch" type ="id"></item>
+    <item name = "householditemsuser" type ="id"></item>
+    <item name = "householditemscart" type ="id"></item>
+    <item name = "householditems1" type ="id"></item>
+    <item name = "householditems2" type ="id"></item>
+    <item name = "householditems3" type ="id"></item>
+    <item name = "householditems4" type ="id"></item>
+    <item name = "householditems5" type ="id"></item>
+    <item name = "householditems6" type ="id"></item>
+    <item name = "householditems7" type ="id"></item>
+    <item name = "householditems8" type ="id"></item>
+    <item name = "householditems9" type ="id"></item>
+    <item name = "householditems10" type ="id"></item>
+    <item name = "householditems11" type ="id"></item>
+    <item name = "householditems12" type ="id"></item>
+    <item name = "householditems13" type ="id"></item>
+    <item name = "householditems14" type ="id"></item>
+    <item name = "householditems15" type ="id"></item>
+    <item name = "householditems16" type ="id"></item>
+
+    <item name = "caraccessorieshome" type ="id"></item>
+    <item name = "caraccessoriessearch" type ="id"></item>
+    <item name = "caraccessoriesuser" type ="id"></item>
+    <item name = "caraccessoriescart" type ="id"></item>
+    <item name = "caraccessories1" type ="id"></item>
+    <item name = "caraccessories2" type ="id"></item>
+    <item name = "caraccessories3" type ="id"></item>
+    <item name = "caraccessories4" type ="id"></item>
+    <item name = "caraccessories5" type ="id"></item>
+    <item name = "caraccessories6" type ="id"></item>
+    <item name = "caraccessories7" type ="id"></item>
+    <item name = "caraccessories8" type ="id"></item>
+    <item name = "caraccessories9" type ="id"></item>
+    <item name = "caraccessories10" type ="id"></item>
+    <item name = "caraccessories11" type ="id"></item>
+    <item name = "caraccessories12" type ="id"></item>
+    <item name = "caraccessories13" type ="id"></item>
+    <item name = "caraccessories14" type ="id"></item>
+    <item name = "caraccessories15" type ="id"></item>
+    <item name = "caraccessories16" type ="id"></item>
+
+    <item name = "stationerieshome" type ="id"></item>
+    <item name = "stationeriessearch" type ="id"></item>
+    <item name = "stationeriesuser" type ="id"></item>
+    <item name = "stationeriescart" type ="id"></item>
+    <item name = "stationeries1" type ="id"></item>
+    <item name = "stationeries2" type ="id"></item>
+    <item name = "stationeries3" type ="id"></item>
+    <item name = "stationeries4" type ="id"></item>
+    <item name = "stationeries5" type ="id"></item>
+    <item name = "stationeries6" type ="id"></item>
+    <item name = "stationeries7" type ="id"></item>
+    <item name = "stationeries8" type ="id"></item>
+    <item name = "stationeries9" type ="id"></item>
+    <item name = "stationeries10" type ="id"></item>
+    <item name = "stationeries11" type ="id"></item>
+    <item name = "stationeries12" type ="id"></item>
+    <item name = "stationeries13" type ="id"></item>
+    <item name = "stationeries14" type ="id"></item>
+    <item name = "stationeries15" type ="id"></item>
+    <item name = "stationeries16" type ="id"></item>
+
+    <item name = "pethome" type ="id"></item>
+    <item name = "petsearch" type ="id"></item>
+    <item name = "petuser" type ="id"></item>
+    <item name = "petcart" type ="id"></item>
+    <item name = "pet1" type ="id"></item>
+    <item name = "pet2" type ="id"></item>
+    <item name = "pet3" type ="id"></item>
+    <item name = "pet4" type ="id"></item>
+    <item name = "pet5" type ="id"></item>
+    <item name = "pet6" type ="id"></item>
+    <item name = "pet7" type ="id"></item>
+    <item name = "pet8" type ="id"></item>
+    <item name = "pet9" type ="id"></item>
+    <item name = "pet10" type ="id"></item>
+    <item name = "pet11" type ="id"></item>
+    <item name = "pet12" type ="id"></item>
+    <item name = "pet13" type ="id"></item>
+    <item name = "pet14" type ="id"></item>
+    <item name = "pet15" type ="id"></item>
+    <item name = "pet16" type ="id"></item>
+
+    <item name = "travelandticketshome" type ="id"></item>
+    <item name = "travelandticketssearch" type ="id"></item>
+    <item name = "travelandticketsuser" type ="id"></item>
+    <item name = "travelandticketscart" type ="id"></item>
+    <item name = "travelandtickets1" type ="id"></item>
+    <item name = "travelandtickets2" type ="id"></item>
+    <item name = "travelandtickets3" type ="id"></item>
+    <item name = "travelandtickets4" type ="id"></item>
+    <item name = "travelandtickets5" type ="id"></item>
+    <item name = "travelandtickets6" type ="id"></item>
+    <item name = "travelandtickets7" type ="id"></item>
+    <item name = "travelandtickets8" type ="id"></item>
+    <item name = "travelandtickets9" type ="id"></item>
+    <item name = "travelandtickets10" type ="id"></item>
+    <item name = "travelandtickets11" type ="id"></item>
+    <item name = "travelandtickets12" type ="id"></item>
+    <item name = "travelandtickets13" type ="id"></item>
+    <item name = "travelandtickets14" type ="id"></item>
+    <item name = "travelandtickets15" type ="id"></item>
+    <item name = "travelandtickets16" type ="id"></item>
+
+    <item name = "eventhome" type ="id"></item>
+    <item name = "eventsearch" type ="id"></item>
+    <item name = "eventuser" type ="id"></item>
+    <item name = "eventcart" type ="id"></item>
+    <item name = "event1" type ="id"></item>
+    <item name = "event2" type ="id"></item>
+    <item name = "event3" type ="id"></item>
+    <item name = "event4" type ="id"></item>
+    <item name = "event5" type ="id"></item>
+    <item name = "event6" type ="id"></item>
+    <item name = "event7" type ="id"></item>
+    <item name = "event8" type ="id"></item>
+    <item name = "event9" type ="id"></item>
+    <item name = "event10" type ="id"></item>
+    <item name = "event11" type ="id"></item>
+    <item name = "event12" type ="id"></item>
+    <item name = "event13" type ="id"></item>
+    <item name = "event14" type ="id"></item>
+    <item name = "event15" type ="id"></item>
+    <item name = "event16" type ="id"></item>
+
+    <item name = "everythingelsehome" type ="id"></item>
+    <item name = "everythingelsesearch" type ="id"></item>
+    <item name = "everythingelseuser" type ="id"></item>
+    <item name = "everythingelsecart" type ="id"></item>
+    <item name = "everythingelse1" type ="id"></item>
+    <item name = "everythingelse2" type ="id"></item>
+    <item name = "everythingelse3" type ="id"></item>
+    <item name = "everythingelse4" type ="id"></item>
+    <item name = "everythingelse5" type ="id"></item>
+    <item name = "everythingelse6" type ="id"></item>
+    <item name = "everythingelse7" type ="id"></item>
+    <item name = "everythingelse8" type ="id"></item>
+    <item name = "everythingelse9" type ="id"></item>
+    <item name = "everythingelse10" type ="id"></item>
+    <item name = "everythingelse11" type ="id"></item>
+    <item name = "everythingelse12" type ="id"></item>
+    <item name = "everythingelse13" type ="id"></item>
+    <item name = "everythingelse14" type ="id"></item>
+    <item name = "everythingelse15" type ="id"></item>
+    <item name = "everythingelse16" type ="id"></item>
+
+    <item name = "iv1" type ="id"></item>
+    <item name = "iv2" type ="id"></item>
+    <item name = "iv3" type ="id"></item>
+    <item name = "iv4" type ="id"></item>
+    <item name = "iv5" type ="id"></item>
+    <item name = "iv11" type ="id"></item>
+    <item name = "iv12" type ="id"></item>
+    <item name = "iv13" type ="id"></item>
+    <item name = "iv14" type ="id"></item>
+    <item name = "iv15" type ="id"></item>
+    <item name = "iv16" type ="id"></item>
+    <item name = "iv17" type ="id"></item>
+    <item name = "iv18" type ="id"></item>
+    <item name = "iv19" type ="id"></item>
+    <item name = "iv20" type ="id"></item>
+    <item name = "iv21" type ="id"></item>
+    <item name = "iv22" type ="id"></item>
+
+    <item name = "editAll" type = "id"></item>
+    <item name = "editBeauty" type = "id"></item>
+    <item name = "editLife" type = "id"></item>
+    <item name = "editFashionclothes" type = "id"></item>
+    <item name = "editBabyandkid" type = "id"></item>
+    <item name = "editFoods" type = "id"></item>
+    <item name = "editSportsandleisure" type = "id"></item>
+    <item name = "editHealthandsupplements" type = "id"></item>
+    <item name = "editElectronics" type = "id"></item>
+    <item name = "editHouseholditems" type = "id"></item>
+    <item name = "editCaraccessories" type = "id"></item>
+    <item name = "editStationeries" type = "id"></item>
+    <item name = "editPet" type = "id"></item>
+    <item name = "editTravelandtickets" type = "id"></item>
+    <item name = "editEvent" type = "id"></item>
+    <item name = "editEverythingelse" type = "id"></item>
+
+    <item name = 'LayoutHome' type= "id"></item>
+    <item name = "LayoutAll" type = "id"></item>
+    <item name = "LayoutBeauty" type = "id"></item>
+    <item name = "LayoutLife" type = "id"></item>
+    <item name = "LayoutFashionclothes" type = "id"></item>
+    <item name = "LayoutBabyandkid" type = "id"></item>
+    <item name = "LayoutFoods" type = "id"></item>
+    <item name = "LayoutSportsandleisure" type = "id"></item>
+    <item name = "LayoutHealthandsupplements" type = "id"></item>
+    <item name = "LayoutElectronics" type = "id"></item>
+    <item name = "LayoutHouseholditems" type = "id"></item>
+    <item name = "LayoutCaraccessories" type = "id"></item>
+    <item name = "LayoutStationeries" type = "id"></item>
+    <item name = "LayoutPet" type = "id"></item>
+    <item name = "LayoutTravelandtickets" type = "id"></item>
+    <item name = "LayoutEvent" type = "id"></item>
+    <item name = "LayoutEverythingelse" type = "id"></item>
+    <item name = "LayoutMy" type="id"></item>
+    <item name = "LayoutMyDetail" type="id"></item>
+    <item name = "LayoutCreator" type="id"></item>
+    <item name = "LayoutCreatorDetail" type="id"></item>
+
+    <item name = "my" type="id"></item>
+    <item name = "setting" type="id"></item>
+    <item name = "backarrow" type="id"></item>
+
+    <item name = "addaccountbtn" type="id"></item>
+    <item name = "logoutbtn" type="id"></item>
+    <item name = "changebtn1" type="id"></item>
+    <item name = "changebtn2" type="id"></item>
+    <item name = "changebtn3" type="id"></item>
+    <item name = "disconnectbtn1" type="id"></item>
+    <item name = "disconnectbtn2" type="id"></item>
+    <item name = "disconnectbtn3" type="id"></item>
+
+    <item name = "cartdetailselectlist" type="id"></item>
+    <item name = "cartdetailaddbutton" type="id"></item>
+
+</resources>

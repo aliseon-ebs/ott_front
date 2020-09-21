@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/backgroundblack"
+              android:gravity="center"
+              tools:context="com.aliseon.ott.activity.InfoCheckActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_gravity="center"
+                      android:gravity="center">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/disconnect"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/colorWhite"
+            />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_disconnect"
+                    android:paddingBottom="5dp"
+                    android:textSize="15dp"
+                    android:paddingLeft="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+
+                    android:textColor="@color/colorWhite"
+            />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/still_valid"
+                    android:textSize="12dp"
+                    android:paddingLeft="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="20dp"
+
+                    android:textColor="@color/colorGray"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:focusable="true"
+                      android:focusableInTouchMode="true">
+
+            <Spinner
+                    android:gravity="left"
+                    android:layout_width="74dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:nextFocusUp="@id/button2"
+                    android:nextFocusRight="@id/phonenumber"
+                    android:nextFocusDown="@id/cnumber"
+                    android:nextFocusLeft="@id/button1"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/spinnersetting"
+                    android:id="@+id/disconnectspinner1">
+            </Spinner>
+
+
+            <EditText
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/phonenumbersetting"
+                    android:hint="@string/input_phone"
+                    android:inputType="number"
+                    android:textSize="10dp"
+                    android:nextFocusUp="@id/button2"
+                    android:nextFocusRight="@id/button1"
+                    android:nextFocusDown="@id/cnumber"
+                    android:nextFocusLeft="@id/spinner1"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="7dp"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/disconnect_number1"/>
+            <Button
+                    android:layout_width="74dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/sendsetting"
+                    android:textSize="10dp"
+                    android:nextFocusUp="@id/button2"
+                    android:nextFocusRight="@id/spinner1"
+                    android:nextFocusDown="@id/cnumber"
+                    android:nextFocusLeft="@id/phonenumber"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/send"
+                    android:layout_marginTop="15dp"
+            />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+
+
+            <EditText
+                    android:layout_width="355dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/spinnersetting"
+                    android:hint="@string/code_number"
+                    android:inputType="number"
+                    android:nextFocusUp="@id/spinner1"
+                    android:nextFocusDown="@id/button2"
+                    android:textSize="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:paddingLeft="10dp"
+            />
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"                                          >
+
+            <Button
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/blackbuttonsetting"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/cancel"
+                    android:id="@+id/disconnectcancel1"/>
+
+            <Button
+                    android:layout_width="110dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/buttonsetting"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/disconnect"
+                    android:id="@+id/disconnectdisconnect1"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="75dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:focusableInTouchMode="true"
+                android:background="@drawable/ovalbuttonsetting"
+                android:src="@drawable/backarrow">
+
+            </ImageView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nousercartmaintitle"
+            android:textColor="@color/colorWhite"
+            android:textSize="35dp">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nousercartsubtitle"
+            android:textColor="@color/colorWhite"
+            android:paddingTop="15dp"
+            android:paddingBottom="50dp"
+            android:textSize="18dp">
+        </TextView>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="32.5dp"
+            android:textSize="10dp"
+            android:id="@+id/playersubscribelogin"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/blackbuttonsetting"
+            android:text="@string/login">
+        </Button>
+
+
+    </LinearLayout>
+
+</LinearLayout>
