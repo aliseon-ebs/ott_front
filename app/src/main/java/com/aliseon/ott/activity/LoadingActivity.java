@@ -161,6 +161,7 @@ public class LoadingActivity extends AppCompatActivity {
         cart_items_p_previous_price = new ArrayList<>();
         cart_items_p_price = new ArrayList<>();
 
+        cartdetail_productbuy_option_name = new ArrayList<>();
         cartdetail_productbuy_p_option_name = new ArrayList<>();
         cartdetail_productbuy_p_option_original_value = new ArrayList<>();
         cartdetail_productbuy_p_option_original_price = new ArrayList<>();

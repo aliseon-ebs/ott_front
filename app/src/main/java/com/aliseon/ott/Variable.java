@@ -310,7 +310,7 @@ public class Variable {
     public static ArrayList<ArrayList<Integer>> cartdetail_productbuy_p_option_price;
     public static ArrayList<ArrayList<Integer>> cartdetail_productbuy_p_option_stock;
     public static ArrayList<String> cartdetail_productbuy_c_option_original_value;
-    public static ArrayList<String> cartdetail_productbuy_c_option_name;
+    public static ArrayList<String> cartdetail_productbuy_option_name;
     public static ArrayList<Integer> cartdetail_productbuy_c_option_original_price;
     public static ArrayList<String> cartdetail_productbuy_c_option_value;
     public static ArrayList<Integer> cartdetail_productbuy_c_option_price;

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,15 +33,15 @@ import com.aliseon.ott.AdapterSpinner5;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskProductInfo;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.aliseon.ott.Variable.cart_items_p_option_value;
 import static com.aliseon.ott.Variable.cartapiload;
+import static com.aliseon.ott.Variable.cartdetail_productbuy_option_name;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_name;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_value;
+import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_value;
 import static com.aliseon.ott.Variable.cartdetail_productdetail_complete_price;
 import static com.aliseon.ott.Variable.cartdetail_productdetail_free_shipping;
 import static com.aliseon.ott.Variable.cartdetail_productdetail_previous_price;
@@ -56,7 +55,6 @@ import static com.aliseon.ott.Variable.imageurl;
 import static com.aliseon.ott.Variable.addoption;
 import static com.aliseon.ott.Variable.api_product_info;
 import static com.aliseon.ott.Variable.logincurrency;
-import static com.aliseon.ott.Variable.param_cartdetail_optionname_size;
 
 public class CartDetailActivity extends AppCompatActivity {
 
@@ -754,24 +752,32 @@ public class CartDetailActivity extends AppCompatActivity {
             InfoTV25.setTextSize(12);
             InfoTV25.setTextColor(Color.rgb(255,255,255));
 
-            for(int i = 0; i < cartdetail_productbuy_p_option_name.size(); i++){
+            int name = 0;
 
-                for(int ii = 0; ii < cartdetail_productbuy_p_option_name.get(i).size(); ii++){
+                for(int ii = 0; ii < cartdetail_productbuy_p_option_original_value.size(); ii++){
 
                     LinearLayout Layout4_2_1 = new LinearLayout(this);
                     Layout4_2_1.setLayoutParams(params4_2_1);
                     Layout4_2_1.setOrientation(LinearLayout.VERTICAL);
 
-                    Log.d("옵션 오리지날 값", "" + cartdetail_productbuy_p_option_original_value.size());
-                    Log.d("옵션 오리지날 값", "" + cartdetail_productbuy_p_option_original_value.get(i).size());
-                    Log.d("옵션 오리지날 값", "" + cartdetail_productbuy_p_option_original_value.get(i));
-
                     ArrayList<String> option = new ArrayList<>();
+                    option.add(cartdetail_productbuy_option_name.get(name));
+
+                    name = name + 1;
+
                     //데이터
-                    option.add(cartdetail_productbuy_p_option_name.get(i).get(ii));
-                    for(int iii = 0; iii < cartdetail_productbuy_p_option_original_value.get(i).size(); iii++) {
-                        option.add(cartdetail_productbuy_p_option_original_value.get(i).get(ii));
-                    }
+
+                    for(int iii = 0; iii < cartdetail_productbuy_p_option_original_value.get(ii).size(); iii++){
+
+//                        Log.d("original get 확인", "" + cartdetail_productbuy_p_option_original_value.get(ii));
+                        Log.d("ii 확인", "" + ii);
+                        Log.d("iii 확인", "" + iii);
+
+                        Log.d("TEST", "" + cartdetail_productbuy_p_option_original_value);
+                        Log.d("TEST", "" + cartdetail_productbuy_p_option_value);
+
+                        option.add(cartdetail_productbuy_p_option_original_value.get(ii).get(iii));
+                        }
 
                     adapterspinner = new AdapterSpinner5(this, option);
 
@@ -834,8 +840,6 @@ public class CartDetailActivity extends AppCompatActivity {
                     Layout4_2.addView(Layout4_2_1);
 
                 }
-
-            }
 
             // 가격 총합
             double A = 0;
