@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.aliseon.ott.AdapterSpinner5;
+import com.aliseon.ott.AdapterSpinner6;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskProductInfo;
 import com.bumptech.glide.Glide;
@@ -62,7 +63,8 @@ public class CartDetailActivity extends AppCompatActivity {
 //    static CartActivityDetailItemToCartHandler cartactivitydetailitemtocarthandler;
 
     Spinner spinner;
-    AdapterSpinner5 adapterspinner;
+    AdapterSpinner5 adapterspinner1;
+    AdapterSpinner6 adapterspinner2;
 
     AlertDialog.Builder builder;
 
@@ -779,13 +781,28 @@ public class CartDetailActivity extends AppCompatActivity {
                         option.add(cartdetail_productbuy_p_option_original_value.get(ii).get(iii));
                         }
 
-                    adapterspinner = new AdapterSpinner5(this, option);
+                    if(ii == 1){
 
-                    spinner = new Spinner(this);
-                    spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.spinnersetting));
-                    spinner.setLayoutParams(new ViewGroup.LayoutParams(480, 65));
-                    spinner.setAdapter(adapterspinner);
-                    spinner.setSelection(0, false);
+                        adapterspinner2 = new AdapterSpinner6(this, option);
+
+                        spinner = new Spinner(this);
+                        spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.disablespinnersetting));
+                        spinner.setLayoutParams(new ViewGroup.LayoutParams(480, 65));
+                        spinner.setAdapter(adapterspinner2);
+                        spinner.setSelection(0, false);
+                        spinner.setEnabled(false);
+
+                    } else {
+
+                        adapterspinner1 = new AdapterSpinner5(this, option);
+
+                        spinner = new Spinner(this);
+                        spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.spinnersetting));
+                        spinner.setLayoutParams(new ViewGroup.LayoutParams(480, 65));
+                        spinner.setAdapter(adapterspinner1);
+                        spinner.setSelection(0, false);
+
+                    }
 //
 //            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //                @Override   // position 으로 몇번째 것이 선택됬는지 값을 넘겨준다

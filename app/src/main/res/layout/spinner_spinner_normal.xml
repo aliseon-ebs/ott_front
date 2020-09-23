@@ -16,10 +16,10 @@
             android:layout_height="match_parent" />
 
     <ImageView
-            android:src="@drawable/downarrow"
-            android:scaleType="fitCenter"
-            android:paddingRight="10dp"
-            android:layout_width="20dp"
-            android:layout_height="match_parent" />
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:paddingRight="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/downarrow_b" />
 
 </LinearLayout>
