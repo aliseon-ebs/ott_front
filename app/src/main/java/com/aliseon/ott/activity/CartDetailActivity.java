@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static com.aliseon.ott.Variable.cartapiload;
+import static com.aliseon.ott.Variable.cartdetail_productbuy_option_connection;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_option_name;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_name;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_value;
@@ -754,6 +755,9 @@ public class CartDetailActivity extends AppCompatActivity {
             InfoTV25.setTextSize(12);
             InfoTV25.setTextColor(Color.rgb(255,255,255));
 
+            Log.d("오리지날 벨류", "" + cartdetail_productbuy_option_connection);
+            Log.d("오리지날 벨류", "" + cartdetail_productbuy_p_option_original_value);
+
             int name = 0;
 
                 for(int ii = 0; ii < cartdetail_productbuy_p_option_original_value.size(); ii++){
@@ -763,20 +767,13 @@ public class CartDetailActivity extends AppCompatActivity {
                     Layout4_2_1.setOrientation(LinearLayout.VERTICAL);
 
                     ArrayList<String> option = new ArrayList<>();
-                    option.add(cartdetail_productbuy_option_name.get(name));
+                    option.add(cartdetail_productbuy_option_name.get(0));
 
                     name = name + 1;
 
                     //데이터
 
                     for(int iii = 0; iii < cartdetail_productbuy_p_option_original_value.get(ii).size(); iii++){
-
-//                        Log.d("original get 확인", "" + cartdetail_productbuy_p_option_original_value.get(ii));
-                        Log.d("ii 확인", "" + ii);
-                        Log.d("iii 확인", "" + iii);
-
-                        Log.d("TEST", "" + cartdetail_productbuy_p_option_original_value);
-                        Log.d("TEST", "" + cartdetail_productbuy_p_option_value);
 
                         option.add(cartdetail_productbuy_p_option_original_value.get(ii).get(iii));
                         }

@@ -17,6 +17,7 @@ import static com.aliseon.ott.Variable.cartdetail_productbuy_c_option_original_v
 import static com.aliseon.ott.Variable.cartdetail_productbuy_c_option_price;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_c_option_stock;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_c_option_value;
+import static com.aliseon.ott.Variable.cartdetail_productbuy_option_connection;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_option_name;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_price;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_value;
@@ -98,28 +99,19 @@ public class NetworkTaskProductBuy extends AsyncTask<Void, Void, String> {
                     }
 
                     try{
-                        String[] original_value_array = original_value.split("\",\"");
-                        for(int ii = 0; ii < original_value_array.length; ii++) {
+
+                        JSONArray original_value_array = new JSONArray(original_value);
+
+                        for(int ii = 0; ii < original_value_array.length(); ii++) {
 
                             cartdetail_productbuy_c_option_original_value = new ArrayList<>();
 
-                            original_value_array[ii] = original_value_array[ii].replace("\\","");
-                            original_value_array[ii] = original_value_array[ii].replace("\"","");
-                            original_value_array[ii] = original_value_array[ii].replace("[","");
-                            original_value_array[ii] = original_value_array[ii].replace("]","");
-                            original_value_array[ii] = original_value_array[ii].replace("|","");
-
-                                String[] original_value_result = original_value_array[ii].split(",");
-
-                                for(int iii = 0; iii < original_value_result.length; iii++){
-
-                                    cartdetail_productbuy_c_option_original_value.add(original_value_result[iii]);
-
-                                }
-
-                            cartdetail_productbuy_p_option_original_value.add(cartdetail_productbuy_c_option_original_value);
+                            cartdetail_productbuy_c_option_original_value.add(String.valueOf(original_value_array.get(ii)));
 
                         }
+
+                        cartdetail_productbuy_p_option_original_value.add(cartdetail_productbuy_c_option_original_value);
+                        cartdetail_productbuy_option_connection.add(i);
 
 //                      throw new Exception(); //강제 에러 출력
                     }catch (Exception e){

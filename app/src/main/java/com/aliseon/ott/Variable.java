@@ -315,6 +315,7 @@ public class Variable {
     public static ArrayList<String> cartdetail_productbuy_c_option_value;
     public static ArrayList<Integer> cartdetail_productbuy_c_option_price;
     public static ArrayList<Integer> cartdetail_productbuy_c_option_stock;
+    public static ArrayList<Integer> cartdetail_productbuy_option_connection;
 
     public static ArrayList<Integer> subscribe_creator_list_id;
     public static ArrayList<String> subscribe_creator_list_nickname;
