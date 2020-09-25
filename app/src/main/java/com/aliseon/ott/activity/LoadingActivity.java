@@ -168,6 +168,7 @@ public class LoadingActivity extends AppCompatActivity {
         cartdetail_productbuy_p_option_value = new ArrayList<>();
         cartdetail_productbuy_p_option_price = new ArrayList<>();
         cartdetail_productbuy_p_option_stock = new ArrayList<>();
+        cartdetail_productbuy_option_connection = new ArrayList<>();
 
         addoption = new ArrayList<>();
         cartitemoption = new ArrayList<>();

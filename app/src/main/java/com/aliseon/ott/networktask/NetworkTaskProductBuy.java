@@ -104,49 +104,54 @@ public class NetworkTaskProductBuy extends AsyncTask<Void, Void, String> {
 
                         for(int ii = 0; ii < original_value_array.length(); ii++) {
 
+                            String[] split = String.valueOf(original_value_array.get(ii)).split("[|],[|]");
+
                             cartdetail_productbuy_c_option_original_value = new ArrayList<>();
 
-                            cartdetail_productbuy_c_option_original_value.add(String.valueOf(original_value_array.get(ii)));
+                            for(int iii = 0; iii < split.length; iii++){
+
+                                cartdetail_productbuy_c_option_original_value.add(split[iii]);
+
+                            }
+
+                            cartdetail_productbuy_p_option_original_value.add(cartdetail_productbuy_c_option_original_value);
+                            cartdetail_productbuy_option_connection.add(i);
 
                         }
 
-                        cartdetail_productbuy_p_option_original_value.add(cartdetail_productbuy_c_option_original_value);
-                        cartdetail_productbuy_option_connection.add(i);
+
 
 //                      throw new Exception(); //강제 에러 출력
                     }catch (Exception e){
-                        cartdetail_productbuy_p_option_original_value.add(cartdetail_productbuy_c_option_original_value);
+
                     }
 
                     try{
-                        String[] original_price_array = original_price.split("\",\"");
-                        for(int ii = 0; ii < original_price_array.length; ii++) {
+
+                        JSONArray original_price_array = new JSONArray(original_price);
+
+                        for(int ii = 0; ii < original_price_array.length(); ii++) {
+
+                            String[] split = String.valueOf(original_price_array.get(ii)).split("[|],[|]");
 
                             cartdetail_productbuy_c_option_original_price = new ArrayList<>();
 
-                            original_price_array[ii] = original_price_array[ii].replace("\\","");
-                            original_price_array[ii] = original_price_array[ii].replace("\"","");
-                            original_price_array[ii] = original_price_array[ii].replace("[","");
-                            original_price_array[ii] = original_price_array[ii].replace("]","");
-                            original_price_array[ii] = original_price_array[ii].replace("|","");
+                            for(int iii = 0; iii < split.length; iii++){
 
-                            String[] original_price_result = original_price_array[ii].split(",");
-
-                            for(int iii = 0; iii < original_price_result.length; iii++){
-
-//                                Log.d("원래 값 result", ""+ original_price_result[iii]);
-
-                                cartdetail_productbuy_c_option_original_price.add(Integer.parseInt(original_price_result[ii]));
+                                cartdetail_productbuy_c_option_original_price.add(Integer.parseInt(split[iii]));
 
                             }
 
                             cartdetail_productbuy_p_option_original_price.add(cartdetail_productbuy_c_option_original_price);
 
+                            Log.d("product buy 값 출력", "" + cartdetail_productbuy_p_option_original_price);
+
                         }
+
 //                      throw new Exception(); //강제 에러 출력
 
                     }catch (Exception e){
-                        cartdetail_productbuy_p_option_original_price.add(cartdetail_productbuy_c_option_original_price);
+
                     }
 
                     try{

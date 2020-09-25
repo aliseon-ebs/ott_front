@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +43,7 @@ import static com.aliseon.ott.Variable.cartapiload;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_option_connection;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_option_name;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_name;
+import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_price;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_value;
 import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_value;
 import static com.aliseon.ott.Variable.cartdetail_productdetail_complete_price;
@@ -755,11 +757,6 @@ public class CartDetailActivity extends AppCompatActivity {
             InfoTV25.setTextSize(12);
             InfoTV25.setTextColor(Color.rgb(255,255,255));
 
-            Log.d("오리지날 벨류", "" + cartdetail_productbuy_option_connection);
-            Log.d("오리지날 벨류", "" + cartdetail_productbuy_p_option_original_value);
-
-            int name = 0;
-
                 for(int ii = 0; ii < cartdetail_productbuy_p_option_original_value.size(); ii++){
 
                     LinearLayout Layout4_2_1 = new LinearLayout(this);
@@ -767,39 +764,89 @@ public class CartDetailActivity extends AppCompatActivity {
                     Layout4_2_1.setOrientation(LinearLayout.VERTICAL);
 
                     ArrayList<String> option = new ArrayList<>();
-                    option.add(cartdetail_productbuy_option_name.get(0));
-
-                    name = name + 1;
+                    option.add(cartdetail_productbuy_option_name.get(ii));
 
                     //데이터
 
                     for(int iii = 0; iii < cartdetail_productbuy_p_option_original_value.get(ii).size(); iii++){
 
-                        option.add(cartdetail_productbuy_p_option_original_value.get(ii).get(iii));
+                        option.add(cartdetail_productbuy_p_option_original_value.get(ii).get(iii) + " (+" + cartdetail_productbuy_p_option_original_price.get(ii).get(iii) + ")");
                         }
 
-                    if(ii == 1){
+                    if(ii > 0 && cartdetail_productbuy_option_connection.get(ii) == cartdetail_productbuy_option_connection.get(ii - 1)){
 
                         adapterspinner2 = new AdapterSpinner6(this, option);
 
                         spinner = new Spinner(this);
+                        spinner.setId(100 + ii);
+                        Log.d("아이디", "" + spinner.getId());
                         spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.disablespinnersetting));
                         spinner.setLayoutParams(new ViewGroup.LayoutParams(480, 65));
                         spinner.setAdapter(adapterspinner2);
                         spinner.setSelection(0, false);
                         spinner.setEnabled(false);
 
+                    } else if(ii > 0 && cartdetail_productbuy_option_connection.get(ii) != cartdetail_productbuy_option_connection.get(ii - 1)) {
+
+                        adapterspinner1 = new AdapterSpinner5(this, option);
+
+                        spinner = new Spinner(this);
+                        spinner.setId(100 + ii);
+                        Log.d("아이디", "" + spinner.getId());
+                        spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.spinnersetting));
+                        spinner.setLayoutParams(new ViewGroup.LayoutParams(480, 65));
+                        spinner.setAdapter(adapterspinner1);
+                        spinner.setSelection(0, false);
+                        spinner.setEnabled(true);
+
+                        final int j = ii;
+
+                        // 스피너 이벤트 처리 ( 스피너 = setOnItemSelectedListener 이용)
+                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override   // position 으로 몇번째 것이 선택됬는지 값을 넘겨준다
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                Log.d("포지션", "" + position);
+                                if(position != 0){
+
+                                    spinner.findViewById(100 + j);
+                                    spinner.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.spinnersetting));
+                                    spinner.setAdapter(adapterspinner1);
+                                    spinner.setEnabled(true);
+
+                                } else {
+
+                                    spinner.findViewById(100 + j);
+                                    Log.d("아이디", "" + spinner.getId());
+                                    spinner.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.disablespinnersetting));
+                                    spinner.setAdapter(adapterspinner2);
+                                    spinner.setEnabled(false);
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
                     } else {
 
                         adapterspinner1 = new AdapterSpinner5(this, option);
 
                         spinner = new Spinner(this);
+                        spinner.setId(100 + ii);
+                        Log.d("아이디", "" + spinner.getId());
                         spinner.setBackground(ContextCompat.getDrawable(this, R.drawable.spinnersetting));
                         spinner.setLayoutParams(new ViewGroup.LayoutParams(480, 65));
                         spinner.setAdapter(adapterspinner1);
                         spinner.setSelection(0, false);
+                        spinner.setEnabled(true);
 
                     }
+
 //
 //            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //                @Override   // position 으로 몇번째 것이 선택됬는지 값을 넘겨준다
