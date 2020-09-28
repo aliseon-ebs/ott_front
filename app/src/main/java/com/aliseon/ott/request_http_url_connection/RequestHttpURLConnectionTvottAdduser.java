@@ -14,8 +14,6 @@ import java.util.Map;
 
 import static com.aliseon.ott.Variable.access_token;
 import static com.aliseon.ott.Variable.infocheck_id;
-import static com.aliseon.ott.Variable.phone_number;
-import static com.aliseon.ott.Variable.userinfouid;
 
 public class RequestHttpURLConnectionTvottAdduser {
 
@@ -23,8 +21,7 @@ public class RequestHttpURLConnectionTvottAdduser {
 
     public String request(String _url, ContentValues _params){
 
-        Log.d(TAG, "status >> " + access_token);
-        Log.d(TAG, "status >> " + phone_number);
+        Log.d(TAG, "에드 유저 아이디 >> " + infocheck_id);
 
         // HttpURLConnection 참조 변수.
         HttpURLConnection urlConn = null;

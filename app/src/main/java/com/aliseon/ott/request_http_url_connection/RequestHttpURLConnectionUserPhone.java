@@ -26,8 +26,6 @@ public class RequestHttpURLConnectionUserPhone {
             HttpURLConnection urlConn = null;
 //        URL 뒤에 붙여서 보낼 파라미터.
 
-            String app = "tvott";
-
             StringBuffer sbParams = new StringBuffer("access_token=" + access_token  + "&"+"phone=" + phone_number +"&"+ "calling_code=" + countrycode +"&"+ "type=" + "ott");
 
             /**

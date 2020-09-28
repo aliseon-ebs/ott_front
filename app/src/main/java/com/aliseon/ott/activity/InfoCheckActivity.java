@@ -189,28 +189,28 @@ public class InfoCheckActivity extends AppCompatActivity {
                 defaultcontrycode = spinner1.getSelectedItemPosition();    //국가번호 지정코드
                 switch (defaultcontrycode) {
                     case 0:
-                        countrycode = "971";
+                        countrycode = "AE";
                         break;
                     case 1:
-                        countrycode = "82";
+                        countrycode = "KR";
                         break;
                     case 2:
-                        countrycode = "966";
+                        countrycode = "SA";
                         break;
                     case 3:
-                        countrycode = "98";
+                        countrycode = "IR";
                         break;
                     case 4:
-                        countrycode = "90";
+                        countrycode = "TR";
                         break;
                     case 5:
-                        countrycode = "20";
+                        countrycode = "EG";
                         break;
                     case 6:
-                        countrycode = "84";
+                        countrycode = "VN";
                         break;
                     case 7:
-                        countrycode = "62";
+                        countrycode = "ID";
                         break;
                 }
                 phone_number = editTextnumber;

@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.aliseon.ott.Variable.countrycode;
 import static com.aliseon.ott.activity.AccountAddActivity.AccountAddmHandler;
 import static com.aliseon.ott.activity.InfoCheckActivity.InfocheckmHandler;
 import static com.aliseon.ott.Variable.adduserapiload;
@@ -71,20 +72,20 @@ public class NetworkTaskTvottAdduser extends AsyncTask<Void, Void, String> {
                     int id = jobject.getInt("id");
                     String name = jobject.getString("name");
                     String photo = jobject.getString("photo");
-                    String ott_language = jobject.getString("ott_language");
-                    String ott_country = jobject.getString("ott_country");
-                    String ott_currency = jobject.getString("ott_currency");
+                    String language = jobject.getString("language");
+                    String country = jobject.getString("country");
+                    String currency = jobject.getString("currency");
 
-                    Log.d(TAG2, "자바로 가공한 사용자정보 배열 리스트>> " + id + " | " + name + " | " + photo + " | " + ott_language + " | " + ott_country + " | " + ott_currency);
+                    Log.d(TAG2, "자바로 가공한 사용자정보 배열 리스트>> " + id + " | " + name + " | " + photo + " | " + language + " | " + country + " | " + currency);
 
                     switch (i){
                         case 0 :
                             userinfouid.add(0,id);
                             userinfo.add(0,name);
                             userinfo.add(1,photo);
-                            userinfo.add(2,ott_language);
-                            userinfo.add(3,ott_country);
-                            userinfo.add(4,ott_currency);
+                            userinfo.add(2,language);
+                            userinfo.add(3,country);
+                            userinfo.add(4,currency);
                             Log.d(TAG3, "Arraylist  uid1  현황>>"  + userinfouid.get(0));
                             Log.d(TAG3, "Arraylist info1234 현황>>"  + userinfo.get(0)+ " | " + userinfo.get(1) + " | " + userinfo.get(2) + " | " + userinfo.get(3) + " | " + userinfo.get(4));
                             break;
@@ -92,9 +93,9 @@ public class NetworkTaskTvottAdduser extends AsyncTask<Void, Void, String> {
                             userinfouid.add(1,id);
                             userinfo.add(5,name);
                             userinfo.add(6,photo);
-                            userinfo.add(7,ott_language);
-                            userinfo.add(8,ott_country);
-                            userinfo.add(9,ott_currency);
+                            userinfo.add(7,language);
+                            userinfo.add(8,country);
+                            userinfo.add(9,currency);
                             Log.d(TAG3, "Arraylist  uid2  현황>>"  + userinfouid.get(1));
                             Log.d(TAG3, "Arraylist info5678 현황>>"  + userinfo.get(5)+ " | " + userinfo.get(6) + " | " + userinfo.get(7) + " | " + userinfo.get(8) + " | " + userinfo.get(9));
                             break;
@@ -102,9 +103,9 @@ public class NetworkTaskTvottAdduser extends AsyncTask<Void, Void, String> {
                             userinfouid.add(2,id);
                             userinfo.add(10,name);
                             userinfo.add(11,photo);
-                            userinfo.add(12,ott_language);
-                            userinfo.add(13,ott_country);
-                            userinfo.add(14,ott_currency);
+                            userinfo.add(12,language);
+                            userinfo.add(13,country);
+                            userinfo.add(14,currency);
                             Log.d(TAG3, "Arraylist  uid3  현황>>"  + userinfouid.get(2));
                             Log.d(TAG3, "Arraylist info9101112 현황>>"  + userinfo.get(10)+ " | " + userinfo.get(11) + " | " + userinfo.get(12) + " | " + userinfo.get(13) + " | " + userinfo.get(14));
                             break;

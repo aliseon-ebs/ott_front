@@ -49,11 +49,12 @@ public class NetworkTaskUserPhone extends AsyncTask<Void, Void, String> {
 
         String userinfolist = s;
 
+        Log.d(TAG, "부여받은 ID >>" + s);
+
         if (s != null) {
             try {
                 JSONObject jo_data = new JSONObject(userinfolist);
 
-                String status = jo_data.getString("status");
                 String list = jo_data.getString("list");
 
                 JSONArray ja_list = new JSONArray(list);
