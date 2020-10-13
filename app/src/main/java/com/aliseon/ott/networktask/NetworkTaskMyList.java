@@ -60,6 +60,8 @@ public class NetworkTaskMyList extends AsyncTask<Void, Void, String> {
 
         String original_my_list = s;
 
+//        Log.d("TESTING MESSAGE", original_my_list);
+
         if (s != null) {
             try {
 

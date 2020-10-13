@@ -154,8 +154,8 @@ public class NetworkTaskTvottVoyageDetail extends AsyncTask<Void, Void, String> 
                     String view_count = jo_voyagedetaildata.getString("view_count");
                     String comment_count = jo_voyagedetaildata.getString("comment_count");
                     String category_en = jo_voyagedetaildata.getString("category_en");
-                    String category_kr = jo_voyagedetaildata.getString("category_kr");
-                    String name = jo_voyagedetaildata.getString("name");
+                    String category_kr = jo_voyagedetaildata.getString("category_ko");
+                    String name = jo_voyagedetaildata.getString("nickname");
                     String photo = jo_voyagedetaildata.getString("photo");
                     String contents = jo_voyagedetaildata.getString("contents");
                     String items = jo_voyagedetaildata.getString("items");

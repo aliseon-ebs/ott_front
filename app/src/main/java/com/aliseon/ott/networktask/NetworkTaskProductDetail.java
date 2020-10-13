@@ -64,8 +64,8 @@ public class NetworkTaskProductDetail extends AsyncTask<Void, Void, String> {
                     int id = jo_productdetail.getInt("id");
                     int vendor_id = jo_productdetail.getInt("vendor_id");
                     String thumbnail = jo_productdetail.getString("thumbnail");
-                    String title = jo_productdetail.getString("title");
-                    String sub_title = jo_productdetail.getString("sub_title");
+                    String title = jo_productdetail.getString("name");
+                    String sub_title = jo_productdetail.getString("sub_name");
                     int previous_price = jo_productdetail.getInt("previous_price");
                     int complete_price = jo_productdetail.getInt("complete_price");
                     int basic_shipping = jo_productdetail.getInt("basic_shipping");

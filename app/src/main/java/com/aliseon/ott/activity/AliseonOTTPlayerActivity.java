@@ -50,6 +50,8 @@ import com.google.android.exoplayer2.util.Util;
 import java.util.Locale;
 
 import static com.aliseon.ott.Variable.loginid;
+import static com.aliseon.ott.Variable.my_list_description;
+import static com.aliseon.ott.Variable.my_list_id;
 import static com.aliseon.ott.Variable.nowurl;
 import static com.aliseon.ott.Variable.api_atrend_detail;
 import static com.aliseon.ott.Variable.api_tvott_popular_detail;
@@ -107,11 +109,13 @@ import static com.aliseon.ott.Variable.param_atrend_id;
 import static com.aliseon.ott.Variable.select_voyage_id;
 import static com.aliseon.ott.Variable.playerfeedname;
 import static com.aliseon.ott.Variable.playerfeedpricecomputed;
+import static com.aliseon.ott.Variable.voyageresult_description;
+import static com.aliseon.ott.Variable.voyageresult_id;
 
 public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
     public static PlayerCreatorSelectHandler playercreatorselecthandler;
-    public static playerNextVideoHandler playernextvideohandler;
+//    public static playerNextVideoHandler playernextvideohandler;
     public static PlayerDataLoadHandler playerdataloadhandler;
 
     private PlayerView exoPlayerView;
@@ -162,7 +166,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         }
 
         playercreatorselecthandler = new PlayerCreatorSelectHandler();
-        playernextvideohandler = new playerNextVideoHandler();
+//        playernextvideohandler = new playerNextVideoHandler();
         playerdataloadhandler = new PlayerDataLoadHandler();
 
         player_feed_list_id.clear();
@@ -520,6 +524,17 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 maintitle = voyage_description.get(select);
                 subtitle = voyage_description.get(select);
                 break;
+            case 4:
+                // My
+                maintitle = my_list_description.get(select);
+                subtitle = my_list_description.get(select);
+                break;
+
+            case 5:
+                // Voyage result
+                maintitle = voyageresult_description.get(select);
+                subtitle = voyageresult_description.get(select);
+                break;
 
             case 11:
                 // Atrend - related
@@ -563,6 +578,20 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                             networkTaskTvottVoyageDetail.execute();
                             break;
 
+                        case 4:
+                            // My
+                            select_voyage_id = my_list_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottMyDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottMyDetail.execute();
+                            break;
+
+                        case 5:
+                            // Voyage Result
+                            select_voyage_id = voyageresult_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottvoyageresultDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottvoyageresultDetail.execute();
+                            break;
+
                         case 11:
                             param_atrend_id = atrend_related_id.get(select);
                             NetworkTaskAtrendDetail networktastatrendrelateddetail = new NetworkTaskAtrendDetail(api_atrend_detail, null);
@@ -579,6 +608,18 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                             select_voyage_id = voyage_related_id.get(select);
                             NetworkTaskTvottVoyageDetail networkTaskTvottVoyagerelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
                             networkTaskTvottVoyagerelatedDetail.execute();
+                            break;
+
+                        case 14:
+                            select_voyage_id = voyage_related_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottMyrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottMyrelatedDetail.execute();
+                            break;
+
+                        case 15:
+                            select_voyage_id = voyage_related_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottvoyageresultrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottvoyageresultrelatedDetail.execute();
                             break;
                     }
                 }
@@ -728,30 +769,30 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                     Button cartproductadd = (Button) cartplayer.findViewById(R.id.cartproductadd1);
 
-//                    final int j = i;
-//                    cartproductadd.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            if (prf.getString("userinfo_name", "").equals("empty")
-//                                    && prf.getString("userinfo_picture", "").equals("empty")
-//                                    && prf.getInt("user_id", 0) == 0) {
-//
-//                                Intent intent = new Intent(AliseonOTTPlayer.this, AliseonOTTPlayerCartLogin.class);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                startActivity(intent);
-//
-//                            } else {
+                    final int j = i;
+                    cartproductadd.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (prf.getString("userinfo_name", "").equals("empty")
+                                    && prf.getString("userinfo_picture", "").equals("empty")
+                                    && prf.getInt("user_id", 0) == 0) {
+
+                                Intent intent = new Intent(AliseonOTTPlayerActivity.this, AliseonOTTPlayerCartLoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
+
+                            } else {
 //                                param_cart_id = playerfeedmipid.get(parentlist).get(j);
-//                                Intent intent = new Intent(AliseonOTTPlayer.this, CartActivityDetail.class);
-//                                intent.putExtra("cartdetail", j);
-//                                intent.putExtra("playercartdetail", 1);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                startActivity(intent);
-//                            }
-//
-//                        }
-//                    });
+                                Intent intent = new Intent(AliseonOTTPlayerActivity.this, CartDetailActivity.class);
+                                intent.putExtra("cartdetail", j);
+                                intent.putExtra("playercartdetail", 1);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
 
                     cartplayerlayout.addView(cartplayer);
                 } catch (Exception e) {
@@ -819,13 +860,13 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                                 switch (playbackState) {
 
-                                    case Player.STATE_ENDED:
-                                        playernextvideohandler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                playernextvideohandler.sendEmptyMessage(1000);
-                                            }
-                                        });
+//                                    case Player.STATE_ENDED:
+//                                        playernextvideohandler.post(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                playernextvideohandler.sendEmptyMessage(1000);
+//                                            }
+//                                        });
 
                                 }
                             }
@@ -953,6 +994,30 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         playerfeedpricecomputed = voyage_detail_item_price;
                         break;
 
+                    case 4:
+                        // My
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
+                    case 5:
+                        // Voyage Result
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
                     case 11:
                         // Atrend - Related
                         nowurl = imageurl + atrend_detail_maincontent.get(0);
@@ -991,6 +1056,32 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
                         break;
+
+                    case 14:
+                        // My - Related
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
+                    case 15:
+                        // Voyage Result - Related
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
                 }
 
                 Log.d("재생되는 링크 ::", nowurl);
@@ -1005,44 +1096,44 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         }
     }
 
-    public class playerNextVideoHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            // 다른 Thread에서 전달받은 Message 처리
-            if (msg.what == 1000) {
-                if (nexttime == 0) {
-                    Log.d("state_ended", "end");
-                    nexttime = 5;
-                    finish();
-
-                    playerdataload = 0;
-                    if (typeselector < 10) {
-                        typeselector = typeselector + 10;
-                    }
-                    Intent intent = new Intent(AliseonOTTPlayerActivity.this, AliseonOTTPlayerActivity.class);
-                    intent.putExtra("index", 0);
-                    intent.putExtra("category", typeselector);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-
-
-                } else {
-                    switch (prf.getString("language", "")) {
-                        case "kr":
-                            TV5.setText(nexttime + getResources().getString(R.string.second) + " " + getResources().getString(R.string.nextvideo));
-                            break;
-                        case "en":
-                            TV5.setText(getResources().getString(R.string.nextvideo) + " " + nexttime + " " + getResources().getString(R.string.second));
-                            break;
-                        case "ar":
-                            TV5.setText(getResources().getString(R.string.nextvideo) + " " + nexttime + " " + getResources().getString(R.string.second));
-                            break;
-                    }
-                    nexttime--;
-                    playernextvideohandler.sendEmptyMessageDelayed(1000, 1000);
-                }
-            }
-        }
-    }
+//    public class playerNextVideoHandler extends Handler {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            // 다른 Thread에서 전달받은 Message 처리
+//            if (msg.what == 1000) {
+//                if (nexttime == 0) {
+//                    Log.d("state_ended", "end");
+//                    nexttime = 5;
+//                    finish();
+//
+//                    playerdataload = 0;
+//                    if (typeselector < 10) {
+//                        typeselector = typeselector + 10;
+//                    }
+//                    Intent intent = new Intent(AliseonOTTPlayerActivity.this, AliseonOTTPlayerActivity.class);
+//                    intent.putExtra("index", 0);
+//                    intent.putExtra("category", typeselector);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                    startActivity(intent);
+//
+//
+//                } else {
+//                    switch (prf.getString("language", "")) {
+//                        case "kr":
+//                            TV5.setText(nexttime + getResources().getString(R.string.second) + " " + getResources().getString(R.string.nextvideo));
+//                            break;
+//                        case "en":
+//                            TV5.setText(getResources().getString(R.string.nextvideo) + " " + nexttime + " " + getResources().getString(R.string.second));
+//                            break;
+//                        case "ar":
+//                            TV5.setText(getResources().getString(R.string.nextvideo) + " " + nexttime + " " + getResources().getString(R.string.second));
+//                            break;
+//                    }
+//                    nexttime--;
+//                    playernextvideohandler.sendEmptyMessageDelayed(1000, 1000);
+//                }
+//            }
+//        }
+//    }
 
 }

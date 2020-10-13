@@ -153,8 +153,8 @@ public class NetworkTaskTvottPopularDetail extends AsyncTask<Void, Void, String>
                     String view_count = jo_populardetaildata.getString("view_count");
                     String comment_count = jo_populardetaildata.getString("comment_count");
                     String category_en = jo_populardetaildata.getString("category_en");
-                    String category_kr = jo_populardetaildata.getString("category_kr");
-                    String name = jo_populardetaildata.getString("name");
+                    String category_kr = jo_populardetaildata.getString("category_ko");
+                    String name = jo_populardetaildata.getString("nickname");
                     String photo = jo_populardetaildata.getString("photo");
                     String contents = jo_populardetaildata.getString("contents");
                     String items = jo_populardetaildata.getString("items");

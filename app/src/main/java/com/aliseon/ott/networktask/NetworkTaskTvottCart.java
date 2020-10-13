@@ -129,7 +129,7 @@ public class NetworkTaskTvottCart extends AsyncTask<Void, Void, String> {
                             String vendor_id = jo_items.getString("vendor_id");
                             String item_name = jo_items.getString("name");
                             String thumbnail = jo_items.getString("thumbnail");
-                            String ship = jo_items.getString("ship");
+//                            String ship = jo_items.getString("ship");
                             String previous_price = jo_items.getString("previous_price");
                             String price = jo_items.getString("price");
 
@@ -145,12 +145,12 @@ public class NetworkTaskTvottCart extends AsyncTask<Void, Void, String> {
                             cart_items_c_vendor_id.add(vendor_id);
                             cart_items_c_name.add(item_name);
                             cart_items_c_thumbnail.add(thumbnail);
-                            cart_items_c_ship.add(ship);
+//                            cart_items_c_ship.add(ship);
                             cart_items_c_previous_price.add(previous_price);
                             cart_items_c_price.add(price);
 
                             Log.d(TAG, "자바로 가공한 cart items 리스트>>" + cart_id + "/" + user_id + "/" + option_value + "/" + option_price + "/" + option_stock + "/" + product_id + "/" + status + "/" + vendor_id
-                                    + "/" + item_name + "/" + thumbnail + "/" + ship + "/" + previous_price + "/" + price);
+                                    + "/" + item_name + "/" + thumbnail + "/" + previous_price + "/" + price);
 
                         }
 
@@ -164,7 +164,7 @@ public class NetworkTaskTvottCart extends AsyncTask<Void, Void, String> {
                     cart_items_p_vendor_id.add(cart_items_c_vendor_id);
                     cart_items_p_name.add(cart_items_c_name);
                     cart_items_p_thumbnail.add(cart_items_c_thumbnail);
-                    cart_items_p_ship.add(cart_items_c_ship);
+//                    cart_items_p_ship.add(cart_items_c_ship);
                     cart_items_p_previous_price.add(cart_items_c_previous_price);
                     cart_items_p_price.add(cart_items_c_price);
 

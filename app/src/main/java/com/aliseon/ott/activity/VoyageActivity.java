@@ -73,29 +73,29 @@ public class VoyageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_all);
 
-        cate_name.clear();
-        cate_number.clear();
-        cate_name.add(getString(R.string.all));
-        cate_number.add("0");
-
-        voyage_id.clear();
-        voyage_user_id.clear();
-        voyage_product_id.clear();
-        voyage_contents_id.clear();
-        voyage_contents_type.clear();
-        voyage_category_id.clear();
-        voyage_status.clear();
-        voyage_description.clear();
-        voyage_create_at.clear();
-        voyage_update_at.clear();
-        voyage_like_count.clear();
-        voyage_view_count.clear();
-        voyage_comment_count.clear();
-        voyage_category_en.clear();
-        voyage_category_kr.clear();
-        voyage_nickname.clear();
-        voyage_photo.clear();
-        voyage_p_thumbnail.clear();
+//        cate_name.clear();
+//        cate_number.clear();
+//        cate_name.add(getString(R.string.all));
+//        cate_number.add("0");
+//
+//        voyage_id.clear();
+//        voyage_user_id.clear();
+//        voyage_product_id.clear();
+//        voyage_contents_id.clear();
+//        voyage_contents_type.clear();
+//        voyage_category_id.clear();
+//        voyage_status.clear();
+//        voyage_description.clear();
+//        voyage_create_at.clear();
+//        voyage_update_at.clear();
+//        voyage_like_count.clear();
+//        voyage_view_count.clear();
+//        voyage_comment_count.clear();
+//        voyage_category_en.clear();
+//        voyage_category_kr.clear();
+//        voyage_nickname.clear();
+//        voyage_photo.clear();
+//        voyage_p_thumbnail.clear();
 
         SharedPreferences prf = getSharedPreferences("login_session", MODE_PRIVATE);
 
@@ -1893,6 +1893,9 @@ public class VoyageActivity extends AppCompatActivity {
                 if (i == category_num) {
                     TV0.requestFocus();
                 }
+
+//                Layout3_0.setNextFocusLeftId();
+                TV0.setNextFocusLeftId(R.id.allsearch);
 
             }
 

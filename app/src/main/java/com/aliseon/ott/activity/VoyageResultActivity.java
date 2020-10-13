@@ -1186,14 +1186,14 @@ public class VoyageResultActivity extends AppCompatActivity {
 //                              nowurl = imageurl + feedresult_video.get(0);
 //                              maintitle = feed_content.get(0);
                                     Intent intent = new Intent(VoyageResultActivity.this, AliseonOTTPlayerActivity.class);
-                                    nowurl = imageurl;
-                                    maintitle = voyageresult_description.get(jjj);
-                                    subtitle = voyageresult_description.get(jjj);
-                                    creatortitle = voyageresult_nickname.get(jjj);
-                                    creatorprofile = imageurl + voyageresult_photo.get(jjj);
-                                    creatorauthorid = voyageresult_user_id.get(jjj);
-                                    intent.putExtra("index", jjj + 1);
-                                    intent.putExtra("category", 17);
+//                                    nowurl = imageurl;
+//                                    maintitle = voyageresult_description.get(jjj);
+//                                    subtitle = voyageresult_description.get(jjj);
+//                                    creatortitle = voyageresult_nickname.get(jjj);
+//                                    creatorprofile = imageurl + voyageresult_photo.get(jjj);
+//                                    creatorauthorid = voyageresult_user_id.get(jjj);
+                                    intent.putExtra("index", jjj);
+                                    intent.putExtra("category", 5);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     startActivity(intent);
                                 }
@@ -1333,14 +1333,9 @@ public class VoyageResultActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(VoyageResultActivity.this, AliseonOTTPlayerActivity.class);
-                                    nowurl = imageurl;
-                                    maintitle = voyageresult_description.get(jjj);
-                                    subtitle = voyageresult_description.get(jjj);
-                                    creatortitle = voyageresult_nickname.get(jjj);
-                                    creatorprofile = imageurl + voyageresult_photo.get(jjj);
-                                    creatorauthorid = voyageresult_user_id.get(jjj);
-                                    intent.putExtra("index", jjj + 1);
-                                    intent.putExtra("category", 17);
+
+                                    intent.putExtra("index", jjj);
+                                    intent.putExtra("category", 5);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     startActivity(intent);
                                 }

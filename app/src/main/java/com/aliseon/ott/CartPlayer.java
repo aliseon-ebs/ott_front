@@ -8,6 +8,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import static com.aliseon.ott.Variable.childlist;
+import static com.aliseon.ott.Variable.imageurl;
+import static com.aliseon.ott.Variable.logincurrency;
+import static com.aliseon.ott.Variable.playerfeedimage;
+import static com.aliseon.ott.Variable.playerfeedname;
+import static com.aliseon.ott.Variable.playerfeedpricecomputed;
+
 public class CartPlayer extends LinearLayout{
 
     public ImageView cartimage;
@@ -34,9 +43,9 @@ public class CartPlayer extends LinearLayout{
         TextView cartproductprice = (TextView) findViewById(R.id.cartproductprice1);
         Button cartproductadd = (Button) findViewById(R.id.cartproductadd1);
 
-//        Glide.with(this).load(imageurl + playerfeedimage.get(childlist)).into(cartimage);
-//        cartproductname.setText(playerfeedname.get(childlist));
-//        cartproductprice.setText(playerfeedpricecomputed.get(childlist) + " " + logincurrency);
+        Glide.with(this).load(imageurl + playerfeedimage.get(childlist)).into(cartimage);
+        cartproductname.setText(playerfeedname.get(childlist));
+        cartproductprice.setText(playerfeedpricecomputed.get(childlist) + " " + logincurrency);
 
     }
 }

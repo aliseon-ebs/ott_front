@@ -885,6 +885,11 @@ public class MyActivity extends AppCompatActivity {
 //                            intent.putExtra("category",0);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                            startActivity(intent);
+                                Intent intent = new Intent(MyActivity.this, AliseonOTTPlayerActivity.class);
+                                intent.putExtra("index", jjj);
+                                intent.putExtra("category",4);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
                             }
                         });
                         j++;
@@ -1015,6 +1020,11 @@ public class MyActivity extends AppCompatActivity {
 //                            intent.putExtra("category",0);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                            startActivity(intent);
+                                Intent intent = new Intent(MyActivity.this, AliseonOTTPlayerActivity.class);
+                                intent.putExtra("index", jjj);
+                                intent.putExtra("category",4);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
                             }
                         });
                         j++;
