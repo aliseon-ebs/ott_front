@@ -9,7 +9,7 @@ public class Variable {
     // 주소
     public static String imageurl = "https://2020aliseon.s3.ap-northeast-2.amazonaws.com";
 
-    static String aliseonapi = "http://sgkang.aliseon.com/api";
+    static String aliseonapi = "http://api.aliseon.com/api";
 
     public static String api_auth = aliseonapi + "/auth";
     public static String api_usersetting_user_phone = aliseonapi + "/usersetting/user/phone";

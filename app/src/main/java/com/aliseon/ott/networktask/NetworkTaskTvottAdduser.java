@@ -70,7 +70,7 @@ public class NetworkTaskTvottAdduser extends AsyncTask<Void, Void, String> {
                     JSONObject jobject = ja_list.getJSONObject(i);
 
                     int id = jobject.getInt("id");
-                    String name = jobject.getString("name");
+                    String name = jobject.getString("nickname");
                     String photo = jobject.getString("photo");
                     String language = jobject.getString("language");
                     String country = jobject.getString("country");
