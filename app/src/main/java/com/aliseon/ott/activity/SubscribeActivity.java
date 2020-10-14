@@ -1004,6 +1004,11 @@ public class SubscribeActivity extends AppCompatActivity {
 //                            intent.putExtra("category",0);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                            startActivity(intent);
+                                Intent intent = new Intent(SubscribeActivity.this, AliseonOTTPlayerActivity.class);
+                                intent.putExtra("index", jjj);
+                                intent.putExtra("category", 7);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
                             }
                         });
                         j++;
@@ -1124,17 +1129,11 @@ public class SubscribeActivity extends AppCompatActivity {
                         Layout3_6_1_1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-//                            nowurl = imageurl + popular_video.get(jjj);
-//                            maintitle = popular_content.get(jjj);
-//                            subtitle = popular_content.get(jjj);
-//                            creatortitle = popular_author_nickname.get(jjj);
-//                            creatorprofile = imageurl + popular_author_picture.get(jjj);
-//                            creatorauthorid = popular_author_id.get(jjj);
-//                            Intent intent = new Intent(HomeActivityDetail.this, AliseonOTTPlayer.class);
-//                            intent.putExtra("index",jjj + 1);
-//                            intent.putExtra("category",0);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                            startActivity(intent);
+                                Intent intent = new Intent(SubscribeActivity.this, AliseonOTTPlayerActivity.class);
+                                intent.putExtra("index", jjj);
+                                intent.putExtra("category", 7);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
                             }
                         });
                         j++;

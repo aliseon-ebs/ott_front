@@ -28,7 +28,7 @@ public class RequestHttpURLConnectionMyList {
         HttpURLConnection urlConn = null;
 //        URL 뒤에 붙여서 보낼 파라미터.
 
-        StringBuffer sbParams = new StringBuffer("access_token=" + access_token +"&"+ "user_id=" + loginid +"&"+ "category=" + "0" +"&"+ "start=" + mystart +"&"+ "limit=" + mylimit);
+        StringBuffer sbParams = new StringBuffer("access_token=" + access_token +"&"+ "user_id=" + loginid +"&"+ "category=" + "0" +"&"+ "start=" + mystart +"&"+ "limit=" + mylimit + "&" + "is_ott=1");
 
         /**
          * 1. StringBuffer에 파라미터 연결

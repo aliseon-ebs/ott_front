@@ -820,11 +820,11 @@ public class CreatorActivity extends AppCompatActivity {
 //                                creatortitle = creator_feed_list_author_nickname.get(jjj);
 //                                creatorprofile = imageurl + creator_feed_list_author_picture.get(jjj);
 //                                creatorauthorid = creator_id;
-//                                Intent intent = new Intent(CreatorActivity.this, AliseonOTTPlayerActivity.class);
-//                                intent.putExtra("index", jjj + 1);
-//                                intent.putExtra("category", 50);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                startActivity(intent);
+                                Intent intent = new Intent(CreatorActivity.this, AliseonOTTPlayerActivity.class);
+                                intent.putExtra("index", jjj);
+                                intent.putExtra("category", 6);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
                             }
                         });
 
@@ -950,17 +950,11 @@ public class CreatorActivity extends AppCompatActivity {
                         Layout3_3_1_1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-//                                nowurl = imageurl + creator_feed_list_video.get(jjj);
-//                                maintitle = creator_feed_list_content.get(jjj);
-//                                subtitle = creator_feed_list_content.get(jjj);
-//                                creatortitle = creator_feed_list_author_nickname.get(jjj);
-//                                creatorprofile = imageurl + creator_feed_list_author_picture.get(jjj);
-//                                creatorauthorid = creator_id;
-//                                Intent intent = new Intent(CreatorActivity.this, AliseonOTTPlayerActivity.class);
-//                                intent.putExtra("index", jjj + 1);
-//                                intent.putExtra("category", 50);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                startActivity(intent);
+                                Intent intent = new Intent(CreatorActivity.this, AliseonOTTPlayerActivity.class);
+                                intent.putExtra("index", jjj);
+                                intent.putExtra("category", 6);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
                             }
                         });
 

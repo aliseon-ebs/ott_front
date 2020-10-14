@@ -28,7 +28,11 @@ public class RequestHttpURLConnectionCreatorList {
         HttpURLConnection urlConn = null;
 //        URL 뒤에 붙여서 보낼 파라미터.
 
-        StringBuffer sbParams = new StringBuffer("access_token=" + access_token +"&"+ "user_id=" + param_creator_info +"&"+ "category=" + "0" +"&"+ "start=" + creatorstart +"&"+ "limit=" + creatorlimit);
+        StringBuffer sbParams = new StringBuffer("access_token=" + access_token +"&"+ "user_id=" + param_creator_info +"&"+ "category=" + "0" +"&"+ "start=" + creatorstart +"&"+ "limit=" + creatorlimit + "&" + "is_ott=1");
+
+//        Log.d("Testing LOG", "Result : " + sbParams);
+//        Log.d("Testing LOG", "Result : " + _url);
+//        Log.d("Testing LOG", "Result : " + _params);
 
         /**
          * 1. StringBuffer에 파라미터 연결

@@ -81,7 +81,7 @@ public class NetworkTaskSubscribeMyList extends AsyncTask<Void, Void, String> {
                     int like_count = jo_my_list.getInt("like_count");
                     int view_count = jo_my_list.getInt("view_count");
                     int comment_count = jo_my_list.getInt("comment_count");
-                    String name = jo_my_list.getString("name");
+                    String name = jo_my_list.getString("nickname");
                     String profile = jo_my_list.getString("profile");
                     String thumbnail = jo_my_list.getString("thumbnail");
 

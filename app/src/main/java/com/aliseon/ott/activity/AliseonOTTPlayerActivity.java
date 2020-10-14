@@ -49,6 +49,8 @@ import com.google.android.exoplayer2.util.Util;
 
 import java.util.Locale;
 
+import static com.aliseon.ott.Variable.creator_list_description;
+import static com.aliseon.ott.Variable.creator_list_id;
 import static com.aliseon.ott.Variable.loginid;
 import static com.aliseon.ott.Variable.my_list_description;
 import static com.aliseon.ott.Variable.my_list_id;
@@ -89,6 +91,8 @@ import static com.aliseon.ott.Variable.popular_related_description;
 import static com.aliseon.ott.Variable.popular_related_id;
 import static com.aliseon.ott.Variable.select;
 import static com.aliseon.ott.Variable.subscribe_checker;
+import static com.aliseon.ott.Variable.subscribe_voyage_list_description;
+import static com.aliseon.ott.Variable.subscribe_voyage_list_id;
 import static com.aliseon.ott.Variable.subtitle;
 import static com.aliseon.ott.Variable.typeselector;
 import static com.aliseon.ott.Variable.childlist;
@@ -536,6 +540,18 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 subtitle = voyageresult_description.get(select);
                 break;
 
+            case 6:
+                // Creator
+                maintitle = creator_list_description.get(select);
+                subtitle = creator_list_description.get(select);
+                break;
+
+            case 7:
+                // Subscribe
+                maintitle = subscribe_voyage_list_description.get(select);
+                subtitle = subscribe_voyage_list_description.get(select);
+                break;
+
             case 11:
                 // Atrend - related
                 maintitle = player_feed_list_content.get(select);
@@ -592,6 +608,20 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                             networkTaskTvottvoyageresultDetail.execute();
                             break;
 
+                        case 6:
+                            // Creator
+                            select_voyage_id = creator_list_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottcreatorDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottcreatorDetail.execute();
+                            break;
+
+                        case 7:
+                            // Subscribe
+                            select_voyage_id = subscribe_voyage_list_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottsubscribeDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottsubscribeDetail.execute();
+                            break;
+
                         case 11:
                             param_atrend_id = atrend_related_id.get(select);
                             NetworkTaskAtrendDetail networktastatrendrelateddetail = new NetworkTaskAtrendDetail(api_atrend_detail, null);
@@ -620,6 +650,18 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                             select_voyage_id = voyage_related_id.get(select);
                             NetworkTaskTvottVoyageDetail networkTaskTvottvoyageresultrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
                             networkTaskTvottvoyageresultrelatedDetail.execute();
+                            break;
+
+                        case 16:
+                            select_voyage_id = voyage_related_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottcreatorrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottcreatorrelatedDetail.execute();
+                            break;
+
+                        case 17:
+                            select_voyage_id = voyage_related_id.get(select);
+                            NetworkTaskTvottVoyageDetail networkTaskTvottsubscriberelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
+                            networkTaskTvottsubscriberelatedDetail.execute();
                             break;
                     }
                 }
@@ -1018,6 +1060,30 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         playerfeedpricecomputed = voyage_detail_item_price;
                         break;
 
+                    case 6:
+                        // Creator
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
+                    case 7:
+                        // Subscribe
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
                     case 11:
                         // Atrend - Related
                         nowurl = imageurl + atrend_detail_maincontent.get(0);
@@ -1071,6 +1137,32 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         break;
 
                     case 15:
+                        // Voyage Result - Related
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
+                    case 16:
+                        // Voyage Result - Related
+                        nowurl = imageurl + voyage_detail_contents.get(0);
+
+                        player_feed_list_content = voyage_related_description;
+                        player_feed_list_crop = voyage_related_contents;
+                        player_feed_list_id = voyage_related_id;
+
+                        playerfeedimage = voyage_detail_item_thumbnail;
+                        playerfeedname = voyage_detail_item_name;
+                        playerfeedpricecomputed = voyage_detail_item_price;
+                        break;
+
+                    case 17:
                         // Voyage Result - Related
                         nowurl = imageurl + voyage_detail_contents.get(0);
 
