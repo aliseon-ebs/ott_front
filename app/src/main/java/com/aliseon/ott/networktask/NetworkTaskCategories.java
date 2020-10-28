@@ -61,7 +61,7 @@ public class NetworkTaskCategories extends AsyncTask<Void, Void, String> {
                     JSONObject jo_category = ja_category_list.getJSONObject(i);
 
                     String id = jo_category.getString("id");
-                    String name = jo_category.getString("category");
+                    String name = jo_category.getString("dept1");
 
                     cate_number.add(id);
                     cate_name.add(name);

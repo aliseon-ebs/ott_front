@@ -23,7 +23,7 @@ public class RequestHttpURLConnectionCategories {
         HttpURLConnection urlConn = null;
 //        URL 뒤에 붙여서 보낼 파라미터.
 
-        StringBuffer sbParams = new StringBuffer("access_token=" + access_token +"&"+ "lang=" + loginlanguage);
+        StringBuffer sbParams = new StringBuffer("access_token=" + access_token +"&"+ "lang=" + loginlanguage +"&"+ "dept=" + "1");
 
         /**
          * 1. StringBuffer에 파라미터 연결
