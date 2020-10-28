@@ -60,7 +60,7 @@ public class NetworkTaskCategories extends AsyncTask<Void, Void, String> {
                 for (int i = 0; i < ja_category_list.length(); i++) {
                     JSONObject jo_category = ja_category_list.getJSONObject(i);
 
-                    String id = jo_category.getString("id");
+                    int id = jo_category.getInt("id");
                     String name = jo_category.getString("dept1");
 
                     cate_number.add(id);

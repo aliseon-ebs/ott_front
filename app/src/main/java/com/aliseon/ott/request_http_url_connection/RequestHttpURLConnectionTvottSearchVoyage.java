@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+import static com.aliseon.ott.Variable.category_id;
 import static com.aliseon.ott.Variable.loginid;
 import static com.aliseon.ott.Variable.loginlanguage;
 import static com.aliseon.ott.Variable.access_token;
@@ -34,7 +35,7 @@ public class RequestHttpURLConnectionTvottSearchVoyage {
 
         Log.d(TAG, "카테고리 번호 변화 >>" + category_num);
 
-        sbParams = new StringBuffer("access_token=" + access_token + "&" + "user_id=" + loginid + "&" +  "lang=" + loginlanguage + "&" +  "category=" + category_num + "&" + "keyword=" + "" + "&" + "start=" + voyagestart + "&" + "limit=" + voyagelimit + "&" + "is_ott= 1");
+        sbParams = new StringBuffer("access_token=" + access_token + "&" + "user_id=" + loginid + "&" +  "lang=" + loginlanguage + "&" +  "category=" + category_id + "&" + "keyword=" + "" + "&" + "start=" + voyagestart + "&" + "limit=" + voyagelimit + "&" + "is_ott= 1");
 
         /**
          * 1. StringBuffer에 파라미터 연결

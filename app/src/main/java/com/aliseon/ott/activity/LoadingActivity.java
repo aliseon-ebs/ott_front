@@ -341,7 +341,7 @@ public class LoadingActivity extends AppCompatActivity {
         usersetting_category = new ArrayList<>();
 
         cate_name.add(getString(R.string.all));
-        cate_number.add("0");
+        cate_number.add(0);
 
         usersetting_category.add(getResources().getString(R.string.account_management));
         usersetting_category.add(getResources().getString(R.string.language_setting));

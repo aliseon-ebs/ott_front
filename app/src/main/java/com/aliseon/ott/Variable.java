@@ -443,9 +443,10 @@ public class Variable {
 
     //카테고리 번호 기본 : 0
     public static int category_num = 0;
+    public static int category_id = 0;
 
     // 보야지 페이지 카테고리 리스트
-    public static ArrayList<String> cate_number;
+    public static ArrayList<Integer> cate_number;
     public static ArrayList<String> cate_name;
 
     //설정 페이지 카테고리 리스트

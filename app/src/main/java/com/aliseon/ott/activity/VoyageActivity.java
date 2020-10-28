@@ -32,6 +32,7 @@ import static com.aliseon.ott.Variable.keyword;
 import static com.aliseon.ott.Variable.voyageapiload;
 import static com.aliseon.ott.Variable.cate_name;
 import static com.aliseon.ott.Variable.category_num;
+import static com.aliseon.ott.Variable.category_id;
 import static com.aliseon.ott.Variable.voyagecategoryapiload;
 import static com.aliseon.ott.Variable.voyagefocusapiload;
 import static com.aliseon.ott.Variable.voyage_category_en;
@@ -1827,6 +1828,7 @@ public class VoyageActivity extends AppCompatActivity {
                                     public void run() {
 
                                         category_num = ii;
+                                        category_id = cate_number.get(ii);
                                         voyagefocusapiload = 1;
                                         NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
                                         networktasktvottsearchvoyage.execute();
@@ -1859,16 +1861,13 @@ public class VoyageActivity extends AppCompatActivity {
                                     public void run() {
 
                                         category_num = ii;
+                                        category_id = cate_number.get(ii);
                                         voyagefocusapiload = 1;
                                         NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
                                         networktasktvottsearchvoyage.execute();
 
                                     }
                                 });
-                            } else {
-
-
-
                             }
 
                         } else {
