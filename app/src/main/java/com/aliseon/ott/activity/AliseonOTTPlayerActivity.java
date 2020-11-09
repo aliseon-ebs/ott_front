@@ -800,14 +800,15 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
         try {
 
-//            if (playerfeedid.size() == 0) {
-//                cartscrollview.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-//            }
+            if(cartplayerlayout != null) {
 
             // 영상의 상품 목록 표시
             for (int i = 0; i < playerfeedimage.size(); i++) {
 
                 try {
+
+                    if(cartplayerlayout != null) {
+
                     CartPlayer cartplayer = new CartPlayer(getApplicationContext());
 
                     Button cartproductadd = (Button) cartplayer.findViewById(R.id.cartproductadd1);
@@ -838,6 +839,9 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                     });
 
                     cartplayerlayout.addView(cartplayer);
+
+                    } throw new Exception("error");
+
                 } catch (Exception e) {
                     // 영상 플레이어에 수정 필요
                     Log.d("ERRORLOG", "카트 오류 발생");
@@ -847,6 +851,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 childlist++;
 
             }
+
+            } throw new Exception("error");
 
         } catch (Exception e) {
             e.printStackTrace();

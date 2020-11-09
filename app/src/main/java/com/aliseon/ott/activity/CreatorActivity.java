@@ -719,20 +719,25 @@ public class CreatorActivity extends AppCompatActivity {
                         TextView TV11_2 = new TextView(this);
 
                         try {
-                            Glide.with(this).load(imageurl + creator_list_p_thumbnail.get(j).get(0)).into(IV11);
-                            Glide.with(this).load(imageurl + creator_list_profile.get(j)).into(CIV11);
 
-                            IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                            if(IV11 != null && CIV11 != null && Layout3_3_1_1 != null && TV11_1 != null && TV11_2 != null) {
 
-                            Layout3_3_1_1.setOrientation(LinearLayout.VERTICAL);
-                            Layout3_3_1_1.setFocusableInTouchMode(true);
+                                Glide.with(this).load(imageurl + creator_list_p_thumbnail.get(j).get(0)).into(IV11);
+                                Glide.with(this).load(imageurl + creator_list_profile.get(j)).into(CIV11);
 
-                            TV11_1.setText(creator_list_description.get(j));
-                            TV11_1.setTextSize(14);
-                            TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                            TV11_2.setText(creator_list_nickname.get(j) + "\n" + creator_list_view_count.get(j) + " views");
-                            TV11_2.setTextSize(10);
-                            TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                Layout3_3_1_1.setOrientation(LinearLayout.VERTICAL);
+                                Layout3_3_1_1.setFocusableInTouchMode(true);
+
+                                TV11_1.setText(creator_list_description.get(j));
+                                TV11_1.setTextSize(14);
+                                TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                TV11_2.setText(creator_list_nickname.get(j) + "\n" + creator_list_view_count.get(j) + " views");
+                                TV11_2.setTextSize(10);
+                                TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                            } throw new Exception("error");
 
                         } catch (Exception e) {
                             Layout3_3_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
@@ -855,20 +860,25 @@ public class CreatorActivity extends AppCompatActivity {
                         TextView TV11_2 = new TextView(this);
 
                         try {
-                            Glide.with(this).load(imageurl + creator_list_p_thumbnail.get(j).get(0)).into(IV11);
-                            Glide.with(this).load(imageurl + creator_list_profile.get(j)).into(CIV11);
 
-                            IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                            if(IV11 != null && CIV11 != null && Layout3_3_1_1 != null && TV11_1 != null && TV11_2 != null) {
 
-                            Layout3_3_1_1.setOrientation(LinearLayout.VERTICAL);
-                            Layout3_3_1_1.setFocusableInTouchMode(true);
+                                Glide.with(this).load(imageurl + creator_list_p_thumbnail.get(j).get(0)).into(IV11);
+                                Glide.with(this).load(imageurl + creator_list_profile.get(j)).into(CIV11);
 
-                            TV11_1.setText(creator_list_description.get(j));
-                            TV11_1.setTextSize(14);
-                            TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                            TV11_2.setText(creator_list_nickname.get(j) + "\n" + creator_list_view_count.get(j) + " views");
-                            TV11_2.setTextSize(10);
-                            TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                Layout3_3_1_1.setOrientation(LinearLayout.VERTICAL);
+                                Layout3_3_1_1.setFocusableInTouchMode(true);
+
+                                TV11_1.setText(creator_list_description.get(j));
+                                TV11_1.setTextSize(14);
+                                TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                TV11_2.setText(creator_list_nickname.get(j) + "\n" + creator_list_view_count.get(j) + " views");
+                                TV11_2.setTextSize(10);
+                                TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                            } throw new Exception("error");
 
                         } catch (Exception e) {
 
