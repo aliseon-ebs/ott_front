@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.aliseon.ott.Variable.countrycode;
 import static com.aliseon.ott.activity.AccountAddActivity.AccountAddmHandler;
 import static com.aliseon.ott.activity.InfoCheckActivity.InfocheckmHandler;
 import static com.aliseon.ott.Variable.adduserapiload;

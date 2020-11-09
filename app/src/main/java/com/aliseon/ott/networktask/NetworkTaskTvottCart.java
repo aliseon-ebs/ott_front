@@ -21,7 +21,6 @@ import static com.aliseon.ott.Variable.cart_items_p_option_value;
 import static com.aliseon.ott.Variable.cart_items_p_previous_price;
 import static com.aliseon.ott.Variable.cart_items_p_price;
 import static com.aliseon.ott.Variable.cart_items_p_product_id;
-import static com.aliseon.ott.Variable.cart_items_p_ship;
 import static com.aliseon.ott.Variable.cart_items_p_status;
 import static com.aliseon.ott.Variable.cart_items_p_thumbnail;
 import static com.aliseon.ott.Variable.cart_items_p_user_id;

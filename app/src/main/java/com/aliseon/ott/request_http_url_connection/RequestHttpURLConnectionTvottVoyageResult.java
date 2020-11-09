@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
-import static com.aliseon.ott.Variable.logincurrency;
 import static com.aliseon.ott.Variable.loginid;
 import static com.aliseon.ott.Variable.access_token;
 import static com.aliseon.ott.Variable.category_num;

@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.Map;
 
 import static com.aliseon.ott.Variable.access_token;
-import static com.aliseon.ott.Variable.userinfouid;
 
 public class RequestHttpURLConnectionTvottUsers {
 
