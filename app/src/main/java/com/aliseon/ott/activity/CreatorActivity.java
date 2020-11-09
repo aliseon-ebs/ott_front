@@ -20,13 +20,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskCreatorInfo;
 import com.aliseon.ott.networktask.NetworkTaskCreatorList;
 import com.bumptech.glide.Glide;
 
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.aliseon.ott.Variable.CreatorClear;
 import static com.aliseon.ott.Variable.api_my_info;

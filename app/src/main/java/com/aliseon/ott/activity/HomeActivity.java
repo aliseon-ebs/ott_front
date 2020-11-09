@@ -24,12 +24,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskAtrend;
 import com.bumptech.glide.Glide;
 
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.aliseon.ott.Variable.api_atrend;
 import static com.aliseon.ott.Variable.atrend_id;

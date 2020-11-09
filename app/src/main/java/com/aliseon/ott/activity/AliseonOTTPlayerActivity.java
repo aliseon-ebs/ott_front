@@ -27,7 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.aliseon.ott.CartPlayer;
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.ContentsPlayer;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskAtrendDetail;
@@ -48,6 +47,8 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.aliseon.ott.Variable.creator_list_description;
 import static com.aliseon.ott.Variable.creator_list_id;

@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskTvottVoyageResult;
 import com.aliseon.ott.networktask.NetworkTaskRecommendCreator;
@@ -24,11 +23,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.Locale;
 
-import static com.aliseon.ott.Variable.nowurl;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.aliseon.ott.Variable.category_num;
-import static com.aliseon.ott.Variable.creatorauthorid;
-import static com.aliseon.ott.Variable.creatorprofile;
-import static com.aliseon.ott.Variable.creatortitle;
 import static com.aliseon.ott.Variable.recommend_contents_cnt;
 import static com.aliseon.ott.Variable.recommend_subscribeto_cnt;
 import static com.aliseon.ott.Variable.voyageresult_category_en;
@@ -51,13 +48,11 @@ import static com.aliseon.ott.Variable.voyageresult_p_thumbnail;
 import static com.aliseon.ott.Variable.voyageresult_view_count;
 import static com.aliseon.ott.Variable.imageurl;
 import static com.aliseon.ott.Variable.keyword;
-import static com.aliseon.ott.Variable.maintitle;
 import static com.aliseon.ott.Variable.recommend_id;
 import static com.aliseon.ott.Variable.recommend_nickname;
 import static com.aliseon.ott.Variable.recommend_photo;
 import static com.aliseon.ott.Variable.voyageresultapiload;
 import static com.aliseon.ott.Variable.voyageresultstart;
-import static com.aliseon.ott.Variable.subtitle;
 import static com.aliseon.ott.Variable.api_voyage;
 import static com.aliseon.ott.Variable.api_recommend_creator;
 

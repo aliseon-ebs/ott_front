@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.aliseon.ott.Variable.contentcounter;
 import static com.aliseon.ott.Variable.imageurl;
 import static com.aliseon.ott.Variable.player_feed_list_content;

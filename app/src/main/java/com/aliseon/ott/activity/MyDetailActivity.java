@@ -20,7 +20,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskMySubscribeTo;
 import com.aliseon.ott.networktask.NetworkTaskSubscribePost;
@@ -28,6 +27,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import static com.aliseon.ott.Variable.MyDetailClear;
 import static com.aliseon.ott.Variable.api_subscribe_post;
 import static com.aliseon.ott.Variable.imageurl;

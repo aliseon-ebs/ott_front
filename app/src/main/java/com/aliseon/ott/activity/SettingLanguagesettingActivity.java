@@ -18,13 +18,14 @@ import androidx.core.content.ContextCompat;
 import com.aliseon.ott.AdapterSpinner2;
 import com.aliseon.ott.AdapterSpinner3;
 import com.aliseon.ott.AdapterSpinner4;
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskTvottLanguageSetting;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.aliseon.ott.Variable.api_usersetting;
 import static com.aliseon.ott.Variable.logincurrency;

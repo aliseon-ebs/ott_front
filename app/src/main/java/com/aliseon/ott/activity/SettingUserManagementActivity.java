@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskUsersChange1;
 import com.aliseon.ott.networktask.NetworkTaskUsersChange2;
@@ -32,6 +31,8 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.aliseon.ott.Variable.loginlanguage;
 import static com.aliseon.ott.Variable.loginid;

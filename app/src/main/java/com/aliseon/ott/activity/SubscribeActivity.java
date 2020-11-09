@@ -22,7 +22,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.aliseon.ott.CircleImageView;
 import com.aliseon.ott.R;
 import com.aliseon.ott.networktask.NetworkTaskMySubscribeFrom;
 import com.aliseon.ott.networktask.NetworkTaskSubscribeMyList;
@@ -30,6 +29,8 @@ import com.aliseon.ott.networktask.NetworkTaskTvottSubscribeVoyage;
 import com.bumptech.glide.Glide;
 
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.aliseon.ott.Variable.api_my_list;
 import static com.aliseon.ott.Variable.api_subscribe_from;
