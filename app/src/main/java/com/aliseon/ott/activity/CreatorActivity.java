@@ -138,7 +138,10 @@ public class CreatorActivity extends AppCompatActivity {
 
             CircleImageView My2 = new CircleImageView(this);
 
-            My2.setImageResource(R.drawable.noing_creator);
+            if(My2 != null){
+                My2.setImageResource(R.drawable.noing_creator);
+            }
+
             My2.setLayoutParams(new ViewGroup.LayoutParams(150, 150));
 
             TextView TV1 = new TextView(this);

@@ -148,7 +148,9 @@ public class SettingLanguagesettingActivity extends AppCompatActivity {
         Home.setPadding(15, 15, 15, 15);
         User.setPadding(15, 15, 15, 15);
         Search.setPadding(15, 15, 15, 15);
-        My.setPadding(15,15,15,15);
+        if(My != null) {
+            My.setPadding(15,15,15,15);
+        }
         Setting.setPadding(15,15,15,15);
 
         Home.setImageResource(R.drawable.home);

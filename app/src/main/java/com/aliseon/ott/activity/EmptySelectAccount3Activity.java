@@ -117,7 +117,9 @@ public class EmptySelectAccount3Activity extends AppCompatActivity {
         ImageEmpty.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
         Profile.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
         ImageEmpty.setPadding(20,20,20,20);
-        Profile.setPadding(20,20,20,20);
+        if(Profile != null){
+            Profile.setPadding(20,20,20,20);
+        }
 
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(90, LinearLayout.LayoutParams.MATCH_PARENT);
         LinearLayout.LayoutParams params2_1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

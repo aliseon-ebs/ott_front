@@ -220,8 +220,9 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
                 CircleImageView CIV = new CircleImageView(this);
                 CIV.setLayoutParams(new ViewGroup.LayoutParams(120, 120));
-                CIV.setImageResource(R.drawable.noing_creator);
-
+                if(CIV != null){
+                    CIV.setImageResource(R.drawable.noing_creator);
+                }
                 ImageView IV1 = new ImageView(this);
                 IV1.setImageResource(R.drawable.noing_category);
                 IV1.setScaleType(ImageView.ScaleType.FIT_CENTER);

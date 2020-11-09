@@ -140,8 +140,9 @@ public class CartActivity extends AppCompatActivity {
             User.setPadding(15, 15, 15, 15);
             Search.setPadding(15, 15, 15, 15);
             Cart.setPadding(15, 15, 15, 15);
-            My.setPadding(15, 15, 15, 15);
-            Setting.setPadding(15, 15, 15, 15);
+            if(My != null){
+                My.setPadding(15, 15, 15, 15);
+            }Setting.setPadding(15, 15, 15, 15);
 
             ImageView CartTitle = new ImageView(this);
             ImageView CartContent1 = new ImageView(this);
@@ -179,7 +180,9 @@ public class CartActivity extends AppCompatActivity {
             My.setLayoutParams(new ViewGroup.LayoutParams(80, 80));
 
             if (prf.getString("userinfo_picture", "").equals("empty")) {
-                My.setImageResource(R.drawable.noimg_profile);
+                if (My != null) {
+                    My.setImageResource(R.drawable.noimg_profile);
+                }
             } else {
                 Glide.with(this).load(imageurl + prf.getString("userinfo_picture", "")).into(My);
             }

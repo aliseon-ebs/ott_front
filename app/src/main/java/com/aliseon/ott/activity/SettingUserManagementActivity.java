@@ -204,8 +204,9 @@ public class SettingUserManagementActivity extends AppCompatActivity {
 
             Profile[0].setPadding(4, 4, 4, 4);
             Profile[1].setPadding(4, 4, 4, 4);
-            Profile[2].setPadding(4, 4, 4, 4);
-            AccountPlus.setPadding(4, 4, 4, 4);
+            if(Profile[2] != null){
+                Profile[2].setPadding(4, 4, 4, 4);
+            }AccountPlus.setPadding(4, 4, 4, 4);
 
             LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(90, LinearLayout.LayoutParams.MATCH_PARENT);
             LinearLayout.LayoutParams params2_1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
