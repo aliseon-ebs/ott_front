@@ -106,24 +106,28 @@ public class NetworkTaskMyList extends AsyncTask<Void, Void, String> {
 
                     try{
 
-                        Log.d(TAG, "내 영상 ori 썸네일>>" + thumbnail);
+                        if (thumbnail != null && my_list_c_thumbnail != null && my_list_p_thumbnail != null && TAG != null) {
 
-                        thumbnail = thumbnail.replace("\\","");
-                        thumbnail = thumbnail.replace("\"","");
-                        thumbnail = thumbnail.replace("[","");
-                        thumbnail = thumbnail.replace("]","");
+                            Log.d(TAG, "내 영상 ori 썸네일>>" + thumbnail);
 
-                        String[] thumbnail_result = thumbnail.split(",");
+                            thumbnail = thumbnail.replace("\\","");
+                            thumbnail = thumbnail.replace("\"","");
+                            thumbnail = thumbnail.replace("[","");
+                            thumbnail = thumbnail.replace("]","");
 
-                        for(int ii = 0; ii < thumbnail_result.length; ii++) {
+                            String[] thumbnail_result = thumbnail.split(",");
 
-                            my_list_c_thumbnail.add(thumbnail_result[ii]);
+                            for(int ii = 0; ii < thumbnail_result.length; ii++) {
 
-                        }
+                                my_list_c_thumbnail.add(thumbnail_result[ii]);
 
-                        my_list_p_thumbnail.add(my_list_c_thumbnail);
+                            }
 
-                    }catch (Exception e){
+                            my_list_p_thumbnail.add(my_list_c_thumbnail);
+
+                        } throw new Exception("error");
+
+                    } catch (Exception e){
 
                         my_list_p_thumbnail.add(my_list_c_thumbnail);
 

@@ -162,8 +162,14 @@ public class SettingUserManagementActivity extends AppCompatActivity {
             AccountPlus.setId(R.id.accountmanagementprofile4);
 
             try {
-                Glide.with(this).load(prf.getString("userinfo_picture", "")).into(Profile[3]);
-                name[3].setText(prf.getString("userinfo_name", ""));
+
+                if (prf != null && Profile != null) {
+
+                    Glide.with(this).load(prf.getString("userinfo_picture", "")).into(Profile[3]);
+                    name[3].setText(prf.getString("userinfo_name", ""));
+
+                } throw new Exception("error");
+
             } catch (Exception e) {
 
             }
@@ -619,106 +625,151 @@ public class SettingUserManagementActivity extends AppCompatActivity {
 
             if (userinfo.size() == 15) {
                 try {
-                    Glide.with(this).load(imageurl + userinfo.get(1)).into(Profile[0]);
-                    name[0].setText(userinfo.get(0));
-                    Glide.with(this).load(imageurl + userinfo.get(6)).into(Profile[1]);
-                    name[1].setText(userinfo.get(5));
-                    Glide.with(this).load(imageurl + userinfo.get(11)).into(Profile[2]);
-                    name[2].setText(userinfo.get(10));
-                    Layout4_4.addView(Layout4_4_1);
-                    Layout4_4.addView(Layout4_4_2);
-                    Layout4_4_2.addView(Layout4_4_2_1);
-                    Layout4_4_2.addView(Layout4_4_2_2);
-                    Layout4_4_2_2.addView(Layout4_4_2_2_1);
-                    Layout4_4_2_2.addView(Layout4_4_2_2_2);
-                    Layout4_4_1.addView(Profile[0]);
-                    Layout4_4_2_1.addView(name[0]);
-                    Layout4_4_2_2_1.addView(acc1changebtn);
-                    Layout4_4_2_2_2.addView(acc1disconnectbtn);
 
-                    Layout4_5.addView(Layout4_5_1);
-                    Layout4_5.addView(Layout4_5_2);
-                    Layout4_5_2.addView(Layout4_5_2_1);
-                    Layout4_5_2.addView(Layout4_5_2_2);
-                    Layout4_5_2_2.addView(Layout4_5_2_2_1);
-                    Layout4_5_2_2.addView(Layout4_5_2_2_2);
-                    Layout4_5_1.addView(Profile[1]);
-                    Layout4_5_2_1.addView(name[1]);
-                    Layout4_5_2_2_1.addView(acc2changebtn);
-                    Layout4_5_2_2_2.addView(acc2disconnectbtn);
+                    if (imageurl != null && userinfo != null && Profile != null && name != null &&
+                        Layout4_4 != null && Layout4_4_1 != null && Layout4_4_2 != null &&
+                        Layout4_4_2_1 != null && Layout4_4_2_2 != null && Layout4_4_2_2_1 != null && Layout4_4_2_2_2 != null &&
+                        acc1changebtn != null && acc1disconnectbtn != null &&
 
-                    Layout4_6.addView(Layout4_6_1);
-                    Layout4_6.addView(Layout4_6_2);
-                    Layout4_6_2.addView(Layout4_6_2_1);
-                    Layout4_6_2.addView(Layout4_6_2_2);
-                    Layout4_6_2_2.addView(Layout4_6_2_2_1);
-                    Layout4_6_2_2.addView(Layout4_6_2_2_2);
-                    Layout4_6_1.addView(Profile[2]);
-                    Layout4_6_2_1.addView(name[2]);
-                    Layout4_6_2_2_1.addView(acc3changebtn);
-                    Layout4_6_2_2_2.addView(acc3disconnectbtn);
+                        Layout4_5 != null && Layout4_5_1 != null && Layout4_5_2 != null &&
+                        Layout4_5_2_1 != null && Layout4_5_2_2 != null && Layout4_5_2_2_1 != null && Layout4_5_2_2_2 != null &&
+                        acc2changebtn != null && acc2disconnectbtn != null &&
 
-                    Layout4_3.addView(Layout4_4);
-                    Layout4_3.addView(Layout4_5);
-                    Layout4_3.addView(Layout4_6);
+                        Layout4_6 != null && Layout4_6_1 != null && Layout4_6_2 != null &&
+                        Layout4_6_2_1 != null && Layout4_6_2_2 != null && Layout4_6_2_2_1 != null && Layout4_6_2_2_2 != null &&
+                        acc3changebtn != null && acc3disconnectbtn != null &&
 
-                    params4_3.topMargin = 20;
-                    params4_3.bottomMargin = 50;
+                        Layout4_3 != null && Layout4_4 != null && Layout4_5 != null && Layout4_6 != null && params4_3 != null) {
+
+                        Glide.with(this).load(imageurl + userinfo.get(1)).into(Profile[0]);
+                        name[0].setText(userinfo.get(0));
+                        Glide.with(this).load(imageurl + userinfo.get(6)).into(Profile[1]);
+                        name[1].setText(userinfo.get(5));
+                        Glide.with(this).load(imageurl + userinfo.get(11)).into(Profile[2]);
+                        name[2].setText(userinfo.get(10));
+                        Layout4_4.addView(Layout4_4_1);
+                        Layout4_4.addView(Layout4_4_2);
+                        Layout4_4_2.addView(Layout4_4_2_1);
+                        Layout4_4_2.addView(Layout4_4_2_2);
+                        Layout4_4_2_2.addView(Layout4_4_2_2_1);
+                        Layout4_4_2_2.addView(Layout4_4_2_2_2);
+                        Layout4_4_1.addView(Profile[0]);
+                        Layout4_4_2_1.addView(name[0]);
+                        Layout4_4_2_2_1.addView(acc1changebtn);
+                        Layout4_4_2_2_2.addView(acc1disconnectbtn);
+
+                        Layout4_5.addView(Layout4_5_1);
+                        Layout4_5.addView(Layout4_5_2);
+                        Layout4_5_2.addView(Layout4_5_2_1);
+                        Layout4_5_2.addView(Layout4_5_2_2);
+                        Layout4_5_2_2.addView(Layout4_5_2_2_1);
+                        Layout4_5_2_2.addView(Layout4_5_2_2_2);
+                        Layout4_5_1.addView(Profile[1]);
+                        Layout4_5_2_1.addView(name[1]);
+                        Layout4_5_2_2_1.addView(acc2changebtn);
+                        Layout4_5_2_2_2.addView(acc2disconnectbtn);
+
+                        Layout4_6.addView(Layout4_6_1);
+                        Layout4_6.addView(Layout4_6_2);
+                        Layout4_6_2.addView(Layout4_6_2_1);
+                        Layout4_6_2.addView(Layout4_6_2_2);
+                        Layout4_6_2_2.addView(Layout4_6_2_2_1);
+                        Layout4_6_2_2.addView(Layout4_6_2_2_2);
+                        Layout4_6_1.addView(Profile[2]);
+                        Layout4_6_2_1.addView(name[2]);
+                        Layout4_6_2_2_1.addView(acc3changebtn);
+                        Layout4_6_2_2_2.addView(acc3disconnectbtn);
+
+                        Layout4_3.addView(Layout4_4);
+                        Layout4_3.addView(Layout4_5);
+                        Layout4_3.addView(Layout4_6);
+
+                        params4_3.topMargin = 20;
+                        params4_3.bottomMargin = 50;
+
+                    } throw new Exception("error");
+
                 } catch (Exception e) {
 
                 }
             } else if (userinfo.size() == 10) {
                 try {
-                    Glide.with(this).load(imageurl + userinfo.get(1)).into(Profile[0]);
-                    name[0].setText(userinfo.get(0));
-                    Glide.with(this).load(imageurl + userinfo.get(6)).into(Profile[1]);
-                    name[1].setText(userinfo.get(5));
-                    Layout4_4.addView(Layout4_4_1);
-                    Layout4_4.addView(Layout4_4_2);
-                    Layout4_4_2.addView(Layout4_4_2_1);
-                    Layout4_4_2.addView(Layout4_4_2_2);
-                    Layout4_4_2_2.addView(Layout4_4_2_2_1);
-                    Layout4_4_2_2.addView(Layout4_4_2_2_2);
-                    Layout4_4_1.addView(Profile[0]);
-                    Layout4_4_2_1.addView(name[0]);
-                    Layout4_4_2_2_1.addView(acc1changebtn);
-                    Layout4_4_2_2_2.addView(acc1disconnectbtn);
-                    Layout4_5.addView(Layout4_5_1);
-                    Layout4_5.addView(Layout4_5_2);
-                    Layout4_5_2.addView(Layout4_5_2_1);
-                    Layout4_5_2.addView(Layout4_5_2_2);
-                    Layout4_5_2_2.addView(Layout4_5_2_2_1);
-                    Layout4_5_2_2.addView(Layout4_5_2_2_2);
-                    Layout4_5_1.addView(Profile[1]);
-                    Layout4_5_2_1.addView(name[1]);
-                    Layout4_5_2_2_1.addView(acc2changebtn);
-                    Layout4_5_2_2_2.addView(acc2disconnectbtn);
-                    Layout4_3.addView(Layout4_4);
-                    Layout4_3.addView(Layout4_5);
-                    params4_3.topMargin = 120;
-                    params4_3.bottomMargin = 150;
-                    params4_4_1.topMargin = 2;
+
+                    if (imageurl != null && userinfo != null && Profile != null && name != null &&
+                        Layout4_4 != null && Layout4_4_1 != null && Layout4_4_2 != null &&
+                        Layout4_4_2_1 != null && Layout4_4_2_2 != null && Layout4_4_2_2_1 != null && Layout4_4_2_2_2 != null &&
+                        acc1changebtn != null && acc1disconnectbtn != null &&
+
+                        Layout4_5 != null && Layout4_5_1 != null && Layout4_5_2 != null &&
+                        Layout4_5_2_1 != null && Layout4_5_2_2 != null && Layout4_5_2_2_1 != null && Layout4_5_2_2_2 != null &&
+                        acc2changebtn != null && acc2disconnectbtn != null &&
+
+                        Layout4_3 != null && Layout4_4 != null && Layout4_5 != null && params4_3 != null && params4_4_1 != null) {
+
+                        Glide.with(this).load(imageurl + userinfo.get(1)).into(Profile[0]);
+                        name[0].setText(userinfo.get(0));
+                        Glide.with(this).load(imageurl + userinfo.get(6)).into(Profile[1]);
+                        name[1].setText(userinfo.get(5));
+                        Layout4_4.addView(Layout4_4_1);
+                        Layout4_4.addView(Layout4_4_2);
+                        Layout4_4_2.addView(Layout4_4_2_1);
+                        Layout4_4_2.addView(Layout4_4_2_2);
+                        Layout4_4_2_2.addView(Layout4_4_2_2_1);
+                        Layout4_4_2_2.addView(Layout4_4_2_2_2);
+                        Layout4_4_1.addView(Profile[0]);
+                        Layout4_4_2_1.addView(name[0]);
+                        Layout4_4_2_2_1.addView(acc1changebtn);
+                        Layout4_4_2_2_2.addView(acc1disconnectbtn);
+                        Layout4_5.addView(Layout4_5_1);
+                        Layout4_5.addView(Layout4_5_2);
+                        Layout4_5_2.addView(Layout4_5_2_1);
+                        Layout4_5_2.addView(Layout4_5_2_2);
+                        Layout4_5_2_2.addView(Layout4_5_2_2_1);
+                        Layout4_5_2_2.addView(Layout4_5_2_2_2);
+                        Layout4_5_1.addView(Profile[1]);
+                        Layout4_5_2_1.addView(name[1]);
+                        Layout4_5_2_2_1.addView(acc2changebtn);
+                        Layout4_5_2_2_2.addView(acc2disconnectbtn);
+                        Layout4_3.addView(Layout4_4);
+                        Layout4_3.addView(Layout4_5);
+                        params4_3.topMargin = 120;
+                        params4_3.bottomMargin = 150;
+                        params4_4_1.topMargin = 2;
+
+                    } throw new Exception("error");
+
                 } catch (Exception e) {
 
                 }
             } else if (userinfo.size() == 5) {
                 try {
-                    Glide.with(this).load(imageurl + userinfo.get(1)).into(Profile[0]);
-                    name[0].setText(userinfo.get(0));
-                    Layout4_4.addView(Layout4_4_1);
-                    Layout4_4.addView(Layout4_4_2);
-                    Layout4_4_2.addView(Layout4_4_2_1);
-                    Layout4_4_2.addView(Layout4_4_2_2);
-                    Layout4_4_2_2.addView(Layout4_4_2_2_1);
-                    Layout4_4_2_2.addView(Layout4_4_2_2_2);
-                    Layout4_4_1.addView(Profile[0]);
-                    Layout4_4_2_1.addView(name[0]);
-                    Layout4_4_2_2_1.addView(acc1changebtn);
-                    Layout4_4_2_2_2.addView(acc1disconnectbtn);
-                    Layout4_3.addView(Layout4_4);
-                    params4_3.topMargin = 20;
-                    params4_3.bottomMargin = 50;
-                    params4_4_1.bottomMargin = 35;
+
+                    if (imageurl != null && userinfo != null && Profile != null && name != null &&
+                        Layout4_4 != null && Layout4_4_1 != null && Layout4_4_2 != null &&
+                        Layout4_4_2_1 != null && Layout4_4_2_2 != null && Layout4_4_2_2_1 != null && Layout4_4_2_2_2 != null &&
+                        acc1changebtn != null && acc1disconnectbtn != null &&
+
+                        Layout4_3 != null && Layout4_4 != null && params4_3 != null && params4_4_1 != null) {
+
+                        Glide.with(this).load(imageurl + userinfo.get(1)).into(Profile[0]);
+                        name[0].setText(userinfo.get(0));
+                        Layout4_4.addView(Layout4_4_1);
+                        Layout4_4.addView(Layout4_4_2);
+                        Layout4_4_2.addView(Layout4_4_2_1);
+                        Layout4_4_2.addView(Layout4_4_2_2);
+                        Layout4_4_2_2.addView(Layout4_4_2_2_1);
+                        Layout4_4_2_2.addView(Layout4_4_2_2_2);
+                        Layout4_4_1.addView(Profile[0]);
+                        Layout4_4_2_1.addView(name[0]);
+                        Layout4_4_2_2_1.addView(acc1changebtn);
+                        Layout4_4_2_2_2.addView(acc1disconnectbtn);
+                        Layout4_3.addView(Layout4_4);
+                        params4_3.topMargin = 20;
+                        params4_3.bottomMargin = 50;
+                        params4_4_1.bottomMargin = 35;
+
+                    }
+
                 } catch (Exception e) {
 
                 }

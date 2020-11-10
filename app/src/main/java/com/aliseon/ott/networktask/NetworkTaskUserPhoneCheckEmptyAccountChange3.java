@@ -44,9 +44,15 @@ public class NetworkTaskUserPhoneCheckEmptyAccountChange3 extends AsyncTask<Void
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         try {
-            String s1 = s.substring(1, s.length() - 1);
-            infocheck_id = Integer.parseInt(s1);
-            Log.d(TAG, "부여받은 ID >>" + infocheck_id);
+
+            if (s != null && TAG != null) {
+
+                String s1 = s.substring(1, s.length() - 1);
+                infocheck_id = Integer.parseInt(s1);
+                Log.d(TAG, "부여받은 ID >>" + infocheck_id);
+
+            } throw new Exception("error");
+
         } catch(Exception e) {
 
         }

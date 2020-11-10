@@ -866,6 +866,9 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         // Atrend일 경우 Related 영상 목록 표시
 
             try {
+
+                if (player_feed_list_content != null && contentscrollview != null) {
+
                 for (int i = 0; i < player_feed_list_content.size(); i++) {
 
                     Log.d("TESTING ::", "IS WORKING??? "+i);
@@ -875,6 +878,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                     } else {
                         contentscrollview.setVisibility(View.VISIBLE);
                     }
+
                     try {
                         /* Atrend의 경우 닉네임이 없어 현재는 하단의 뷰가 닉네임, 프로필 이미지가 등장하지 않음.
                            예외처리 필요,
@@ -941,6 +945,9 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                     }
                     contentcounter++;
                 }
+
+                } throw new Exception("error");
+
             } catch (Exception e) {
                 Log.d("ERRORLOG", "하단 컨텐츠 오류");
                 e.printStackTrace();

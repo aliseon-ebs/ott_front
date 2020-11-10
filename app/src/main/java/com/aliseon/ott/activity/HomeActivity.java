@@ -681,7 +681,13 @@ public class HomeActivity extends AppCompatActivity {
             banner.setScaleType(ImageView.ScaleType.CENTER);
 
             try {
-                Glide.with(this).load(imageurl + atrend_thumbnail.get(0)).into(banner);
+
+                if (imageurl != null && atrend_thumbnail != null && banner != null) {
+
+                    Glide.with(this).load(imageurl + atrend_thumbnail.get(0)).into(banner);
+
+                } throw new Exception("error");
+
             } catch (Exception e){
 
             }
@@ -997,7 +1003,13 @@ public class HomeActivity extends AppCompatActivity {
                 Layout3_3_1_1_1.setBackgroundColor(Color.argb(80,0,0,0));
 
                 try {
-                    Glide.with(this).load(imageurl + atrend_thumbnail.get(i)).into(IV1);
+
+                    if (imageurl != null && atrend_thumbnail != null && IV1 != null) {
+
+                        Glide.with(this).load(imageurl + atrend_thumbnail.get(i)).into(IV1);
+
+                    } throw new Exception("error");
+
                 } catch (Exception e){
 
                 }
@@ -1127,10 +1139,16 @@ public class HomeActivity extends AppCompatActivity {
                             TV11_1.setTextColor(Color.rgb(255, 255, 255));
 
                             try{
-                                Glide.with(this).load(imageurl + popular_p_thumbnail.get(j).get(0)).into(IV11);
-                                Glide.with(this).load(imageurl + popular_photo.get(j)).into(CIV11);
-                                TV11_1.setText(popular_nickname.get(j) + "\n" + popular_view_count.get(j) + " views");
-                                TV11.setText(popular_description.get(j));
+
+                                if (imageurl != null && popular_p_thumbnail != null && popular_photo != null && popular_nickname != null && popular_view_count != null && popular_description != null && IV11 != null && CIV11 != null) {
+
+                                    Glide.with(this).load(imageurl + popular_p_thumbnail.get(j).get(0)).into(IV11);
+                                    Glide.with(this).load(imageurl + popular_photo.get(j)).into(CIV11);
+                                    TV11_1.setText(popular_nickname.get(j) + "\n" + popular_view_count.get(j) + " views");
+                                    TV11.setText(popular_description.get(j));
+
+                                } throw new Exception("error");
+
                             } catch (Exception e){
 
                             }
@@ -1332,10 +1350,16 @@ public class HomeActivity extends AppCompatActivity {
                             TV11_1.setTextColor(Color.rgb(255, 255, 255));
 
                             try{
-                                Glide.with(this).load(imageurl + popular_p_thumbnail.get(j).get(0)).into(IV11);
-                                Glide.with(this).load(imageurl + popular_photo.get(j)).into(CIV11);
-                                TV11.setText(popular_description.get(j));
-                                TV11_1.setText(popular_nickname.get(j) + "\n" + popular_view_count.get(j) + " views");
+
+                                if (imageurl != null && popular_p_thumbnail != null && popular_photo != null && popular_nickname != null && popular_view_count != null && popular_description != null && IV11 != null && CIV11 != null) {
+
+                                    Glide.with(this).load(imageurl + popular_p_thumbnail.get(j).get(0)).into(IV11);
+                                    Glide.with(this).load(imageurl + popular_photo.get(j)).into(CIV11);
+                                    TV11.setText(popular_description.get(j));
+                                    TV11_1.setText(popular_nickname.get(j) + "\n" + popular_view_count.get(j) + " views");
+
+                                } throw new Exception("error");
+
                             } catch (Exception e){
 
                             }

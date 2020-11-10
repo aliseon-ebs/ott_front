@@ -575,20 +575,26 @@ public class VoyageActivity extends AppCompatActivity {
                                 TextView TV11_2 = new TextView(this);
 
                                 try {
-                                    Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
-                                    Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                    IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                        TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
-                                    Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
-                                    Layout4_2_1_1.setFocusableInTouchMode(true);
+                                        Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
+                                        Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                    TV11_1.setText(voyage_description.get(j));
-                                    TV11_1.setTextSize(14);
-                                    TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                                    TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
-                                    TV11_2.setTextSize(10);
-                                    TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                        IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                        Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
+                                        Layout4_2_1_1.setFocusableInTouchMode(true);
+
+                                        TV11_1.setText(voyage_description.get(j));
+                                        TV11_1.setTextSize(14);
+                                        TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                        TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
+                                        TV11_2.setTextSize(10);
+                                        TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                                    } throw new Exception("error");
                                 } catch (Exception e) {
                                     Layout4_2_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
                                 }
@@ -747,20 +753,27 @@ public class VoyageActivity extends AppCompatActivity {
                                 TextView TV11_2 = new TextView(this);
 
                                 try {
-                                    Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
-                                    Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                    IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                            TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
-                                    Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
-                                    Layout4_2_1_1.setFocusableInTouchMode(true);
+                                        Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
+                                        Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                    TV11_1.setText(voyage_description.get(j));
-                                    TV11_1.setTextSize(14);
-                                    TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                                    TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
-                                    TV11_2.setTextSize(10);
-                                    TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                        IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                        Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
+                                        Layout4_2_1_1.setFocusableInTouchMode(true);
+
+                                        TV11_1.setText(voyage_description.get(j));
+                                        TV11_1.setTextSize(14);
+                                        TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                        TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
+                                        TV11_2.setTextSize(10);
+                                        TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                                    } throw new Exception("error");
+
                                 } catch (Exception e) {
                                     Layout4_2_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
                                 }
@@ -1285,20 +1298,27 @@ public class VoyageActivity extends AppCompatActivity {
                             TextView TV11_2 = new TextView(this);
 
                             try {
-                                Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
-                                Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                                if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                        TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
-                                Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
-                                Layout4_2_1_1.setFocusableInTouchMode(true);
+                                    Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
+                                    Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                TV11_1.setText(voyage_description.get(j));
-                                TV11_1.setTextSize(14);
-                                TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                                TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
-                                TV11_2.setTextSize(10);
-                                TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                    IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                    Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
+                                    Layout4_2_1_1.setFocusableInTouchMode(true);
+
+                                    TV11_1.setText(voyage_description.get(j));
+                                    TV11_1.setTextSize(14);
+                                    TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                    TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
+                                    TV11_2.setTextSize(10);
+                                    TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                                } throw new Exception("error");
+
                             } catch (Exception e) {
                                 Layout4_2_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
                             }
@@ -1460,20 +1480,27 @@ public class VoyageActivity extends AppCompatActivity {
 
 
                             try {
-                                Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
-                                Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                                if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                        TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
-                                Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
-                                Layout4_2_1_1.setFocusableInTouchMode(true);
+                                    Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
+                                    Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
 
-                                TV11_1.setText(voyage_description.get(j));
-                                TV11_1.setTextSize(14);
-                                TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                                TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
-                                TV11_2.setTextSize(10);
-                                TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                    IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                    Layout4_2_1_1.setOrientation(LinearLayout.VERTICAL);
+                                    Layout4_2_1_1.setFocusableInTouchMode(true);
+
+                                    TV11_1.setText(voyage_description.get(j));
+                                    TV11_1.setTextSize(14);
+                                    TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                    TV11_2.setText(voyage_nickname.get(j) + "\n" + voyage_view_count.get(j) + " views");
+                                    TV11_2.setTextSize(10);
+                                    TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                                } throw new Exception("error");
+
                             } catch (Exception e) {
                                 Layout4_2_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
                             }

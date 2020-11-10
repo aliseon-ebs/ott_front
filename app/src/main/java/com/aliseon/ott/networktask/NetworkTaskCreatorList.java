@@ -103,22 +103,26 @@ public class NetworkTaskCreatorList extends AsyncTask<Void, Void, String> {
 
                     try{
 
-                        Log.d(TAG, "내 영상 ori 썸네일>>" + thumbnail);
+                        if (thumbnail != null && creator_list_c_thumbnail != null && creator_list_p_thumbnail != null) {
 
-                        thumbnail = thumbnail.replace("\\","");
-                        thumbnail = thumbnail.replace("\"","");
-                        thumbnail = thumbnail.replace("[","");
-                        thumbnail = thumbnail.replace("]","");
+                            Log.d(TAG, "내 영상 ori 썸네일>>" + thumbnail);
 
-                        String[] thumbnail_result = thumbnail.split(",");
+                            thumbnail = thumbnail.replace("\\", "");
+                            thumbnail = thumbnail.replace("\"", "");
+                            thumbnail = thumbnail.replace("[", "");
+                            thumbnail = thumbnail.replace("]", "");
 
-                        for(int ii = 0; ii < thumbnail_result.length; ii++) {
+                            String[] thumbnail_result = thumbnail.split(",");
 
-                            creator_list_c_thumbnail.add(thumbnail_result[ii]);
+                            for (int ii = 0; ii < thumbnail_result.length; ii++) {
 
-                        }
+                                creator_list_c_thumbnail.add(thumbnail_result[ii]);
 
-                        creator_list_p_thumbnail.add(creator_list_c_thumbnail);
+                            }
+
+                            creator_list_p_thumbnail.add(creator_list_c_thumbnail);
+
+                        } throw new Exception("error");
 
                     }catch (Exception e){
 

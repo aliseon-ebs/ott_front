@@ -124,22 +124,29 @@ public class NetworkTaskTvottVoyageResult extends AsyncTask<Void, Void, String> 
 
                     try{
 
-                        thumbnail = thumbnail.replace("\\","");
-                        thumbnail = thumbnail.replace("\"","");
-                        thumbnail = thumbnail.replace("[","");
-                        thumbnail = thumbnail.replace("]","");
+                        if (thumbnail != null && voyageresult_c_thumbnail != null && voyageresult_p_thumbnail != null) {
 
-                        String[] thumbnail_result = thumbnail.split(",");
+                            thumbnail = thumbnail.replace("\\","");
+                            thumbnail = thumbnail.replace("\"","");
+                            thumbnail = thumbnail.replace("[","");
+                            thumbnail = thumbnail.replace("]","");
 
-                        for(int ii = 0; ii < thumbnail_result.length; ii++) {
+                            String[] thumbnail_result = thumbnail.split(",");
 
-                            voyageresult_c_thumbnail.add(thumbnail_result[ii]);
+                            for(int ii = 0; ii < thumbnail_result.length; ii++) {
 
-                        }
+                                voyageresult_c_thumbnail.add(thumbnail_result[ii]);
 
-                        voyageresult_p_thumbnail.add(voyageresult_c_thumbnail);
+                            }
+
+                            voyageresult_p_thumbnail.add(voyageresult_c_thumbnail);
+
+                        } throw new Exception("error");
 
 //                      throw new Exception(); //강제 에러 출력
+
+
+
                     }catch (Exception e){
 
                         voyageresult_p_thumbnail.add(voyageresult_c_thumbnail);

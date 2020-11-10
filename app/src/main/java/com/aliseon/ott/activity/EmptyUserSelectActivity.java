@@ -404,6 +404,13 @@ public class EmptyUserSelectActivity extends AppCompatActivity {
 
             if (userinfo.size() == 18) {
                 try {
+
+                    if (userinfo != null && Profile != null && name != null && Layout4_3 != null && Layout4empty1 != null &&
+                            Layout4_3_1 != null && Layout4_3_2 != null && Layout4_3_3 != null && Layout4_3_4 != null && Layout4empty2 != null &&
+                            Layout4_3_1_1 != null && Layout4_3_1_2 != null && Layout4_3_2_1 != null && Layout4_3_2_2 != null && Layout4_3_3_1 != null &&
+                            Layout4_3_3_2 != null && Layout4_3_4_1 != null && Layout4_3_4_2 != null && AccountPlus != null && TV12 != null) {
+
+
                     Glide.with(this).load(userinfo.get(2)).into(Profile[0]);
                     name[0].setText(userinfo.get(0));
                     Glide.with(this).load(userinfo.get(8)).into(Profile[1]);
@@ -432,51 +439,71 @@ public class EmptyUserSelectActivity extends AppCompatActivity {
                     Layout4_3_3_2.addView(name[2]);
                     Layout4_3_4_1.addView(AccountPlus);
                     Layout4_3_4_2.addView(TV12);
+
+                    } throw new Exception("error");
+
                 } catch (Exception e) {
 
                 }
             } else if (userinfo.size() == 12) {
                 try {
-                    Glide.with(this).load(userinfo.get(2)).into(Profile[0]);
-                    name[0].setText(userinfo.get(0));
-                    Glide.with(this).load(userinfo.get(8)).into(Profile[1]);
-                    name[1].setText(userinfo.get(6));
-                    Layout4_3.addView(Layout4empty1);
-                    Layout4_3.addView(Layout4_3_1);
-                    Layout4_3.addView(Layout4_3_2);
-                    Layout4_3.addView(Layout4_3_4);
-                    Layout4_3.addView(Layout4empty2);
-                    Layout4_3_1.addView(Layout4_3_1_1);
-                    Layout4_3_1.addView(Layout4_3_1_2);
-                    Layout4_3_2.addView(Layout4_3_2_1);
-                    Layout4_3_2.addView(Layout4_3_2_2);
-                    Layout4_3_1_1.addView(Profile[0]);
-                    Layout4_3_1_2.addView(name[0]);
-                    Layout4_3_2_1.addView(Profile[1]);
-                    Layout4_3_2_2.addView(name[1]);
-                    Layout4_3_4_1.addView(AccountPlus);
-                    Layout4_3_4_2.addView(TV12);
-                    Layout4_3_4.addView(Layout4_3_4_1);
-                    Layout4_3_4.addView(Layout4_3_4_2);
+
+                    if (userinfo != null && Profile != null && name != null && Layout4_3 != null && Layout4empty1 != null &&
+                            Layout4_3_1 != null && Layout4_3_2 != null && Layout4_3_3 != null && Layout4_3_4 != null && Layout4empty2 != null &&
+                            Layout4_3_1_1 != null && Layout4_3_1_2 != null && Layout4_3_2_1 != null && Layout4_3_2_2 != null && Layout4_3_3_1 != null &&
+                            Layout4_3_3_2 != null && Layout4_3_4_1 != null && Layout4_3_4_2 != null && AccountPlus != null && TV12 != null) {
+
+                        Glide.with(this).load(userinfo.get(2)).into(Profile[0]);
+                        name[0].setText(userinfo.get(0));
+                        Glide.with(this).load(userinfo.get(8)).into(Profile[1]);
+                        name[1].setText(userinfo.get(6));
+                        Layout4_3.addView(Layout4empty1);
+                        Layout4_3.addView(Layout4_3_1);
+                        Layout4_3.addView(Layout4_3_2);
+                        Layout4_3.addView(Layout4_3_4);
+                        Layout4_3.addView(Layout4empty2);
+                        Layout4_3_1.addView(Layout4_3_1_1);
+                        Layout4_3_1.addView(Layout4_3_1_2);
+                        Layout4_3_2.addView(Layout4_3_2_1);
+                        Layout4_3_2.addView(Layout4_3_2_2);
+                        Layout4_3_1_1.addView(Profile[0]);
+                        Layout4_3_1_2.addView(name[0]);
+                        Layout4_3_2_1.addView(Profile[1]);
+                        Layout4_3_2_2.addView(name[1]);
+                        Layout4_3_4_1.addView(AccountPlus);
+                        Layout4_3_4_2.addView(TV12);
+                        Layout4_3_4.addView(Layout4_3_4_1);
+                        Layout4_3_4.addView(Layout4_3_4_2);
+
+                    } throw new Exception("error");
                 } catch (Exception e) {
 
                 }
             } else if (userinfo.size() == 6) {
                 try {
-                    Glide.with(this).load(userinfo.get(2)).into(Profile[0]);
-                    name[0].setText(userinfo.get(0));
-                    Layout4_3.addView(Layout4empty1);
-                    Layout4_3.addView(Layout4_3_1);
-                    Layout4_3.addView(Layout4_3_4);
-                    Layout4_3.addView(Layout4empty2);
-                    Layout4_3_1.addView(Layout4_3_1_1);
-                    Layout4_3_1.addView(Layout4_3_1_2);
-                    Layout4_3_1_1.addView(Profile[0]);
-                    Layout4_3_1_2.addView(name[0]);
-                    Layout4_3_4_1.addView(AccountPlus);
-                    Layout4_3_4_2.addView(TV12);
-                    Layout4_3_4.addView(Layout4_3_4_1);
-                    Layout4_3_4.addView(Layout4_3_4_2);
+
+                    if (userinfo != null && Profile != null && name != null && Layout4_3 != null && Layout4empty1 != null &&
+                            Layout4_3_1 != null && Layout4_3_2 != null && Layout4_3_3 != null && Layout4_3_4 != null && Layout4empty2 != null &&
+                            Layout4_3_1_1 != null && Layout4_3_1_2 != null && Layout4_3_2_1 != null && Layout4_3_2_2 != null && Layout4_3_3_1 != null &&
+                            Layout4_3_3_2 != null && Layout4_3_4_1 != null && Layout4_3_4_2 != null && AccountPlus != null && TV12 != null) {
+
+                        Glide.with(this).load(userinfo.get(2)).into(Profile[0]);
+                        name[0].setText(userinfo.get(0));
+                        Layout4_3.addView(Layout4empty1);
+                        Layout4_3.addView(Layout4_3_1);
+                        Layout4_3.addView(Layout4_3_4);
+                        Layout4_3.addView(Layout4empty2);
+                        Layout4_3_1.addView(Layout4_3_1_1);
+                        Layout4_3_1.addView(Layout4_3_1_2);
+                        Layout4_3_1_1.addView(Profile[0]);
+                        Layout4_3_1_2.addView(name[0]);
+                        Layout4_3_4_1.addView(AccountPlus);
+                        Layout4_3_4_2.addView(TV12);
+                        Layout4_3_4.addView(Layout4_3_4_1);
+                        Layout4_3_4.addView(Layout4_3_4_2);
+
+                    } throw new Exception("error");
+
                 } catch (Exception e) {
 
                 }

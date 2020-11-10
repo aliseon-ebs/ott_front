@@ -921,6 +921,9 @@ public class VoyageResultActivity extends AppCompatActivity {
 //            }
 
             try {
+
+                if (params3_4_1_1 != null && params3_4_1_1_1 != null && params3_4_1_2 != null && Layout3_4 != null) {
+
                 for (int i = 0; i < 5; i++) {
 
                     LinearLayout Layout3_4_1 = new LinearLayout(this);
@@ -1004,6 +1007,9 @@ public class VoyageResultActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+                } throw new Exception("error");
+
             } catch (Exception e) {
 
             }
@@ -1080,20 +1086,26 @@ public class VoyageResultActivity extends AppCompatActivity {
                             TextView TV11_2 = new TextView(this);
 
                             try {
-                                Glide.with(this).load(imageurl + voyageresult_p_thumbnail.get(j).get(0)).into(IV11);
-                                Glide.with(this).load(imageurl + voyageresult_photo.get(j)).into(CIV11);
 
-                                IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                                if (IV11 != null && imageurl != null & voyageresult_p_thumbnail != null && voyageresult_photo != null && Layout3_8_1_1 != null && TV11_1 != null && TV11_2 != null) {
 
-                                Layout3_8_1_1.setOrientation(LinearLayout.VERTICAL);
-                                Layout3_8_1_1.setFocusableInTouchMode(true);
+                                    Glide.with(this).load(imageurl + voyageresult_p_thumbnail.get(j).get(0)).into(IV11);
+                                    Glide.with(this).load(imageurl + voyageresult_photo.get(j)).into(CIV11);
 
-                                TV11_1.setText(voyageresult_description.get(j));
-                                TV11_1.setTextSize(14);
-                                TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                                TV11_2.setText(voyageresult_nickname.get(j) + "\n" + voyageresult_view_count.get(j) + " views");
-                                TV11_2.setTextSize(10);
-                                TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                    IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                    Layout3_8_1_1.setOrientation(LinearLayout.VERTICAL);
+                                    Layout3_8_1_1.setFocusableInTouchMode(true);
+
+                                    TV11_1.setText(voyageresult_description.get(j));
+                                    TV11_1.setTextSize(14);
+                                    TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                    TV11_2.setText(voyageresult_nickname.get(j) + "\n" + voyageresult_view_count.get(j) + " views");
+                                    TV11_2.setTextSize(10);
+                                    TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                                } throw new Exception("error");
+
                             } catch (Exception e) {
                                 Layout3_8_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
                             }
@@ -1218,20 +1230,26 @@ public class VoyageResultActivity extends AppCompatActivity {
                             TextView TV11_2 = new TextView(this);
 
                             try {
-                                Glide.with(this).load(imageurl + voyageresult_p_thumbnail.get(j).get(0)).into(IV11);
-                                Glide.with(this).load(imageurl + voyageresult_photo.get(j)).into(CIV11);
 
-                                IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+                                if (IV11 != null && imageurl != null & voyageresult_p_thumbnail != null && voyageresult_photo != null && Layout3_8_1_1 != null && TV11_1 != null && TV11_2 != null) {
 
-                                Layout3_8_1_1.setOrientation(LinearLayout.VERTICAL);
-                                Layout3_8_1_1.setFocusableInTouchMode(true);
+                                    Glide.with(this).load(imageurl + voyageresult_p_thumbnail.get(j).get(0)).into(IV11);
+                                    Glide.with(this).load(imageurl + voyageresult_photo.get(j)).into(CIV11);
 
-                                TV11_1.setText(voyageresult_description.get(j));
-                                TV11_1.setTextSize(14);
-                                TV11_1.setTextColor(Color.rgb(255, 255, 255));
-                                TV11_2.setText(voyageresult_nickname.get(j) + "\n" + voyageresult_view_count.get(j) + " views");
-                                TV11_2.setTextSize(10);
-                                TV11_2.setTextColor(Color.rgb(255, 255, 255));
+                                    IV11.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                                    Layout3_8_1_1.setOrientation(LinearLayout.VERTICAL);
+                                    Layout3_8_1_1.setFocusableInTouchMode(true);
+
+                                    TV11_1.setText(voyageresult_description.get(j));
+                                    TV11_1.setTextSize(14);
+                                    TV11_1.setTextColor(Color.rgb(255, 255, 255));
+                                    TV11_2.setText(voyageresult_nickname.get(j) + "\n" + voyageresult_view_count.get(j) + " views");
+                                    TV11_2.setTextSize(10);
+                                    TV11_2.setTextColor(Color.rgb(255, 255, 255));
+
+                                } throw new Exception("error");
+
                             } catch (Exception e) {
                                 Layout3_8_1_1_1.setBackgroundColor(Color.rgb(100, 100, 100));
                             }

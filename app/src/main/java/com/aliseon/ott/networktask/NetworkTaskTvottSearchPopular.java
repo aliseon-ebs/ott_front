@@ -127,20 +127,24 @@ public class NetworkTaskTvottSearchPopular extends AsyncTask<Void, Void, String>
 
                             try {
 
-                                thumbnail = thumbnail.replace("\\", "");
-                                thumbnail = thumbnail.replace("\"", "");
-                                thumbnail = thumbnail.replace("[", "");
-                                thumbnail = thumbnail.replace("]", "");
+                                if (thumbnail != null && voyage_c_thumbnail != null && voyage_p_thumbnail != null) {
 
-                                String[] thumbnail_result = thumbnail.split(",");
+                                    thumbnail = thumbnail.replace("\\", "");
+                                    thumbnail = thumbnail.replace("\"", "");
+                                    thumbnail = thumbnail.replace("[", "");
+                                    thumbnail = thumbnail.replace("]", "");
 
-                                for (int ii = 0; ii < thumbnail_result.length; ii++) {
+                                    String[] thumbnail_result = thumbnail.split(",");
 
-                                    voyage_c_thumbnail.add(thumbnail_result[ii]);
+                                    for (int ii = 0; ii < thumbnail_result.length; ii++) {
 
-                                }
+                                        voyage_c_thumbnail.add(thumbnail_result[ii]);
 
-                                voyage_p_thumbnail.add(voyage_c_thumbnail);
+                                    }
+
+                                    voyage_p_thumbnail.add(voyage_c_thumbnail);
+
+                                } throw new Exception("error");
 
 //                      throw new Exception(); //강제 에러 출력
                             } catch (Exception e) {
