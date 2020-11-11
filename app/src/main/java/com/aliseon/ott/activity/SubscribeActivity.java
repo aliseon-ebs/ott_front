@@ -874,8 +874,8 @@ public class SubscribeActivity extends AppCompatActivity {
 
             }
 
-            int jj = subscribe_voyage_list_p_thumbnail.size() / 4 + 1;
-            int y = subscribe_voyage_list_p_thumbnail.size() % 4;
+            int jj = subscribe_voyage_list_photo.size() / 4 + 1;
+            int y = subscribe_voyage_list_photo.size() % 4;
 
             int j = 0;
             for(int i = 0; i < jj; i++) {

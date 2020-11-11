@@ -81,12 +81,12 @@
                         android:layout_marginRight="5dp"
                         android:orientation="vertical"
                         >
-                        <com.aliseon.ott.CircleImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:id="@+id/creator_profile">
 
-                        </com.aliseon.ott.CircleImageView>
+                        </de.hdodenhof.circleimageview.CircleImageView>
                 </LinearLayout>
 
                 <LinearLayout
