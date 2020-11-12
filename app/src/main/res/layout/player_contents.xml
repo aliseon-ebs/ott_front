@@ -54,14 +54,14 @@
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                <com.aliseon.ott.CircleImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/contentcreatorimage"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="3.5dp">
 
-                </com.aliseon.ott.CircleImageView>
+                </de.hdodenhof.circleimageview.CircleImageView>
             </LinearLayout>
 
             <LinearLayout

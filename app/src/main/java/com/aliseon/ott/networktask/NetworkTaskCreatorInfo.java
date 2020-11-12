@@ -63,7 +63,7 @@ public class NetworkTaskCreatorInfo extends AsyncTask<Void, Void, String> {
                 JSONObject jo_creator_info = ja_creator_info_list.getJSONObject(0);
 
                 int id = jo_creator_info.getInt("id");
-                String name = jo_creator_info.getString("name");
+                String name = jo_creator_info.getString("nickname");
                 String photo = jo_creator_info.getString("photo");
                 String zip = jo_creator_info.getString("zip");
                 String city = jo_creator_info.getString("city");

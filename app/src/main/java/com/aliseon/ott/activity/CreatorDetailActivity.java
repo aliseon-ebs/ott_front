@@ -40,6 +40,7 @@ import static com.aliseon.ott.Variable.loginid;
 import static com.aliseon.ott.Variable.creatorapiload;
 import static com.aliseon.ott.Variable.creatordetailapiload;
 import static com.aliseon.ott.Variable.imageurl;
+import static com.aliseon.ott.Variable.param_creator_info;
 import static com.aliseon.ott.Variable.param_subscribe_activity;
 import static com.aliseon.ott.Variable.param_subscribe_to_id;
 import static com.aliseon.ott.Variable.param_subscribe_type;
@@ -648,6 +649,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             creatorapiload = 0;
                             refresh_num = 0;
+                            param_creator_info = creatordetail_list_id.get(j);
 //                            creator_id = follower_uid.get(j);
                             Intent intent = new Intent(CreatorDetailActivity.this, CreatorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);

@@ -41,6 +41,7 @@ import static com.aliseon.ott.Variable.mydetail_list_subscribeto_cnt;
 import static com.aliseon.ott.Variable.mydetailapiload;
 import static com.aliseon.ott.Variable.api_subscribe_to;
 import static com.aliseon.ott.Variable.creatorapiload;
+import static com.aliseon.ott.Variable.param_creator_info;
 import static com.aliseon.ott.Variable.param_subscribe_to_id;
 import static com.aliseon.ott.Variable.param_subscribe_type;
 import static com.aliseon.ott.Variable.param_subscribe_activity;
@@ -657,6 +658,7 @@ public class MyDetailActivity extends AppCompatActivity {
                             creatorapiload = 0;
                             refresh_num = 0;
 //                            creator_id = follower_uid.get(j);
+                            param_creator_info = mydetail_list_id.get(j);
                             Intent intent = new Intent(MyDetailActivity.this, CreatorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);

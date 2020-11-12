@@ -50,6 +50,13 @@ public class NetworkTaskCreatorSubscribeTo extends AsyncTask<Void, Void, String>
 
         if (s != null) {
             try {
+
+                creatordetail_list_id.clear();
+                creatordetail_list_nickname.clear();
+                creatordetail_list_photo.clear();
+                creatordetail_list_subscribeto_cnt.clear();
+                creatordetail_list_contents_cnt.clear();
+
                 JSONObject jo_creator_subscribefrom = new JSONObject(creator_subscribefrom_list);
                 String list = jo_creator_subscribefrom.getString("list");
 

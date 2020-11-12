@@ -62,6 +62,21 @@ public class NetworkTaskCreatorList extends AsyncTask<Void, Void, String> {
         if (s != null) {
             try {
 
+                creator_list_p_thumbnail.clear();
+                creator_list_c_thumbnail.clear();
+
+                creator_list_id.clear();
+                creator_list_user_id.clear();
+                creator_list_status.clear();
+                creator_list_create_at.clear();
+                creator_list_update_at.clear();
+                creator_list_like_count.clear();
+                creator_list_view_count.clear();
+                creator_list_comment_count.clear();
+                creator_list_nickname.clear();
+                creator_list_profile.clear();
+                creator_list_description.clear();
+
                 JSONObject jo_creator_list_total = new JSONObject(original_creator_list);
                 String creator_list_list = jo_creator_list_total.getString("list");
                 JSONArray ja_creator_list = new JSONArray(creator_list_list);
