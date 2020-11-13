@@ -50,6 +50,7 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.aliseon.ott.Variable.atrend_detail_product_id;
 import static com.aliseon.ott.Variable.creator_list_description;
 import static com.aliseon.ott.Variable.creator_list_id;
 import static com.aliseon.ott.Variable.loginid;
@@ -74,6 +75,7 @@ import static com.aliseon.ott.Variable.creatorprofile;
 import static com.aliseon.ott.Variable.creatortitle;
 import static com.aliseon.ott.Variable.imageurl;
 import static com.aliseon.ott.Variable.maintitle;
+import static com.aliseon.ott.Variable.param_product_id;
 import static com.aliseon.ott.Variable.player_feed_list_author_nickname;
 import static com.aliseon.ott.Variable.player_feed_list_author_picture;
 import static com.aliseon.ott.Variable.player_feed_list_content;
@@ -83,9 +85,11 @@ import static com.aliseon.ott.Variable.player_feed_list_views;
 import static com.aliseon.ott.Variable.playerfeedimage;
 import static com.aliseon.ott.Variable.popular_description;
 import static com.aliseon.ott.Variable.popular_detail_contents;
+import static com.aliseon.ott.Variable.popular_detail_item_id;
 import static com.aliseon.ott.Variable.popular_detail_item_name;
 import static com.aliseon.ott.Variable.popular_detail_item_price;
 import static com.aliseon.ott.Variable.popular_detail_item_thumbnail;
+import static com.aliseon.ott.Variable.popular_detail_product_id;
 import static com.aliseon.ott.Variable.popular_id;
 import static com.aliseon.ott.Variable.popular_related_contents;
 import static com.aliseon.ott.Variable.popular_related_description;
@@ -103,9 +107,11 @@ import static com.aliseon.ott.Variable.playerdataload;
 import static com.aliseon.ott.Variable.refresh_num;
 import static com.aliseon.ott.Variable.voyage_description;
 import static com.aliseon.ott.Variable.voyage_detail_contents;
+import static com.aliseon.ott.Variable.voyage_detail_item_id;
 import static com.aliseon.ott.Variable.voyage_detail_item_name;
 import static com.aliseon.ott.Variable.voyage_detail_item_price;
 import static com.aliseon.ott.Variable.voyage_detail_item_thumbnail;
+import static com.aliseon.ott.Variable.voyage_detail_product_id;
 import static com.aliseon.ott.Variable.voyage_id;
 import static com.aliseon.ott.Variable.voyage_related_contents;
 import static com.aliseon.ott.Variable.voyage_related_description;
@@ -113,6 +119,7 @@ import static com.aliseon.ott.Variable.voyage_related_id;
 import static com.aliseon.ott.Variable.param_atrend_id;
 import static com.aliseon.ott.Variable.select_voyage_id;
 import static com.aliseon.ott.Variable.playerfeedname;
+import static com.aliseon.ott.Variable.playerfeedid;
 import static com.aliseon.ott.Variable.playerfeedpricecomputed;
 import static com.aliseon.ott.Variable.voyageresult_description;
 import static com.aliseon.ott.Variable.voyageresult_id;
@@ -827,7 +834,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                                 startActivity(intent);
 
                             } else {
-//                                param_cart_id = playerfeedmipid.get(parentlist).get(j);
+                                param_product_id = playerfeedid.get(j);
                                 Intent intent = new Intent(AliseonOTTPlayerActivity.this, CartDetailActivity.class);
                                 intent.putExtra("cartdetail", j);
                                 intent.putExtra("playercartdetail", 1);
@@ -1021,6 +1028,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = atrend_related_thumbnail;
                         player_feed_list_id = atrend_related_id;
 
+                        playerfeedid = atrend_detail_product_id;
                         playerfeedimage = atrend_detail_product_thumbnail;
                         playerfeedname = atrend_detail_product_name;
                         playerfeedpricecomputed = atrend_detail_product_price;
@@ -1033,6 +1041,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = popular_related_contents;
                         player_feed_list_id = popular_related_id;
 
+                        playerfeedid = popular_detail_product_id;
                         playerfeedimage = popular_detail_item_thumbnail;
                         playerfeedname = popular_detail_item_name;
                         playerfeedpricecomputed = popular_detail_item_price;
@@ -1045,6 +1054,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_content = voyage_related_description;
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
+
+                        playerfeedid = voyage_detail_product_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1057,6 +1068,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_content = voyage_related_description;
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
+
+                        playerfeedid = voyage_detail_product_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1069,6 +1082,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_content = voyage_related_description;
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
+
+                        playerfeedid = voyage_detail_product_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1081,6 +1096,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_content = voyage_related_description;
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
+
+                        playerfeedid = voyage_detail_product_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1093,6 +1110,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_content = voyage_related_description;
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
+
+                        playerfeedid = voyage_detail_product_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1106,6 +1125,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = atrend_related_thumbnail;
                         player_feed_list_id = atrend_related_id;
 
+                        playerfeedid = atrend_detail_product_id;
                         playerfeedimage = atrend_detail_product_thumbnail;
                         playerfeedname = atrend_detail_product_name;
                         playerfeedpricecomputed = atrend_detail_product_price;
@@ -1119,6 +1139,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = popular_related_contents;
                         player_feed_list_id = popular_related_id;
 
+                        playerfeedid = popular_detail_item_id;
                         playerfeedimage = popular_detail_item_thumbnail;
                         playerfeedname = popular_detail_item_name;
                         playerfeedpricecomputed = popular_detail_item_price;
@@ -1132,6 +1153,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
 
+                        playerfeedid = voyage_detail_item_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1145,6 +1167,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
 
+                        playerfeedid = voyage_detail_item_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1158,6 +1181,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
 
+                        playerfeedid = voyage_detail_item_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1171,6 +1195,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
 
+                        playerfeedid = voyage_detail_item_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;
@@ -1184,6 +1209,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         player_feed_list_crop = voyage_related_contents;
                         player_feed_list_id = voyage_related_id;
 
+                        playerfeedid = voyage_detail_item_id;
                         playerfeedimage = voyage_detail_item_thumbnail;
                         playerfeedname = voyage_detail_item_name;
                         playerfeedpricecomputed = voyage_detail_item_price;

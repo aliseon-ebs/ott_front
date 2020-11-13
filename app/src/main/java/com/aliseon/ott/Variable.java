@@ -507,6 +507,7 @@ public class Variable {
     public static int select; /* 영상 index */
     public static int typeselector; /* Atrend, Popular, Voyage 구분 */
     public static int playerdataload = 0; /* API 로드 여부 */
+    public static ArrayList<String> playerfeedid;
     public static ArrayList<String> playerfeedimage;
     public static ArrayList<String> playerfeedname;
     public static ArrayList<String> playerfeedpricecomputed;
