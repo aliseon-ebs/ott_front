@@ -225,7 +225,11 @@ public class NetworkTaskTvottVoyageDetail extends AsyncTask<Void, Void, String> 
                     String like_count = jo_voyagerelateddata.getString("like_count");
                     String view_count = jo_voyagerelateddata.getString("view_count");
                     String comment_count = jo_voyagerelateddata.getString("comment_count");
-                    String thumbnail = jo_voyagerelateddata.getString("thumbnail");
+                    String thumbnail_list = jo_voyagerelateddata.getString("thumbnail");
+
+                    JSONArray ja_contents = new JSONArray(thumbnail_list);
+                    String thumbnail = ja_contents.getString(0);
+
                     Log.d(TAG2, "VoyageDetail RELATED LIST >> " + id + "/" + user_id + "/" + status + "/" + description + "/" + create_at + "/" + update_at + "/" + like_count + "/" + view_count + "/" + comment_count + "/" + thumbnail);
 
                     voyage_related_id.add(id);

@@ -649,6 +649,13 @@ public class CreatorActivity extends AppCompatActivity {
 
             Layout3_1_3.addView(Layout3_1_3_1);
 
+            BackArrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+
             if (loginid == creator_id) {
 
             } else {

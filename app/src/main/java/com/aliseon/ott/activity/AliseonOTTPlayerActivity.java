@@ -53,9 +53,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.aliseon.ott.Variable.atrend_detail_product_id;
 import static com.aliseon.ott.Variable.creator_list_description;
 import static com.aliseon.ott.Variable.creator_list_id;
+import static com.aliseon.ott.Variable.creator_list_nickname;
+import static com.aliseon.ott.Variable.creator_list_profile;
+import static com.aliseon.ott.Variable.creator_nickname;
+import static com.aliseon.ott.Variable.creator_photo;
 import static com.aliseon.ott.Variable.loginid;
 import static com.aliseon.ott.Variable.my_list_description;
 import static com.aliseon.ott.Variable.my_list_id;
+import static com.aliseon.ott.Variable.my_list_nickname;
+import static com.aliseon.ott.Variable.my_list_profile;
 import static com.aliseon.ott.Variable.nowurl;
 import static com.aliseon.ott.Variable.api_atrend_detail;
 import static com.aliseon.ott.Variable.api_tvott_popular_detail;
@@ -89,8 +95,12 @@ import static com.aliseon.ott.Variable.popular_detail_item_id;
 import static com.aliseon.ott.Variable.popular_detail_item_name;
 import static com.aliseon.ott.Variable.popular_detail_item_price;
 import static com.aliseon.ott.Variable.popular_detail_item_thumbnail;
+import static com.aliseon.ott.Variable.popular_detail_name;
+import static com.aliseon.ott.Variable.popular_detail_photo;
 import static com.aliseon.ott.Variable.popular_detail_product_id;
 import static com.aliseon.ott.Variable.popular_id;
+import static com.aliseon.ott.Variable.popular_nickname;
+import static com.aliseon.ott.Variable.popular_photo;
 import static com.aliseon.ott.Variable.popular_related_contents;
 import static com.aliseon.ott.Variable.popular_related_description;
 import static com.aliseon.ott.Variable.popular_related_id;
@@ -98,6 +108,8 @@ import static com.aliseon.ott.Variable.select;
 import static com.aliseon.ott.Variable.subscribe_checker;
 import static com.aliseon.ott.Variable.subscribe_voyage_list_description;
 import static com.aliseon.ott.Variable.subscribe_voyage_list_id;
+import static com.aliseon.ott.Variable.subscribe_voyage_list_name;
+import static com.aliseon.ott.Variable.subscribe_voyage_list_photo;
 import static com.aliseon.ott.Variable.subtitle;
 import static com.aliseon.ott.Variable.typeselector;
 import static com.aliseon.ott.Variable.childlist;
@@ -113,6 +125,8 @@ import static com.aliseon.ott.Variable.voyage_detail_item_price;
 import static com.aliseon.ott.Variable.voyage_detail_item_thumbnail;
 import static com.aliseon.ott.Variable.voyage_detail_product_id;
 import static com.aliseon.ott.Variable.voyage_id;
+import static com.aliseon.ott.Variable.voyage_nickname;
+import static com.aliseon.ott.Variable.voyage_photo;
 import static com.aliseon.ott.Variable.voyage_related_contents;
 import static com.aliseon.ott.Variable.voyage_related_description;
 import static com.aliseon.ott.Variable.voyage_related_id;
@@ -123,6 +137,8 @@ import static com.aliseon.ott.Variable.playerfeedid;
 import static com.aliseon.ott.Variable.playerfeedpricecomputed;
 import static com.aliseon.ott.Variable.voyageresult_description;
 import static com.aliseon.ott.Variable.voyageresult_id;
+import static com.aliseon.ott.Variable.voyageresult_nickname;
+import static com.aliseon.ott.Variable.voyageresult_photo;
 
 public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
@@ -260,7 +276,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
         TV1.setText(subtitle);
         TV2.setText(maintitle);
-        TV3.setText(creatortitle);
+//        TV3.setText(creatortitle);
         Glide.with(this).load(creatorprofile).into(CIV);
         TV4.setText(creatortitle);
         TV1.setTextSize(14);
@@ -516,6 +532,9 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         Log.d("불러온 카테고리 번호 : ", String.valueOf(typeselector));
         Log.d("불러온 Index 번호 : ", String.valueOf(select));
 
+        creatortitle = null;
+        creatorprofile = null;
+
 
         // 선택한 영상의 데이터
         switch (typeselector) {
@@ -530,34 +549,52 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 // Popular
                 maintitle = popular_description.get(select);
                 subtitle = popular_description.get(select);
+
+                creatortitle = popular_nickname.get(select);
+                creatorprofile = popular_photo.get(select);
                 break;
             case 3:
                 // Popular
                 maintitle = voyage_description.get(select);
                 subtitle = voyage_description.get(select);
+
+                creatortitle = voyage_nickname.get(select);
+                creatorprofile = voyage_photo.get(select);
                 break;
             case 4:
                 // My
                 maintitle = my_list_description.get(select);
                 subtitle = my_list_description.get(select);
+
+                creatortitle = my_list_nickname.get(select);
+                creatorprofile = my_list_profile.get(select);
                 break;
 
             case 5:
                 // Voyage result
                 maintitle = voyageresult_description.get(select);
                 subtitle = voyageresult_description.get(select);
+
+                creatortitle = voyageresult_nickname.get(select);
+                creatorprofile = voyageresult_photo.get(select);
                 break;
 
             case 6:
                 // Creator
                 maintitle = creator_list_description.get(select);
                 subtitle = creator_list_description.get(select);
+
+                creatortitle = creator_list_nickname.get(select);
+                creatorprofile = creator_list_profile.get(select);
                 break;
 
             case 7:
                 // Subscribe
                 maintitle = subscribe_voyage_list_description.get(select);
                 subtitle = subscribe_voyage_list_description.get(select);
+
+                creatortitle = subscribe_voyage_list_name.get(select);
+                creatorprofile = subscribe_voyage_list_photo.get(select);
                 break;
 
             case 11:
@@ -732,8 +769,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
         TV1.setText(subtitle);
         TV2.setText(maintitle);
-        TV3.setText(creatortitle);
-        Glide.with(this).load(creatorprofile).into(CIV);
+//        TV3.setText(creatortitle);
+        Glide.with(this).load(imageurl + creatorprofile).into(CIV);
         TV4.setText(creatortitle);
         TV1.setTextSize(14);
         TV2.setTextSize(18);
@@ -821,16 +858,24 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
+
                             if (prf.getString("userinfo_name", "").equals("empty")
                                     && prf.getString("userinfo_picture", "").equals("empty")
                                     && prf.getInt("user_id", 0) == 0) {
+
+                                playerdataload = 0;
 
                                 Intent intent = new Intent(AliseonOTTPlayerActivity.this, AliseonOTTPlayerCartLoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                 startActivity(intent);
 
                             } else {
+                                Log.d("WHAT ITEMS:::", String.valueOf(playerfeedid));
+                                Log.d("WHAT ITEMS:::", String.valueOf(playerfeedid.get(0)));
                                 param_product_id = playerfeedid.get(j);
+
+                                playerdataload = 0;
+
                                 Intent intent = new Intent(AliseonOTTPlayerActivity.this, CartDetailActivity.class);
                                 intent.putExtra("cartdetail", j);
                                 intent.putExtra("playercartdetail", 1);
@@ -881,10 +926,36 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         /* Atrend의 경우 닉네임이 없어 현재는 하단의 뷰가 닉네임, 프로필 이미지가 등장하지 않음.
                            예외처리 필요,
                         */
+                        contentcounter = i;
                         ContentsPlayer contentsplayer = new ContentsPlayer(getApplicationContext());
-                        LinearLayout mainlayout1 = (LinearLayout) contentsplayer.findViewById(R.id.contentlayout);
+                        LinearLayout mainlayout1 = (LinearLayout) contentsplayer.findViewById(R.id.mainlayout1);
+                        TextView contenttitle = (TextView) contentsplayer.findViewById(R.id.contenttitle);
+                        TextView contentcreatorinfo = (TextView) contentsplayer.findViewById(R.id.contentcreatorinfo);
 
                     final int j = i;
+
+                    contentsplayer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if (hasFocus == false)
+                            {
+                                Log.d("RESULT","UNLUCKY?");
+                                mainlayout1.setBackground(null);
+                                contenttitle.setTextColor(Color.rgb(255,255,255));
+                                contentcreatorinfo.setTextColor(Color.rgb(255,255,255));
+                            } else {
+                                Log.d("RESULT","LUCKY!!");
+                                mainlayout1.setBackgroundColor(Color.rgb(255,255,255));
+                                contenttitle.setTextColor(Color.rgb(0,0,0));
+                                contentcreatorinfo.setTextColor(Color.rgb(0,0,0));
+
+//                                scrollview.fullScroll(View.FOCUS_DOWN);
+//                                contentsplayer.requestFocus();
+
+                            }
+                        }
+                    });
+
                     contentsplayer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -1006,6 +1077,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1000) {
+
+                Log.d("REALLY :", "IS WORKING.");
 
                 playerdataload = 1;
 

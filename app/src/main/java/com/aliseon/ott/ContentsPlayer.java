@@ -35,6 +35,8 @@ public class ContentsPlayer extends LinearLayout {
     private void init(Context context){
 
         Log.d("DATA DEBUGGING", String.valueOf(contentcounter));
+        Log.d("DATA DEBUGGING", String.valueOf(player_feed_list_crop));
+        Log.d("DATA DEBUGGING", player_feed_list_crop.get(contentcounter));
 
         LayoutInflater inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.player_contents,this,true);
@@ -52,24 +54,6 @@ public class ContentsPlayer extends LinearLayout {
 
         TextView contentcreatorinfo = (TextView) findViewById(R.id.contentcreatorinfo);
 //        contentcreatorinfo.setText(player_feed_list_author_nickname.get(contentcounter) + "\n" + player_feed_list_views.get(contentcounter) + " views");
-
-        mainlayout1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus == false)
-                {
-                    mainlayout1.setBackground(null);
-                    contenttitle.setTextColor(Color.rgb(255,255,255));
-                    contentcreatorinfo.setTextColor(Color.rgb(255,255,255));
-                } else {
-                    mainlayout1.setBackgroundColor(Color.rgb(255,255,255));
-                    contenttitle.setTextColor(Color.rgb(0,0,0));
-                    contentcreatorinfo.setTextColor(Color.rgb(0,0,0));
-                }
-            }
-
-        });
 
 
 
