@@ -807,14 +807,10 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
         try {
 
-            if(cartplayerlayout != null) {
-
             // 영상의 상품 목록 표시
             for (int i = 0; i < playerfeedimage.size(); i++) {
 
                 try {
-
-                    if(cartplayerlayout != null) {
 
                     CartPlayer cartplayer = new CartPlayer(getApplicationContext());
 
@@ -840,14 +836,13 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                                 intent.putExtra("playercartdetail", 1);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                 startActivity(intent);
+
                             }
 
                         }
                     });
 
                     cartplayerlayout.addView(cartplayer);
-
-                    } throw new Exception("error");
 
                 } catch (Exception e) {
                     // 영상 플레이어에 수정 필요
@@ -858,8 +853,6 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 childlist++;
 
             }
-
-            } throw new Exception("error");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -873,8 +866,6 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         // Atrend일 경우 Related 영상 목록 표시
 
             try {
-
-                if (player_feed_list_content != null && contentscrollview != null) {
 
                 for (int i = 0; i < player_feed_list_content.size(); i++) {
 
@@ -911,15 +902,15 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (i == 0) {
-
-                        player.addListener(new Player.EventListener() {
-
-                            @Override
-                            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-
-                                switch (playbackState) {
-
+//                    if (i == 0) {
+//
+//                        player.addListener(new Player.EventListener() {
+//
+//                            @Override
+//                            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+//
+//                                switch (playbackState) {
+//
 //                                    case Player.STATE_ENDED:
 //                                        playernextvideohandler.post(new Runnable() {
 //                                            @Override
@@ -927,12 +918,12 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 //                                                playernextvideohandler.sendEmptyMessage(1000);
 //                                            }
 //                                        });
-
-                                }
-                            }
-                        });
-
-                    }
+//
+//                                }
+//                            }
+//                        });
+//
+//                    }
 
                         contentlayout.addView(contentsplayer);
 
@@ -952,8 +943,6 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                     }
                     contentcounter++;
                 }
-
-                } throw new Exception("error");
 
             } catch (Exception e) {
                 Log.d("ERRORLOG", "하단 컨텐츠 오류");
