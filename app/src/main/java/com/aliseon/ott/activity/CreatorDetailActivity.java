@@ -20,44 +20,49 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.MyList;
+import com.aliseon.ott.API.SubscribePost;
+import com.aliseon.ott.API.SubscribeTo;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskCreatorSubscribeTo;
-import com.aliseon.ott.networktask.NetworkTaskSubscribePost;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.aliseon.ott.Variable.CreatorDetailClear;
-import static com.aliseon.ott.Variable.creatordetail_list_contents_cnt;
-import static com.aliseon.ott.Variable.creatordetail_list_id;
-import static com.aliseon.ott.Variable.creatordetail_list_is_subscribe;
-import static com.aliseon.ott.Variable.creatordetail_list_nickname;
-import static com.aliseon.ott.Variable.creatordetail_list_photo;
-import static com.aliseon.ott.Variable.creatordetail_list_subscribeto_cnt;
-import static com.aliseon.ott.Variable.loginid;
-import static com.aliseon.ott.Variable.creatorapiload;
-import static com.aliseon.ott.Variable.creatordetailapiload;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.param_creator_info;
-import static com.aliseon.ott.Variable.param_subscribe_activity;
-import static com.aliseon.ott.Variable.param_subscribe_to_id;
-import static com.aliseon.ott.Variable.param_subscribe_type;
-import static com.aliseon.ott.Variable.refresh_num;
-import static com.aliseon.ott.Variable.api_subscribe_to;
-import static com.aliseon.ott.Variable.api_subscribe_post;
-import static com.aliseon.ott.Variable.subscribe_checker;
-import static com.aliseon.ott.Variable.subscribe_creator_list_id;
+import static com.aliseon.ott.Aliseon.CreatorDetailClear;
 
 public class CreatorDetailActivity extends AppCompatActivity {
     CircleImageView My;
+
+    private AliseonAPI AliseonAPI;
 
     public static CreatorActivityDetailHandler creatoractivitydetailhandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        int creatordetailapiload = aliseon.aliseon_getCreatorDetailAPIload();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
 
         if(creatordetailapiload == 0){
 
@@ -87,8 +92,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
         creatoractivitydetailhandler.post(new Runnable() {
             @Override
             public void run() {
-                NetworkTaskCreatorSubscribeTo networktaskcreatorsubscribeto = new NetworkTaskCreatorSubscribeTo(api_subscribe_to, null);
-                networktaskcreatorsubscribeto.execute();
+                SubscribeToPost();
             }
         });
 
@@ -267,6 +271,42 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        int loginid = aliseon.aliseon_getLoginid();
+
+        int refresh_num = aliseon.aliseon_getRefresh_num();
+
+        int creatorapiload = aliseon.aliseon_getCreatorAPIload();
+        int creatordetailapiload = aliseon.aliseon_getCreatorDetailAPIload();
+
+        ArrayList<Integer> creatordetail_list_id = aliseon.aliseon_getCreatordetail_list_id();
+        ArrayList<String> creatordetail_list_photo = aliseon.aliseon_getCreatordetail_list_photo();
+        ArrayList<String> creatordetail_list_nickname = aliseon.aliseon_getCreatordetail_list_nickname();
+        ArrayList<Integer> creatordeatil_list_subscribe = aliseon.aliseon_getCreatordetail_list_is_subscribe();
+        ArrayList<Integer> creatordetail_list_subscribeto_cnt = aliseon.aliseon_getCreatordetail_list_subscribeto_cnt();
+        ArrayList<Integer> creatordetail_list_contents_cnt = aliseon.aliseon_getCreatordetail_list_contents_cnt();
+
+        ArrayList<Integer> subscribe_creator_list_id = aliseon.aliseon_getSubscribe_creator_list_id();
+        int subscribe_checker = aliseon.aliseon_getSubscribe_checker();
+
+        int param_subscribe_to_id = aliseon.aliseon_getParam_subscribe_to_id();
+        int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
+        String param_subscribe_type = aliseon.aliseon_getParam_subscribe_type();
+
+        ArrayList<Integer> creatordetail_list_is_subscribe = aliseon.aliseon_getCreatordetail_list_is_subscribe();
+
+
 
         if (creatordetailapiload == 1) {
 
@@ -534,6 +574,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
                         creatordetail_list_is_subscribe.add(1);
 
+
                     }
 
                     final int j = i;
@@ -549,15 +590,14 @@ public class CreatorDetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                param_subscribe_to_id = creatordetail_list_id.get(j);
-                                param_subscribe_activity = 1;
-                                param_subscribe_type = "add";
+                                aliseon.aliseon_setParam_subscribe_to_id(creatordetail_list_id.get(j));
+                                aliseon.aliseon_setParam_subscribe_activity(1);
+                                aliseon.aliseon_setParam_subscribe_type("add");
 
                                 creatoractivitydetailhandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        NetworkTaskSubscribePost networktasksubscribepost = new NetworkTaskSubscribePost(api_subscribe_post, null);
-                                        networktasksubscribepost.execute();
+                                        SubscribePost();
                                     }
                                 });
 
@@ -574,15 +614,14 @@ public class CreatorDetailActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                param_subscribe_to_id = creatordetail_list_id.get(j);
-                                param_subscribe_activity = 1;
-                                param_subscribe_type = "delete";
+                                aliseon.aliseon_setParam_subscribe_to_id(creatordetail_list_id.get(j));
+                                aliseon.aliseon_setParam_subscribe_activity(1);
+                                aliseon.aliseon_setParam_subscribe_type("delete");
 
                                 creatoractivitydetailhandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        NetworkTaskSubscribePost networktasksubscribepost = new NetworkTaskSubscribePost(api_subscribe_post, null);
-                                        networktasksubscribepost.execute();
+                                        SubscribePost();
                                     }
                                 });
 
@@ -647,9 +686,10 @@ public class CreatorDetailActivity extends AppCompatActivity {
                     Layout4_2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            creatorapiload = 0;
-                            refresh_num = 0;
-                            param_creator_info = creatordetail_list_id.get(j);
+
+                            aliseon.aliseon_setCreatorAPIload(0);
+                            aliseon.aliseon_setRefresh_num(0);
+                            aliseon.aliseon_setParam_creator_info(creatordetail_list_id.get(j));
 //                            creator_id = follower_uid.get(j);
                             Intent intent = new Intent(CreatorDetailActivity.this, CreatorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -793,10 +833,99 @@ public class CreatorDetailActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        refresh_num = 0;
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        aliseon.aliseon_setRefresh_num(0);
 
         CreatorDetailClear();
         overridePendingTransition(0,0);
     }
 
+    private void SubscribeToPost() {
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int user_id = aliseon.aliseon_getParam_creator_info();
+
+        Call<SubscribeTo> call = AliseonAPI.SubscribeToPost(access_token, String.valueOf(user_id));
+
+        call.enqueue(new Callback<SubscribeTo>() {
+            @Override
+            public void onResponse(Call<SubscribeTo> call, Response<SubscribeTo> response) {
+
+                int creatordetailapiload = aliseon.aliseon_getCreatorDetailAPIload();
+
+                SubscribeTo postResponse = (SubscribeTo) response.body();
+
+                aliseon.aliseon_setCreatordetail_list_id(null);
+                aliseon.aliseon_setCreatordetail_list_nickname(null);
+                aliseon.aliseon_setCreatordetail_list_photo(null);
+                aliseon.aliseon_setCreatordetail_list_subscribeto_cnt(null);
+                aliseon.aliseon_setCreatordetail_list_contents_cnt(null);
+
+                ArrayList<Integer> creatordetail_list_id = new ArrayList<>();
+                ArrayList<String> creatordetail_list_nickname = new ArrayList<>();
+                ArrayList<String> creatordetail_list_photo = new ArrayList<>();
+                ArrayList<Integer> creatordetail_list_subscribeto_cnt = new ArrayList<>();
+                ArrayList<Integer> creatordetail_list_contents_cnt = new ArrayList<>();
+
+                for (int i = 0; i < postResponse.subscribe_to_list.size(); i++) {
+
+                    int id = postResponse.subscribe_to_list.get(i).getId();
+                    String nickname = postResponse.subscribe_to_list.get(i).getNickname();
+                    String photo = postResponse.subscribe_to_list.get(i).getPhoto();
+                    int subscribeto_cnt = postResponse.subscribe_to_list.get(i).getSubscribetoCnt();
+                    int contents_cnt = postResponse.subscribe_to_list.get(i).getContentsCnt();
+
+                    creatordetail_list_id.add(id);
+                    creatordetail_list_nickname.add(nickname);
+                    creatordetail_list_photo.add(photo);
+                    creatordetail_list_subscribeto_cnt.add(subscribeto_cnt);
+                    creatordetail_list_contents_cnt.add(contents_cnt);
+
+                }
+
+                aliseon.aliseon_setCreatordetail_list_id(creatordetail_list_id);
+                aliseon.aliseon_setCreatordetail_list_nickname(creatordetail_list_nickname);
+                aliseon.aliseon_setCreatordetail_list_photo(creatordetail_list_photo);
+                aliseon.aliseon_setCreatordetail_list_subscribeto_cnt(creatordetail_list_subscribeto_cnt);
+                aliseon.aliseon_setCreatordetail_list_contents_cnt(creatordetail_list_contents_cnt);
+
+                if (creatordetailapiload == 0) {
+                    aliseon.aliseon_setCreatorDetailAPIload(1);
+                    creatoractivitydetailhandler.sendEmptyMessage(1000);
+                } else if (creatordetailapiload == 1) {
+                    creatoractivitydetailhandler.sendEmptyMessage(800);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribeTo> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void SubscribePost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int user_id = aliseon.aliseon_getLoginid();
+        int to_user_id = aliseon.aliseon_getParam_subscribe_to_id();
+        String type = aliseon.aliseon_getParam_subscribe_type();
+
+        Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, String.valueOf(user_id), String.valueOf(to_user_id), type);
+
+        call.enqueue(new Callback<SubscribePost>() {
+            @Override
+            public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribePost> call, Throwable t) {
+
+            }
+        });
+    }
 }

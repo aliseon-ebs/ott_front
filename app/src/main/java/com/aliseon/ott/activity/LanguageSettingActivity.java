@@ -14,26 +14,24 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aliseon.ott.API.TvottLanguageSetting;
 import com.aliseon.ott.AdapterSpinner2;
 import com.aliseon.ott.AdapterSpinner3;
 import com.aliseon.ott.AdapterSpinner4;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskTvottLanguageSetting;
+
+//import com.aliseon.ott.networktask.NetworkTaskTvottLanguageSetting;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.aliseon.ott.Variable.logincountry;
-import static com.aliseon.ott.Variable.logincurrency;
-import static com.aliseon.ott.Variable.loginid;
-import static com.aliseon.ott.Variable.loginlanguage;
-import static com.aliseon.ott.Variable.api_usersetting;
-import static com.aliseon.ott.Variable.pref;
-import static com.aliseon.ott.Variable.subscribeapiload;
-import static com.aliseon.ott.Variable.cartapiload;
-import static com.aliseon.ott.Variable.myapiload;
-import static com.aliseon.ott.activity.LoadingActivity.setDefaultDataGuestLanguageSetting;
-import static com.aliseon.ott.activity.LoadingActivity.setDefaultDataUserLanguageSetting;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LanguageSettingActivity extends AppCompatActivity {
 
@@ -59,9 +57,26 @@ public class LanguageSettingActivity extends AppCompatActivity {
 
     private static String TAG2 = "Shared값 가져오기";
 
+    private AliseonAPI AliseonAPI;
+
+    SharedPreferences pref;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            Aliseon aliseon = (Aliseon) getApplicationContext();
+            String aliseonapi = aliseon.aliseon_getAliseonapi();
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(aliseonapi)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            AliseonAPI = retrofit.create(AliseonAPI.class);
+
+
+
             setContentView(R.layout.setting_language);
 
             pref = getSharedPreferences("login_session", MODE_PRIVATE);
@@ -70,13 +85,14 @@ public class LanguageSettingActivity extends AppCompatActivity {
                     && pref.getString("userinfo_picture", "").equals("empty")
                     && pref.getInt("user_id", 0) == 0) {
 
-                subscribeapiload = -1;
-                cartapiload = -1;
-                myapiload = -1;
+                aliseon.aliseon_setSubscribeAPIload(-1);
+                aliseon.aliseon_setCartAPIload(-1);
+                aliseon.aliseon_setMyAPIload(-1);
+
             } else {
-                subscribeapiload = 0;
-                cartapiload = 0;
-                myapiload = 0;
+                aliseon.aliseon_setSubscribeAPIload(0);
+                aliseon.aliseon_setCartAPIload(0);
+                aliseon.aliseon_setMyAPIload(0);
             }
 
             readData();
@@ -224,23 +240,24 @@ public class LanguageSettingActivity extends AppCompatActivity {
                         SpinnerSelectLanguage = spinner2.getSelectedItem().toString();
                         SpinnerSelectCountry = spinner3.getSelectedItem().toString();
                         SpinnerSelectCurrency = spinner4.getSelectedItem().toString();
-                        loginid = pref.getInt("user_id", 0);
+
+                        aliseon.aliseon_setLoginid(pref.getInt("user_id", 0));
 
                         SharedPreferences.Editor editor = pref.edit();
 
                         switch (SpinnerSelectLanguage) {
                             case "العربية":
-                                loginlanguage = "ar";
+                                aliseon.aliseon_setLoginlanguage("ar");
                                 editor.putString("language", "ar");
                                 editor.commit();
                                 break;
                             case "English":
-                                loginlanguage = "en";
+                                aliseon.aliseon_setLoginlanguage("en");
                                 editor.putString("language", "en");
                                 editor.commit();
                                 break;
                             case "한국어":
-                                loginlanguage = "ko";
+                                aliseon.aliseon_setLoginlanguage("ko");
                                 editor.putString("language", "ko");
                                 editor.commit();
                                 break;
@@ -248,27 +265,27 @@ public class LanguageSettingActivity extends AppCompatActivity {
 
                         switch (SpinnerSelectCountry) {
                             case "United Arab Emirates":
-                                logincountry = "AE";
+                                aliseon.aliseon_setLogincountry("AE");
                                 editor.putString("country", "AE");
                                 editor.commit();
                                 break;
                             case "Saudi Arabia":
-                                logincountry = "SA";
+                                aliseon.aliseon_setLogincountry("SA");
                                 editor.putString("country", "SA");
                                 editor.commit();
                                 break;
                             case "Korea, Republic of":
-                                logincountry = "KR";
+                                aliseon.aliseon_setLogincountry("KR");
                                 editor.putString("country", "KR");
                                 editor.commit();
                                 break;
                             case "Vietnam":
-                                logincountry = "VN";
+                                aliseon.aliseon_setLogincountry("VN");
                                 editor.putString("country", "VN");
                                 editor.commit();
                                 break;
                             case "Indonesia":
-                                logincountry = "ID";
+                                aliseon.aliseon_setLogincountry("ID");
                                 editor.putString("country", "ID");
                                 editor.commit();
                                 break;
@@ -276,42 +293,42 @@ public class LanguageSettingActivity extends AppCompatActivity {
 
                         switch (SpinnerSelectCurrency) {
                             case "AED":
-                                logincountry = "AED";
+                                aliseon.aliseon_setLogincurrency("AED");
                                 editor.putString("currency", "AED");
                                 editor.commit();
                                 break;
                             case "USD":
-                                logincountry = "USD";
+                                aliseon.aliseon_setLogincurrency("USD");
                                 editor.putString("currency", "USD");
                                 editor.commit();
                                 break;
                             case "KRW":
-                                logincountry = "KRW";
+                                aliseon.aliseon_setLogincurrency("KRW");
                                 editor.putString("currency", "KRW");
                                 editor.commit();
                                 break;
                             case "BDT":
-                                logincountry = "BDT";
+                                aliseon.aliseon_setLogincurrency("BDT");
                                 editor.putString("currency", "BDT");
                                 editor.commit();
                                 break;
                             case "EUR":
-                                logincountry = "EUR";
+                                aliseon.aliseon_setLogincurrency("EUR");
                                 editor.putString("currency", "EUR");
                                 editor.commit();
                                 break;
                             case "INR":
-                                logincountry = "INR";
+                                aliseon.aliseon_setLogincurrency("INR");
                                 editor.putString("currency", "INR");
                                 editor.commit();
                                 break;
                             case "NGN":
-                                logincountry = "NGN";
+                                aliseon.aliseon_setLogincurrency("NGN");
                                 editor.putString("currency", "NGN");
                                 editor.commit();
                                 break;
                             case "BRL":
-                                logincountry = "BRL";
+                                aliseon.aliseon_setLogincurrency("BRL");
                                 editor.putString("currency", "BRL");
                                 editor.commit();
                                 break;
@@ -342,23 +359,24 @@ public class LanguageSettingActivity extends AppCompatActivity {
                         SpinnerSelectLanguage = spinner2.getSelectedItem().toString();
                         SpinnerSelectCountry = spinner3.getSelectedItem().toString();
                         SpinnerSelectCurrency = spinner4.getSelectedItem().toString();
-                        loginid = pref.getInt("user_id", 0);
+
+                        aliseon.aliseon_setLoginid(pref.getInt("user_id", 0));
 
                         SharedPreferences.Editor editor = pref.edit();
 
                         switch (SpinnerSelectLanguage) {
                             case "العربية":
-                                loginlanguage = "ar";
+                                aliseon.aliseon_setLoginlanguage("ar");
                                 editor.putString("language", "ar");
                                 editor.commit();
                                 break;
                             case "English":
-                                loginlanguage = "en";
+                                aliseon.aliseon_setLoginlanguage("en");
                                 editor.putString("language", "en");
                                 editor.commit();
                                 break;
                             case "한국어":
-                                loginlanguage = "ko";
+                                aliseon.aliseon_setLoginlanguage("ko");
                                 editor.putString("language", "ko");
                                 editor.commit();
                                 break;
@@ -367,27 +385,27 @@ public class LanguageSettingActivity extends AppCompatActivity {
 
                         switch (SpinnerSelectCountry) {
                             case "United Arab Emirates":
-                                logincountry = "AE";
+                                aliseon.aliseon_setLogincountry("AE");
                                 editor.putString("country", "AE");
                                 editor.commit();
                                 break;
                             case "Saudi Arabia":
-                                logincountry = "SA";
+                                aliseon.aliseon_setLogincountry("SA");
                                 editor.putString("country", "SA");
                                 editor.commit();
                                 break;
                             case "Korea, Republic of":
-                                logincountry = "KR";
+                                aliseon.aliseon_setLogincountry("KR");
                                 editor.putString("country", "KR");
                                 editor.commit();
                                 break;
                             case "Vietnam":
-                                logincountry = "VN";
+                                aliseon.aliseon_setLogincountry("VN");
                                 editor.putString("country", "VN");
                                 editor.commit();
                                 break;
                             case "Indonesia":
-                                logincountry = "ID";
+                                aliseon.aliseon_setLogincountry("ID");
                                 editor.putString("country", "ID");
                                 editor.commit();
                                 break;
@@ -395,42 +413,42 @@ public class LanguageSettingActivity extends AppCompatActivity {
 
                         switch (SpinnerSelectCurrency) {
                             case "AED":
-                                logincurrency = "AED";
+                                aliseon.aliseon_setLogincurrency("AED");
                                 editor.putString("currency", "AED");
                                 editor.commit();
                                 break;
                             case "USD":
-                                logincurrency = "USD";
+                                aliseon.aliseon_setLogincurrency("USD");
                                 editor.putString("currency", "USD");
                                 editor.commit();
                                 break;
                             case "KRW":
-                                logincurrency = "KRW";
+                                aliseon.aliseon_setLogincurrency("KRW");
                                 editor.putString("currency", "KRW");
                                 editor.commit();
                                 break;
                             case "BDT":
-                                logincurrency = "BDT";
+                                aliseon.aliseon_setLogincurrency("BDT");
                                 editor.putString("currency", "BDT");
                                 editor.commit();
                                 break;
                             case "EUR":
-                                logincurrency = "EUR";
+                                aliseon.aliseon_setLogincurrency("EUR");
                                 editor.putString("currency", "EUR");
                                 editor.commit();
                                 break;
                             case "INR":
-                                logincurrency = "INR";
+                                aliseon.aliseon_setLogincurrency("INR");
                                 editor.putString("currency", "INR");
                                 editor.commit();
                                 break;
                             case "NGN":
-                                logincurrency = "NGN";
+                                aliseon.aliseon_setLogincurrency("NGN");
                                 editor.putString("currency", "NGN");
                                 editor.commit();
                                 break;
                             case "BRL":
-                                logincurrency = "BRL";
+                                aliseon.aliseon_setLogincurrency("BRL");
                                 editor.putString("currency", "BRL");
                                 editor.commit();
                                 break;
@@ -439,8 +457,7 @@ public class LanguageSettingActivity extends AppCompatActivity {
                         LanguagemHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                NetworkTaskTvottLanguageSetting networkTasktvottlanguagesetting = new NetworkTaskTvottLanguageSetting(api_usersetting, null);
-                                networkTasktvottlanguagesetting.execute();
+                                TvottLanguageSettingPost();
                             }
                         });
                     }
@@ -472,8 +489,18 @@ public class LanguageSettingActivity extends AppCompatActivity {
         }
     }
 
+    public void setDefaultDataGuestLanguageSetting() {
+
+    }
+
+    public void setDefaultDataUserLanguageSetting() {
+
+    }
+
     public void readData()
     {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
 //        pref = getSharedPreferences("login_session",MODE_PRIVATE);
 //        pref.getString("userinfo_name", "");
 //        pref.getString("userinfo_picture", "");
@@ -492,23 +519,57 @@ public class LanguageSettingActivity extends AppCompatActivity {
         Log.d(TAG2, "picture >>> " + pref.getString("userinfo_picture", ""));
         pref.getInt("user_id", 0);
         Log.d(TAG2, "id >>> " + pref.getInt("user_id", 0));
-        loginid = pref.getInt("user_id", 0);
+        aliseon.aliseon_setLoginid(pref.getInt("user_id", 0));
         pref.getString("language", "");
         Log.d(TAG2, "language >>> " + pref.getString("language", ""));
-        loginlanguage = pref.getString("language", "");
+        aliseon.aliseon_setLoginlanguage(pref.getString("language", ""));
         pref.getBoolean("selectaccount", true);
         Log.d(TAG2, "selectaccount >>> " + pref.getBoolean("selectaccount", true));
         pref.getString("country", "");
         Log.d(TAG2, "country >>> " + pref.getString("country", ""));
         pref.getString("currency", "");
         Log.d(TAG2, "currency >>> " + pref.getString("currency", ""));
-        logincurrency = pref.getString("currency", "");
+        aliseon.aliseon_setLogincurrency(pref.getString("currency", ""));
+
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(0,0);
+    }
+
+    private void TvottLanguageSettingPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int user_id = aliseon.aliseon_getLoginid();
+        String lang = aliseon.aliseon_getLoginlanguage();
+        String country = aliseon.aliseon_getLogincountry();
+        String currency = aliseon.aliseon_getLogincurrency();
+
+        int usersettingsettingapiload = aliseon.aliseon_getUsersettinglanguageAPIload();
+
+    Call<TvottLanguageSetting> call = AliseonAPI.TvottLanguageSettingPost(access_token, user_id, lang, country, currency);
+
+    call.enqueue(new Callback<TvottLanguageSetting>() {
+        @Override
+        public void onResponse(Call<TvottLanguageSetting> call, Response<TvottLanguageSetting> response) {
+
+            TvottLanguageSetting postResponse = (TvottLanguageSetting) response.body();
+
+            if (usersettingsettingapiload == 0) {
+                LanguagemHandler.sendEmptyMessage(1000);
+            } else if (usersettingsettingapiload == 1) {
+                LanguagemHandler.sendEmptyMessage(1000);
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<TvottLanguageSetting> call, Throwable t) {
+
+        }
+    });
     }
 
 }

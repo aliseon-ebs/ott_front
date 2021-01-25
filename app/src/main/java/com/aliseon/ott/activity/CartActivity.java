@@ -22,35 +22,31 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.Cart;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskTvottCart;
 import com.bumptech.glide.Glide;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.aliseon.ott.Variable.cart_items_p_product_id;
-import static com.aliseon.ott.Variable.logincurrency;
-import static com.aliseon.ott.Variable.cart_items_p_cart_id;
-import static com.aliseon.ott.Variable.cart_items_p_name;
-import static com.aliseon.ott.Variable.cart_items_p_option_value;
-import static com.aliseon.ott.Variable.cart_items_p_previous_price;
-import static com.aliseon.ott.Variable.cart_items_p_price;
-import static com.aliseon.ott.Variable.cart_items_p_thumbnail;
-import static com.aliseon.ott.Variable.cart_shop_id;
-import static com.aliseon.ott.Variable.cart_shop_photo;
-import static com.aliseon.ott.Variable.cart_shop_shop_name;
-import static com.aliseon.ott.Variable.cartapiload;
-import static com.aliseon.ott.Variable.api_cart;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.param_product_id;
+import com.aliseon.ott.API.Cart;
 
 public class CartActivity extends AppCompatActivity {
 
     public static CartActivityCartHandler cartactivitycarthandler;
     static CartActivityCartDeleteHandler cartactivitycartdeletehandler;
 
+    private AliseonAPI AliseonAPI;
     private static String TAG = "현재 url 가져오기";
 
     ImageView Cart;
@@ -59,6 +55,18 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+        Integer cartapiload = aliseon.aliseon_getCartAPIload();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
 
         if(cartapiload == 0) {
 
@@ -91,8 +99,7 @@ public class CartActivity extends AppCompatActivity {
             cartactivitycarthandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkTaskTvottCart networktasktvottcart = new NetworkTaskTvottCart(api_cart, null);
-                    networktasktvottcart.execute();
+                    CartPost();
                 }
             });
 
@@ -510,10 +517,10 @@ public class CartActivity extends AppCompatActivity {
                             @Override
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
-                                    Intent intent = new Intent(CartActivity.this, SettingUserManagementActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                    overridePendingTransition(0, 0);
+//                                    Intent intent = new Intent(CartActivity.this, SettingUserManagementActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                    startActivity(intent);
+//                                    overridePendingTransition(0, 0);
 //                finish();
                                 } else {
                                 }
@@ -532,6 +539,31 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+        Integer cartapiload = aliseon.aliseon_getCartAPIload();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        String logincurrency = aliseon.aliseon_getLogincurrency();
+
+        ArrayList<String> cart_shop_id = aliseon.aliseon_getCart_shop_id();
+        ArrayList<String> cart_shop_photo = aliseon.aliseon_getCart_shop_photo();
+        ArrayList<String> cart_shop_shop_name = aliseon.aliseon_getCart_shop_name();
+        ArrayList<ArrayList<String>> cart_items_p_cart_id = aliseon.aliseon_getCart_items_p_cart_id();
+        ArrayList<ArrayList<String>> cart_items_p_thumbnail = aliseon.aliseon_getCart_items_p_thumbnail();
+        ArrayList<ArrayList<String>> cart_items_p_name = aliseon.aliseon_getCart_items_p_name();
+        ArrayList<ArrayList<String>> cart_items_p_previous_price = aliseon.aliseon_getCart_items_p_previous_price();
+        ArrayList<ArrayList<String>> cart_items_p_price = aliseon.aliseon_getCart_items_p_price();
+        ArrayList<ArrayList<String>> cart_items_p_product_id = aliseon.aliseon_getCart_items_p_product_id();
+        ArrayList<ArrayList<String>> cart_items_p_option_value = aliseon.aliseon_getCart_items_p_price();
 
         if(cartapiload == 1){
 
@@ -793,6 +825,8 @@ public class CartActivity extends AppCompatActivity {
             Layout3.addView(Layout3_2);
             Layout3.addView(Layout3_3);
 
+            Log.d("CARTDATACHECK", String.valueOf(cart_shop_id));
+
             if (cart_shop_id.size() == 0) {
 
                 int i = 0;
@@ -985,8 +1019,11 @@ public class CartActivity extends AppCompatActivity {
                         Layout4_4_2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+
+//                                Aliseon aliseon =(Aliseon) getApplicationContext();
+
                                 Intent intent = new Intent(CartActivity.this, CartDetailActivity.class);
-                                param_product_id = cart_items_p_product_id.get(j).get(jj);
+                                aliseon.aliseon_setParam_product_id(cart_items_p_product_id.get(j).get(jj));
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                 startActivity(intent);
                                 overridePendingTransition(0, 0);
@@ -1142,10 +1179,10 @@ public class CartActivity extends AppCompatActivity {
                             @Override
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
-                                    Intent intent = new Intent(CartActivity.this, SettingUserManagementActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION| Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                    startActivity(intent);
-                                    overridePendingTransition(0, 0);
+//                                    Intent intent = new Intent(CartActivity.this, SettingUserManagementActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION| Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+//                                    startActivity(intent);
+//                                    overridePendingTransition(0, 0);
 //                finish();
                                 } else {
                                 }
@@ -1185,6 +1222,7 @@ public class CartActivity extends AppCompatActivity {
             // 다른 Thread에서 전달받은 Message 처리
             if (msg.what == 1000) {
                 Cart.requestFocus();
+                Log.d("CARTRESUME","TRUE");
                 onResume();
             }
         }
@@ -1198,6 +1236,141 @@ public class CartActivity extends AppCompatActivity {
                 onResume();
             }
         }
+    }
+
+    private void CartPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String user_id = String.valueOf(aliseon.aliseon_getLoginid());
+
+        Call<Cart> call = AliseonAPI.CartPost(access_token, user_id);
+
+        call.enqueue(new Callback<Cart>() {
+            @Override
+            public void onResponse(Call<Cart> call, Response<Cart> response) {
+
+                int cartapiload = aliseon.aliseon_getCartAPIload();
+
+                Log.d("CARTAPILOAD", String.valueOf(cartapiload));
+
+                Cart postResponse = (Cart) response.body();
+
+                ArrayList<String> cart_shop_id = new ArrayList<>();
+                ArrayList<String> cart_shop_photo = new ArrayList<>();
+                ArrayList<String> cart_shop_nickname = new ArrayList<>();
+                ArrayList<String> cart_shop_shop_name = new ArrayList<>();
+
+                ArrayList<ArrayList<String>> cart_items_p_cart_id = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_user_id = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_option_value = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_option_price = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_option_stock = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_product_id = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_status = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_vendor_id = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_name = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_thumbnail = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_previous_price = new ArrayList<ArrayList<String>>();
+                ArrayList<ArrayList<String>> cart_items_p_price = new ArrayList<ArrayList<String>>();
+
+                Log.d("CARTTESTasd", String.valueOf(postResponse));
+
+                try {
+
+                    Log.d("CARTTEST", String.valueOf(postResponse.cart_list.size()));
+
+                    for (int i = 0; i < postResponse.cart_list.size(); i++) {
+
+                        Log.d("CARTSTATUS", String.valueOf(i));
+                        Log.d("CARTSTATUSVA", postResponse.cart_list.get(i).getShop().getId());
+                        ArrayList<String> cart_items_c_cart_id = new ArrayList<>();
+                        ArrayList<String> cart_items_c_user_id = new ArrayList<>();
+                        ArrayList<String> cart_items_c_option_value = new ArrayList<>();
+                        ArrayList<String> cart_items_c_option_price = new ArrayList<>();
+                        ArrayList<String> cart_items_c_option_stock = new ArrayList<>();
+                        ArrayList<String> cart_items_c_product_id = new ArrayList<>();
+                        ArrayList<String> cart_items_c_status = new ArrayList<>();
+                        ArrayList<String> cart_items_c_vendor_id = new ArrayList<>();
+                        ArrayList<String> cart_items_c_name = new ArrayList<>();
+                        ArrayList<String> cart_items_c_thumbnail = new ArrayList<>();
+                        ArrayList<String> cart_items_c_ship = new ArrayList<>();
+                        ArrayList<String> cart_items_c_previous_price = new ArrayList<>();
+                        ArrayList<String> cart_items_c_price = new ArrayList<>();
+
+                        cart_shop_id.add(postResponse.cart_list.get(i).getShop().getId());
+                        cart_shop_photo.add(postResponse.cart_list.get(i).getShop().getPhoto());
+                        cart_shop_nickname.add(postResponse.cart_list.get(i).getShop().getNickname());
+                        cart_shop_shop_name.add(postResponse.cart_list.get(i).getShop().getShopName());
+
+                        for (int j = 0; j < postResponse.cart_list.get(i).getItems().size(); j++) {
+                            cart_items_c_cart_id.add(postResponse.cart_list.get(i).getItems().get(j).getId());
+//                    cart_items_c_user_id.add(postResponse.cart_list.get(i).getShop().)
+
+                            cart_items_c_option_value.add(postResponse.cart_list.get(i).getItems().get(j).getOptionValue());
+                            cart_items_c_option_price.add(postResponse.cart_list.get(i).getItems().get(j).getOptionPrice());
+                            cart_items_c_option_stock.add(postResponse.cart_list.get(i).getItems().get(j).getOptionStock());
+                            cart_items_c_product_id.add(postResponse.cart_list.get(i).getItems().get(j).getProductId());
+                            cart_items_c_status.add(postResponse.cart_list.get(i).getItems().get(j).getItem_Status());
+                            cart_items_c_vendor_id.add(postResponse.cart_list.get(i).getItems().get(j).getSellerId());
+                            cart_items_c_name.add(postResponse.cart_list.get(i).getItems().get(j).getName());
+                            cart_items_c_thumbnail.add(postResponse.cart_list.get(i).getItems().get(j).getThumbnail());
+//                    cart_items_c_ship
+                            cart_items_c_previous_price.add(postResponse.cart_list.get(i).getItems().get(j).getPreviousPrice());
+                            cart_items_c_price.add(postResponse.cart_list.get(i).getItems().get(j).getPrice());
+                        }
+
+                        cart_items_p_cart_id.add(cart_items_c_cart_id);
+                        cart_items_p_user_id.add(cart_items_c_user_id);
+                        cart_items_p_option_value.add(cart_items_c_option_value);
+                        cart_items_p_option_price.add(cart_items_c_option_price);
+                        cart_items_p_option_stock.add(cart_items_c_option_stock);
+                        cart_items_p_product_id.add(cart_items_c_product_id);
+                        cart_items_p_status.add(cart_items_c_status);
+                        cart_items_p_vendor_id.add(cart_items_c_vendor_id);
+                        cart_items_p_name.add(cart_items_c_name);
+                        cart_items_p_thumbnail.add(cart_items_c_thumbnail);
+                        cart_items_p_previous_price.add(cart_items_c_previous_price);
+                        cart_items_p_price.add(cart_items_c_price);
+
+
+                    }
+                } catch (Exception e) {
+
+                }
+
+                aliseon.aliseon_setCart_items_p_cart_id(cart_items_p_cart_id);
+                aliseon.aliseon_setCart_items_p_user_id(cart_items_p_user_id);
+                aliseon.aliseon_setCart_items_p_option_value(cart_items_p_option_value);
+                aliseon.aliseon_setCart_items_p_option_price(cart_items_p_option_price);
+                aliseon.aliseon_setCart_items_p_option_stock(cart_items_p_option_stock);
+                aliseon.aliseon_setCart_items_p_product_id(cart_items_p_product_id);
+                aliseon.aliseon_setCart_items_p_status(cart_items_p_status);
+                aliseon.aliseon_setCart_items_p_vendor_id(cart_items_p_vendor_id);
+                aliseon.aliseon_setCart_items_p_name(cart_items_p_name);
+                aliseon.aliseon_setCart_items_p_thumbnail(cart_items_p_thumbnail);
+                aliseon.aliseon_setCart_items_p_previous_price(cart_items_p_previous_price);
+                aliseon.aliseon_setCart_items_p_price(cart_items_p_price);
+
+                aliseon.aliseon_setCart_shop_id(cart_shop_id);
+                aliseon.aliseon_setCart_shop_photo(cart_shop_photo);
+                aliseon.aliseon_setCart_shop_nickname(cart_shop_nickname);
+                aliseon.aliseon_setCart_shop_name(cart_shop_shop_name);
+
+                if (cartapiload == 0) {
+                    aliseon.aliseon_setCartAPIload(1);
+                    cartactivitycarthandler.sendEmptyMessage(1000);
+
+                } else if (cartapiload == 1) {
+                    cartactivitycarthandler.sendEmptyMessage(800);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Cart> call, Throwable t) {
+
+            }
+        });
     }
 
 

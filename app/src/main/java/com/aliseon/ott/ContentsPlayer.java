@@ -1,11 +1,10 @@
 package com.aliseon.ott;
 
+import android.app.AppComponentFactory;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,12 +13,11 @@ import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.aliseon.ott.Variable.contentcounter;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.player_feed_list_content;
-import static com.aliseon.ott.Variable.player_feed_list_crop;
+import java.util.ArrayList;
 
 public class ContentsPlayer extends LinearLayout {
+
+    Aliseon aliseon = (Aliseon) getContext();
 
     public ContentsPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -33,6 +31,11 @@ public class ContentsPlayer extends LinearLayout {
         init(context);
     }
     private void init(Context context){
+
+        String imageurl = aliseon.aliseon_getImageURL();
+        int contentcounter = aliseon.aliseon_getContent_counter();
+        ArrayList<String> player_feed_list_crop = aliseon.aliseon_getPlayer_feed_list_crop();
+        ArrayList<String> player_feed_list_content = aliseon.aliseon_getPlayer_feed_list_content();
 
         Log.d("DATA DEBUGGING", String.valueOf(contentcounter));
         Log.d("DATA DEBUGGING", String.valueOf(player_feed_list_crop));

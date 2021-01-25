@@ -19,44 +19,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 
+import com.aliseon.ott.API.Categories;
+import com.aliseon.ott.API.Voyage;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskTvottSearchVoyage;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.aliseon.ott.Variable.loginlanguage;
-import static com.aliseon.ott.Variable.cate_number;
-import static com.aliseon.ott.Variable.keyword;
-import static com.aliseon.ott.Variable.voyageapiload;
-import static com.aliseon.ott.Variable.cate_name;
-import static com.aliseon.ott.Variable.category_num;
-import static com.aliseon.ott.Variable.category_id;
-import static com.aliseon.ott.Variable.voyagecategoryapiload;
-import static com.aliseon.ott.Variable.voyagefocusapiload;
-import static com.aliseon.ott.Variable.voyage_category_en;
-import static com.aliseon.ott.Variable.voyage_category_id;
-import static com.aliseon.ott.Variable.voyage_category_kr;
-import static com.aliseon.ott.Variable.voyage_comment_count;
-import static com.aliseon.ott.Variable.voyage_contents_id;
-import static com.aliseon.ott.Variable.voyage_contents_type;
-import static com.aliseon.ott.Variable.voyage_create_at;
-import static com.aliseon.ott.Variable.voyage_id;
-import static com.aliseon.ott.Variable.voyage_like_count;
-import static com.aliseon.ott.Variable.voyage_nickname;
-import static com.aliseon.ott.Variable.voyage_photo;
-import static com.aliseon.ott.Variable.voyage_description;
-import static com.aliseon.ott.Variable.voyage_p_thumbnail;
-import static com.aliseon.ott.Variable.voyage_product_id;
-import static com.aliseon.ott.Variable.voyage_status;
-import static com.aliseon.ott.Variable.voyage_update_at;
-import static com.aliseon.ott.Variable.voyage_user_id;
-import static com.aliseon.ott.Variable.voyage_view_count;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.api_voyage;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VoyageActivity extends AppCompatActivity {
 
@@ -66,38 +44,38 @@ public class VoyageActivity extends AppCompatActivity {
     ImageView Search;
     LinearLayout Layout3_0;
 
+    private AliseonAPI AliseonAPI;
+
     int iii = 0;
 
-    public static SearchActivityVoyageHandler searchactivityvoyagehandler;
+    SearchActivityVoyageHandler searchactivityvoyagehandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_all);
 
-//        cate_name.clear();
-//        cate_number.clear();
-//        cate_name.add(getString(R.string.all));
-//        cate_number.add("0");
-//
-//        voyage_id.clear();
-//        voyage_user_id.clear();
-//        voyage_product_id.clear();
-//        voyage_contents_id.clear();
-//        voyage_contents_type.clear();
-//        voyage_category_id.clear();
-//        voyage_status.clear();
-//        voyage_description.clear();
-//        voyage_create_at.clear();
-//        voyage_update_at.clear();
-//        voyage_like_count.clear();
-//        voyage_view_count.clear();
-//        voyage_comment_count.clear();
-//        voyage_category_en.clear();
-//        voyage_category_kr.clear();
-//        voyage_nickname.clear();
-//        voyage_photo.clear();
-//        voyage_p_thumbnail.clear();
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+
+        String keyword = aliseon.aliseon_getKeyword();
+
+        int voyageapiload = aliseon.aliseon_getVoyageAPIload();
+
+        ArrayList<String> voyage_photo = aliseon.aliseon_getVoyage_photo();
+        ArrayList<String> voyage_description = aliseon.aliseon_getVoyage_description();
+        ArrayList<String> voyage_nickname = aliseon.aliseon_getVoyage_nickname();
+        ArrayList<Integer> voyage_view_count = aliseon.aliseon_getVoyage_view_count();
+        ArrayList<ArrayList<String>> voyage_p_thumbnail = aliseon.aliseon_getVoyage_p_thumbnail();
+
+        String loginlanguage = aliseon.aliseon_getLoginlanguage();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
 
         SharedPreferences prf = getSharedPreferences("login_session", MODE_PRIVATE);
 
@@ -174,7 +152,7 @@ public class VoyageActivity extends AppCompatActivity {
             if (prf.getString("userinfo_picture", "").equals("empty")) {
                 My.setImageResource(R.drawable.noimg_profile);
             } else {
-                Glide.with(this).load(imageurl + prf.getString("userinfo_picture", "")).into(My);
+                Glide.with(this).load(aliseonapi + prf.getString("userinfo_picture", "")).into(My);
             }
 
             ImageView Setting = new ImageView(this);
@@ -523,14 +501,6 @@ public class VoyageActivity extends AppCompatActivity {
                         }
                     }
 
-//                ProgressBar progressbar = new ProgressBar(this);
-//                progressbar.setLayoutParams(new ViewGroup.LayoutParams(200, 200));
-//                LinearLayout Layout4_3 = new LinearLayout(this);
-//                LinearLayout.LayoutParams params4_3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 900);
-//                Layout4_3.setLayoutParams(params4_3);
-//                Layout4_3.setGravity(Gravity.CENTER);
-//                Layout4_3.addView(progressbar);
-//                Layout4.addView(Layout4_3);
                     Search.requestFocus();
 
                     setContentView(Layout1);
@@ -576,11 +546,11 @@ public class VoyageActivity extends AppCompatActivity {
 
                                 try {
 
-                                    if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                    if (aliseonapi != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
                                         TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
-                                        Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
-                                        Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
+                                        Glide.with(this).load(aliseonapi + voyage_p_thumbnail.get(j).get(0)).into(IV11);
+                                        Glide.with(this).load(aliseonapi + voyage_photo.get(j)).into(CIV11);
 
                                         IV11.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -648,7 +618,7 @@ public class VoyageActivity extends AppCompatActivity {
                                                         Intent intent = new Intent(VoyageActivity.this, HomeActivity.class);
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(intent);
-                                                        voyageapiload = 0;
+                                                        aliseon.aliseon_setVoyageAPIload(0);
 //                finish();
                                                     } else {
                                                         Home.setImageResource(R.drawable.home);
@@ -661,7 +631,7 @@ public class VoyageActivity extends AppCompatActivity {
                                                 public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                                     if (hasFocus) {
                                                         Home.setImageResource(R.drawable.home);
-//                                User.setImageResource(R.drawable.userselect);
+                                                        User.setImageResource(R.drawable.userselect);
                                                         Intent intent = new Intent(VoyageActivity.this, SubscribeActivity.class);
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(intent);
@@ -713,14 +683,14 @@ public class VoyageActivity extends AppCompatActivity {
                                 Layout4_2_1_1.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-//                        nowurl = imageurl + feed_video.get(0);
+//                        nowurl = aliseonapi + feed_video.get(0);
 //                        maintitle = feed_content.get(0);
 //                                        Intent intent = new Intent(SearchActivityAll.this, AliseonOTTPlayer.class);
-//                                        nowurl = imageurl + feedall_video.get(jjj);
+//                                        nowurl = aliseonapi + feedall_video.get(jjj);
 //                                        maintitle = voyageall_description.get(jjj);
 //                                        subtitle = voyageall_description.get(jjj);
 //                                        creatortitle = voyageall_name.get(jjj);
-//                                        creatorprofile = imageurl + voyageall_photo.get(jjj);
+//                                        creatorprofile = aliseonapi + voyageall_photo.get(jjj);
 //                                        creatorauthorid = voyageall_user_id.get(jjj);
 //                                        intent.putExtra("index", jjj + 1);
 //                                        intent.putExtra("category", 1);
@@ -754,11 +724,11 @@ public class VoyageActivity extends AppCompatActivity {
 
                                 try {
 
-                                    if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                    if (aliseonapi != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
                                             TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
-                                        Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
-                                        Glide.with(this).load(imageurl + voyage_photo.get(j)).into(CIV11);
+                                        Glide.with(this).load(aliseonapi + voyage_p_thumbnail.get(j).get(0)).into(IV11);
+                                        Glide.with(this).load(aliseonapi + voyage_photo.get(j)).into(CIV11);
 
                                         IV11.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -827,7 +797,7 @@ public class VoyageActivity extends AppCompatActivity {
                                                         Intent intent = new Intent(VoyageActivity.this, HomeActivity.class);
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                         startActivity(intent);
-                                                        voyageapiload = 0;
+                                                        aliseon.aliseon_setVoyageAPIload(0);
 //                finish();
                                                     } else {
                                                         Home.setImageResource(R.drawable.home);
@@ -883,29 +853,29 @@ public class VoyageActivity extends AppCompatActivity {
                                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                                         switch (actionId) {
                                             case EditorInfo.IME_ACTION_SEARCH:
-                                                keyword = edittext.getText().toString();
-                                                category_num = 0;
+                                                aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                                aliseon.aliseon_setCategory_num(0);
                                                 Intent intent = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                 startActivity(intent);
                                                 break;
                                             case EditorInfo.IME_ACTION_GO:
-                                                keyword = edittext.getText().toString();
-                                                category_num = 0;
+                                                aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                                aliseon.aliseon_setCategory_num(0);
                                                 Intent intent2 = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                                 intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                 startActivity(intent2);
                                                 break;
                                             case EditorInfo.IME_ACTION_NEXT:
-                                                keyword = edittext.getText().toString();
-                                                category_num = 0;
+                                                aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                                aliseon.aliseon_setCategory_num(0);
                                                 Intent intent3 = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                                 intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                 startActivity(intent3);
                                                 break;
                                             default:
-                                                keyword = edittext.getText().toString();
-                                                category_num = 0;
+                                                aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                                aliseon.aliseon_setCategory_num(0);
                                                 Intent intent4 = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                                 intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                 startActivity(intent4);
@@ -931,14 +901,14 @@ public class VoyageActivity extends AppCompatActivity {
                                 Layout4_2_1_1.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-//                        nowurl = imageurl + feed_video.get(0);
+//                        nowurl = aliseonapi + feed_video.get(0);
 //                        maintitle = feed_content.get(0);
 //                                        Intent intent = new Intent(SearchActivityAll.this, AliseonOTTPlayer.class);
-//                                        nowurl = imageurl + feedall_video.get(jjj);
+//                                        nowurl = aliseonapi + feedall_video.get(jjj);
 //                                        maintitle = voyageall_description.get(jjj);
 //                                        subtitle = voyageall_description.get(jjj);
 //                                        creatortitle = voyageall_name.get(jjj);
-//                                        creatorprofile = imageurl + voyageall_photo.get(jjj);
+//                                        creatorprofile = aliseonapi + voyageall_photo.get(jjj);
 //                                        creatorauthorid = voyageall_user_id.get(jjj);
 //                                        intent.putExtra("index", jjj + 1);
 //                                        intent.putExtra("category", 1);
@@ -961,8 +931,7 @@ public class VoyageActivity extends AppCompatActivity {
                     searchactivityvoyagehandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
-                            networktasktvottsearchvoyage.execute();
+                            VoyagePost();
                         }
                     });
                 }
@@ -982,9 +951,13 @@ public class VoyageActivity extends AppCompatActivity {
         super.onBackPressed();
         Search.requestFocus();
         overridePendingTransition(0, 0);
-        voyageapiload = 0;
-        voyagecategoryapiload = 0;
-        category_num = 0;
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
+        aliseon.aliseon_setVoyageAPIload(0);
+        aliseon.aliseon_setVoyageCategoryAPIload(0);
+        aliseon.aliseon_setCategory_num(0);
+
     }
 
     @Override
@@ -996,6 +969,24 @@ public class VoyageActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+
+        Log.d("리즘 돔", "리즘 돔");
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        int voyageapiload = aliseon.aliseon_getVoyageAPIload();
+        int voyagefocusapiload = aliseon.aliseon_getVoyageFocusAPIload();
+
+        String keyword = aliseon.aliseon_getKeyword();
+
+        ArrayList<String> voyage_id = aliseon.aliseon_getVoyage_id();
+        ArrayList<String> voyage_photo = aliseon.aliseon_getVoyage_photo();
+        ArrayList<String> voyage_description = aliseon.aliseon_getVoyage_description();
+        ArrayList<String> voyage_nickname = aliseon.aliseon_getVoyage_nickname();
+        ArrayList<Integer> voyage_view_count = aliseon.aliseon_getVoyage_view_count();
+        ArrayList<ArrayList<String>> voyage_p_thumbnail = aliseon.aliseon_getVoyage_p_thumbnail();
 
         if(voyageapiload == 1) {
 
@@ -1245,6 +1236,7 @@ public class VoyageActivity extends AppCompatActivity {
             Layout4_1_2.addView(logo);
 
             Log.d("create 통과", "true 통과");
+            Log.d("create 통과","working " + aliseon.aliseon_getVoyage_p_thumbnail().size());
             if (voyage_p_thumbnail.size() == 0) {
 
                 LinearLayout Layout4_3 = new LinearLayout(this);
@@ -1299,7 +1291,7 @@ public class VoyageActivity extends AppCompatActivity {
 
                             try {
 
-                                if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                if (aliseonapi != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
                                         TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
                                     Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
@@ -1372,7 +1364,7 @@ public class VoyageActivity extends AppCompatActivity {
                                                     Intent intent = new Intent(VoyageActivity.this, HomeActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                     startActivity(intent);
-                                                    voyageapiload = 0;
+                                                    aliseon.aliseon_setVoyageAPIload(0);
 //                finish();
                                                 } else {
                                                     Home.setImageResource(R.drawable.home);
@@ -1437,14 +1429,14 @@ public class VoyageActivity extends AppCompatActivity {
                             Layout4_2_1_1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                        nowurl = imageurl + feed_video.get(0);
+//                        nowurl = aliseonapi + feed_video.get(0);
 //                        maintitle = feed_content.get(0);
 
-//                                    nowurl = imageurl + feedall_video.get(jjj);
+//                                    nowurl = aliseonapi + feedall_video.get(jjj);
 //                                    maintitle = feedall_content.get(jjj);
 //                                    subtitle = feedall_content.get(jjj);
 //                                    creatortitle = feedall_author_nickname.get(jjj);
-//                                    creatorprofile = imageurl + feedall_author_picture.get(jjj);
+//                                    creatorprofile = aliseonapi + feedall_author_picture.get(jjj);
 //                                    creatorauthorid = feedall_author_id.get(jjj);
                                     Intent intent = new Intent(VoyageActivity.this, AliseonOTTPlayerActivity.class);
                                     intent.putExtra("index", jjj);
@@ -1481,7 +1473,7 @@ public class VoyageActivity extends AppCompatActivity {
 
                             try {
 
-                                if (imageurl != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
+                                if (aliseonapi != null && voyage_p_thumbnail != null && IV11 != null && voyage_photo != null && CIV11 != null && Layout4_2_1_1 != null &&
                                         TV11_1 != null && TV11_2 != null && voyage_description != null && voyage_nickname != null && voyage_view_count != null) {
 
                                     Glide.with(this).load(imageurl + voyage_p_thumbnail.get(j).get(0)).into(IV11);
@@ -1554,8 +1546,8 @@ public class VoyageActivity extends AppCompatActivity {
                                                     Intent intent = new Intent(VoyageActivity.this, HomeActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                     startActivity(intent);
-                                                    voyageapiload = 0;
-//                finish();
+                                                    aliseon.aliseon_setVoyageAPIload(0);
+
                                                 } else {
                                                     Home.setImageResource(R.drawable.home);
                                                 }
@@ -1571,7 +1563,7 @@ public class VoyageActivity extends AppCompatActivity {
                                                     Intent intent = new Intent(VoyageActivity.this, SubscribeActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                     startActivity(intent);
-//                finish();
+
                                                 } else {
                                                     User.setImageResource(R.drawable.user);
                                                 }
@@ -1610,29 +1602,29 @@ public class VoyageActivity extends AppCompatActivity {
                                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                                     switch (actionId) {
                                         case EditorInfo.IME_ACTION_SEARCH:
-                                            keyword = edittext.getText().toString();
-                                            category_num = 0;
+                                            aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                            aliseon.aliseon_setCategory_num(0);
                                             Intent intent = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent);
                                             break;
                                         case EditorInfo.IME_ACTION_GO:
-                                            keyword = edittext.getText().toString();
-                                            category_num = 0;
+                                            aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                            aliseon.aliseon_setCategory_num(0);
                                             Intent intent2 = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                             intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent2);
                                             break;
                                         case EditorInfo.IME_ACTION_NEXT:
-                                            keyword = edittext.getText().toString();
-                                            category_num = 0;
+                                            aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                            aliseon.aliseon_setCategory_num(0);
                                             Intent intent3 = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                             intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent3);
                                             break;
                                         default:
-                                            keyword = edittext.getText().toString();
-                                            category_num = 0;
+                                            aliseon.aliseon_setKeyword(edittext.getText().toString());
+                                            aliseon.aliseon_setCategory_num(0);
                                             Intent intent4 = new Intent(VoyageActivity.this, VoyageResultActivity.class);
                                             intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                             startActivity(intent4);
@@ -1694,9 +1686,9 @@ public class VoyageActivity extends AppCompatActivity {
                                     Intent intent = new Intent(VoyageActivity.this, HomeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     startActivity(intent);
-                                    voyageapiload = 0;
-                                    voyagecategoryapiload = 0;
-                                    category_num = 0;
+                                    aliseon.aliseon_setVoyageAPIload(0);
+                                    aliseon.aliseon_setVoyageCategoryAPIload(0);
+                                    aliseon.aliseon_setCategory_num(0);
 //                finish();
                                 } else {
                                     Home.setImageResource(R.drawable.home);
@@ -1785,7 +1777,16 @@ public class VoyageActivity extends AppCompatActivity {
 
             setContentView(Layout1);
 
+            ArrayList<String> cate_name = aliseon.aliseon_getVoyage_cate_name();
+
             for (int i = 0; i < cate_name.size(); i++) {
+
+                if (i == 0) {
+                    LinearLayout LayoutNull = new LinearLayout(this);
+                    LayoutNull.setLayoutParams(params3_1);
+                    LayoutNull.setPadding(40, 50, 0, 50);
+                    Layout3.addView(LayoutNull);
+                }
 
                 Layout3_0 = new LinearLayout(this);
                 Layout3_0.setLayoutParams(params3_1);
@@ -1820,79 +1821,61 @@ public class VoyageActivity extends AppCompatActivity {
 
                         if (hasFocus) {
 
+                            int voyageapiload = aliseon.aliseon_getVoyageAPIload();
+                            int voyagefocusapiload = aliseon.aliseon_getVoyageFocusAPIload();
+
                             Log.d("if 현재 id : ", "" + ii);
                             Log.d("if Voyage_id : ", "" + voyage_id);
                             TV2.setTextColor(Color.rgb(66, 66, 66));
                             Layout3_2.setBackgroundColor(Color.rgb(255, 255, 255));
 
-                            Log.d("focus searchapiload : ", "" + voyageapiload);
-                            Log.d("focus focusapiload : ", "" + voyagefocusapiload);
+                            Log.d("focus searchapiload : ", "" + aliseon.aliseon_getVoyageAPIload());
+                            Log.d("focus focusapiload : ", "" + aliseon.aliseon_getVoyageFocusAPIload());
+
                             Log.d("focus iii : ", "" + iii);
                             Log.d("focus ii : ", "" + ii);
 
                             if (iii != ii && voyageapiload == 0 && voyagefocusapiload == 0) {
 
-                                voyage_id.clear();
-                                voyage_user_id.clear();
-                                voyage_product_id.clear();
-                                voyage_contents_id.clear();
-                                voyage_contents_type.clear();
-                                voyage_category_id.clear();
-                                voyage_status.clear();
-                                voyage_description.clear();
-                                voyage_create_at.clear();
-                                voyage_update_at.clear();
-                                voyage_like_count.clear();
-                                voyage_view_count.clear();
-                                voyage_comment_count.clear();
-                                voyage_category_en.clear();
-                                voyage_category_kr.clear();
-                                voyage_nickname.clear();
-                                voyage_photo.clear();
-                                voyage_p_thumbnail.clear();
+                                aliseon.aliseon_clearVoyage();
 
                                 searchactivityvoyagehandler.post(new Runnable() {
                                     @Override
                                     public void run() {
 
+                                        int category_num = aliseon.aliseon_getCategory_num();
+                                        int category_id = aliseon.aliseon_getCategory_id();
+                                        ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
+
                                         category_num = ii;
                                         category_id = cate_number.get(ii);
-                                        voyagefocusapiload = 1;
-                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
-                                        networktasktvottsearchvoyage.execute();
+                                        aliseon.aliseon_setCategory_id(category_id);
+                                        VoyagePost();
+                                        aliseon.aliseon_setVoyageFocusAPIload(1);
+
+//                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
+//                                        networktasktvottsearchvoyage.execute();
 
                                     }
                                 });
                             } else if (iii == 0 && ii == 1 && voyageapiload == 0 && voyagefocusapiload == 0) {
 
-                                voyage_id.clear();
-                                voyage_user_id.clear();
-                                voyage_product_id.clear();
-                                voyage_contents_id.clear();
-                                voyage_contents_type.clear();
-                                voyage_category_id.clear();
-                                voyage_status.clear();
-                                voyage_description.clear();
-                                voyage_create_at.clear();
-                                voyage_update_at.clear();
-                                voyage_like_count.clear();
-                                voyage_view_count.clear();
-                                voyage_comment_count.clear();
-                                voyage_category_en.clear();
-                                voyage_category_kr.clear();
-                                voyage_nickname.clear();
-                                voyage_photo.clear();
-                                voyage_p_thumbnail.clear();
+                                aliseon.aliseon_clearVoyage();
 
                                 searchactivityvoyagehandler.post(new Runnable() {
                                     @Override
                                     public void run() {
 
+                                        int category_num = aliseon.aliseon_getCategory_num();
+                                        int category_id = aliseon.aliseon_getCategory_id();
+                                        ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
+
                                         category_num = ii;
                                         category_id = cate_number.get(ii);
-                                        voyagefocusapiload = 1;
-                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
-                                        networktasktvottsearchvoyage.execute();
+                                        aliseon.aliseon_setVoyageFocusAPIload(1);
+
+//                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
+//                                        networktasktvottsearchvoyage.execute();
 
                                     }
                                 });
@@ -1911,13 +1894,15 @@ public class VoyageActivity extends AppCompatActivity {
 
                             Log.d("else Voyage_id : ", "" + voyage_id);
 
-                            voyageapiload = 0;
+                            aliseon.aliseon_setVoyageAPIload(0);
 
                         }
                     }
                 });
 
-                if (i == category_num) {
+                int category_id = aliseon.aliseon_getCategory_id();
+
+                if (aliseon.aliseon_getVoyage_cate_number().get(i) == category_id) {
                     TV0.requestFocus();
                 }
 
@@ -1967,11 +1952,15 @@ public class VoyageActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
 
+            Aliseon aliseon = (Aliseon) getApplicationContext();
+
+            int category_num = aliseon.aliseon_getCategory_num();
+
             if (msg.what == 10000) {
 
                 onResume();
 
-                voyagefocusapiload = 0;
+                aliseon.aliseon_setVoyageFocusAPIload(0);
 
             }
             else if (msg.what == 0) {
@@ -1982,16 +1971,210 @@ public class VoyageActivity extends AppCompatActivity {
 
                 onResume();
 
-                voyagefocusapiload = 0;
+                aliseon.aliseon_setVoyageFocusAPIload(0);
 
             } else if (msg.what == category_num * 100){
 
                 onResume();
 
-                voyagefocusapiload = 0;
+                aliseon.aliseon_setVoyageFocusAPIload(0);
 
             }
         }
+    }
+
+    private void VoyagePost(){
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int userid = aliseon.aliseon_getLoginid();
+        int voyagestart = aliseon.aliseon_getVoyageStart();
+        int voyagelimit = aliseon.aliseon_getVoyageLimit();
+        int category_id = aliseon.aliseon_getCategory_id();
+
+        Log.d("TESTVALUEID", "ID:: "+category_id);
+        Log.d("TESTUSERID", "ID:: "+ userid);
+
+        Call<Voyage> call = AliseonAPI.VoyagePost(access_token, String.valueOf(userid), 1 , category_id, 0, 50, "en");
+
+        call.enqueue(new Callback<Voyage>() {
+            @Override
+            public void onResponse(Call<Voyage> call, Response<Voyage> response) {
+
+                int voyageapiload = aliseon.aliseon_getVoyageAPIload();
+                int voyagecategoryapiload = aliseon.aliseon_getVoyageCategoryAPIload();
+                int voyagefocusapiload = aliseon.aliseon_getVoyageFocusAPIload();
+                int category_num = aliseon.aliseon_getCategory_num();
+
+                Voyage postResponse = (Voyage) response.body();
+                Log.d("VOYAGELOG:", "COMPLETE================================================================================");
+                Log.d("STATUS:", "COMPLETE");
+                Log.d("Code : ", "" + response.code());
+                Log.d("Status : ", "" + postResponse.getStatus());
+                Log.d("Status : ", "" + postResponse.getList());
+                Log.d("VOYAGELOG:", "COMPLETE================================================================================");
+
+
+                ArrayList<String> voyage_id = new ArrayList<>();
+                ArrayList<String> voyage_user_id = new ArrayList<>();
+                ArrayList<String> voyage_product_id = new ArrayList<>();
+                ArrayList<String> voyage_contents_id = new ArrayList<>();
+                ArrayList<String> voyage_contents_type = new ArrayList<>();
+                ArrayList<String> voyage_category_id = new ArrayList<>();
+                ArrayList<Integer> voyage_status = new ArrayList<>();
+                ArrayList<String> voyage_description = new ArrayList<>();
+                ArrayList<String> voyage_create_at = new ArrayList<>();
+                ArrayList<String> voyage_update_at = new ArrayList<>();
+                ArrayList<Integer> voyage_like_count = new ArrayList<>();
+                ArrayList<Integer> voyage_view_count = new ArrayList<>();
+                ArrayList<Integer> voyage_comment_count = new ArrayList<>();
+                ArrayList<String> voyage_category_en = new ArrayList<>();
+                ArrayList<String> voyage_category_kr = new ArrayList<>();
+                ArrayList<String> voyage_nickname = new ArrayList<>();
+                ArrayList<String> voyage_photo = new ArrayList<>();
+                ArrayList<ArrayList<String>> voyage_p_thumbnail = new ArrayList<>();
+                ArrayList<String> voyage_c_thumbnail = new ArrayList<>();
+
+                for(int i = 0; i < postResponse.voyage_list.size(); i++) {
+
+                    voyage_id.add(postResponse.voyage_list.get(i).getId());
+                    voyage_user_id.add(postResponse.voyage_list.get(i).getUserId());
+                    voyage_product_id.add(postResponse.voyage_list.get(i).getProductId());
+                    voyage_contents_id.add(postResponse.voyage_list.get(i).getContentsId());
+                    voyage_contents_type.add(postResponse.voyage_list.get(i).getContentsType());
+                    voyage_category_id.add(postResponse.voyage_list.get(i).getCategoryId());
+                    voyage_status.add(postResponse.voyage_list.get(i).getStatus());
+                    voyage_description.add(postResponse.voyage_list.get(i).getDescription());
+                    voyage_create_at.add(postResponse.voyage_list.get(i).getCreateAt());
+                    voyage_update_at.add(postResponse.voyage_list.get(i).getUpdateAt());
+                    voyage_like_count.add(postResponse.voyage_list.get(i).getLikeCount());
+                    voyage_view_count.add(postResponse.voyage_list.get(i).getViewCount());
+                    voyage_comment_count.add(postResponse.voyage_list.get(i).getCommentCount());
+                    voyage_category_en.add(postResponse.voyage_list.get(i).getCategoryEn());
+                    voyage_category_kr.add(postResponse.voyage_list.get(i).getCategoryKo());
+                    voyage_nickname.add(postResponse.voyage_list.get(i).getNickname());
+                    voyage_photo.add(postResponse.voyage_list.get(i).getPhoto());
+                    voyage_p_thumbnail.add(postResponse.voyage_list.get(i).getThumbnail());
+
+                }
+
+                aliseon.aliseon_setVoyage_id(voyage_id);
+                aliseon.aliseon_setVoyage_user_id(voyage_user_id);
+                aliseon.aliseon_setVoyage_product_id(voyage_product_id);
+                aliseon.aliseon_setVoyage_contents_id(voyage_contents_id);
+                aliseon.aliseon_setVoyage_contents_type(voyage_contents_type);
+                aliseon.aliseon_setVoyage_cateogory_id(voyage_category_id);
+                aliseon.aliseon_setVoyage_status(voyage_status);
+                aliseon.aliseon_setVoyage_description(voyage_description);
+                aliseon.aliseon_setVoyage_create_at(voyage_create_at);
+                aliseon.aliseon_setVoyage_update_at(voyage_update_at);
+                aliseon.aliseon_setVoyage_like_count(voyage_like_count);
+                aliseon.aliseon_setVoyage_view_count(voyage_view_count);
+                aliseon.aliseon_setVoyage_comment_count(voyage_comment_count);
+                aliseon.aliseon_setVoyage_category_en(voyage_category_en);
+                aliseon.aliseon_setVoyage_category_kr(voyage_category_kr);
+                aliseon.aliseon_setVoyage_nickname(voyage_nickname);
+                aliseon.aliseon_setVoyage_photo(voyage_photo);
+                aliseon.aliseon_setVoyage_p_thumbnail(voyage_p_thumbnail);
+
+                aliseon.aliseon_setVoyageAPIload(1);
+
+                if(voyageapiload == 0 && voyagecategoryapiload == 0 && voyagefocusapiload == 0) {
+
+                    Log.d("1111 >>", "1111");
+
+                        CategoriesPost();
+
+                }else if(voyageapiload == 0 && voyagecategoryapiload == 1 && voyagefocusapiload == 1 && category_num == 0){
+
+                    Log.d("2222 >>", "2222");
+
+                    voyageapiload = 1;
+
+                    searchactivityvoyagehandler.sendEmptyMessage(10000);
+
+                } else {
+
+                    Log.d("3333 >>", "3333");
+
+                    voyageapiload = 1;
+
+                    searchactivityvoyagehandler.sendEmptyMessage(category_num * 100);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Voyage> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+                searchactivityvoyagehandler.sendEmptyMessage(800);
+
+            }
+
+        });
+
+    }
+
+    private void CategoriesPost(){
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String loginlanguage = aliseon.aliseon_getLoginlanguage();
+
+        Log.d("TESTLANG", loginlanguage);
+        Log.d("TESTLANG", access_token);
+
+        if (loginlanguage == "kr") {
+            aliseon.aliseon_setLoginlanguage("ko");
+            loginlanguage = "ko";
+        }
+
+        Call<Categories> call = AliseonAPI.CategoriesPost(access_token, loginlanguage, 1);
+
+        call.enqueue(new Callback<Categories>() {
+            @Override
+            public void onResponse(Call<Categories> call, Response<Categories> response) {
+
+                Categories postResponse = (Categories) response.body();
+                Log.d("Categories STATUS:", "COMPLETE");
+                Log.d("Categories Code : ", "" + response.code());
+//                Log.d("Categories Status : ", "" + postResponse.getStatus());
+
+                ArrayList<Integer> category_id = new ArrayList<>();
+                ArrayList<String> category_dept = new ArrayList<>();
+
+                for(int i = 0; i < postResponse.categories_list.size(); i++) {
+
+                    category_id.add(postResponse.categories_list.get(i).getId());
+                    category_dept.add(postResponse.categories_list.get(i).getDept1());
+
+                }
+
+                aliseon.aliseon_setVoyage_cate_number(category_id);
+                aliseon.aliseon_setVoyage_cate_name(category_dept);
+
+                aliseon.aliseon_setVoyageAPIload(1);
+                aliseon.aliseon_setVoyageCategoryAPIload(1);
+
+                searchactivityvoyagehandler.sendEmptyMessage(0);
+
+            }
+
+            @Override
+            public void onFailure(Call<Categories> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+                searchactivityvoyagehandler.sendEmptyMessage(800);
+
+                Log.d("리즘 못보냄", "");
+
+            }
+
+        });
+
     }
 
 }

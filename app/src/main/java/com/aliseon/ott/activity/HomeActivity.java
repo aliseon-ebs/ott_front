@@ -24,35 +24,24 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.Atrend;
+import com.aliseon.ott.API.Popular;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskAtrend;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.aliseon.ott.Variable.api_atrend;
-import static com.aliseon.ott.Variable.atrend_id;
-import static com.aliseon.ott.Variable.atrend_subtitle;
-import static com.aliseon.ott.Variable.atrend_summary;
-import static com.aliseon.ott.Variable.atrend_thumbnail;
-import static com.aliseon.ott.Variable.atrend_title;
-import static com.aliseon.ott.Variable.focusing;
-import static com.aliseon.ott.Variable.homeapiload;
-import static com.aliseon.ott.Variable.adduserapiload;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.popular_description;
-import static com.aliseon.ott.Variable.popular_nickname;
-import static com.aliseon.ott.Variable.popular_p_thumbnail;
-import static com.aliseon.ott.Variable.popular_photo;
-import static com.aliseon.ott.Variable.popular_product_id;
-import static com.aliseon.ott.Variable.popular_view_count;
-import static com.aliseon.ott.Variable.selected_num;
-import static com.aliseon.ott.Variable.title;
-import static com.aliseon.ott.Variable.loginid;
-import static com.aliseon.ott.Variable.logincurrency;
-import static com.aliseon.ott.Variable.loginlanguage;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static java.lang.System.exit;
 
 public class HomeActivity extends AppCompatActivity {
@@ -61,14 +50,14 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageView Home;
 
-    static HomeActivityTitleHandler homeactivitytitlehandler;
-    static HomeActivityAconHandler homeactivityaconhandler;
-    public static HomeActivityPopularHandler homeactivitypopularhandler;
-    static HomeActivityCategoriesHandler homeactivitycategorieshandler;
-    static HomeActivityPopularDetailHandler homeactivitypopulardetailhandler;
-    static HomeActivityAtrendDetailHandler homeactivityatrenddetailhandler;
+    private AliseonAPI AliseonAPI;
 
-    Intent intent = getIntent();
+    HomeActivityTitleHandler homeactivitytitlehandler;
+    HomeActivityAconHandler homeactivityaconhandler;
+    HomeActivityPopularHandler homeactivitypopularhandler;
+    HomeActivityPopularDetailHandler homeactivitypopulardetailhandler;
+    HomeActivityAtrendDetailHandler homeactivityatrenddetailhandler;
+
     Intent loginintent;
 
     ImageView banner;
@@ -84,16 +73,26 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        adduserapiload = 1;
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        int homeapiload = aliseon.aliseon_getHomeAPIload();
+
+        aliseon.aliseon_setAddUserAPIload(1);
 
         if(homeapiload == 0) {
 
             readData();
 
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(aliseonapi)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            AliseonAPI = retrofit.create(AliseonAPI.class);
+
             homeactivitytitlehandler = new HomeActivityTitleHandler();
             homeactivityaconhandler = new HomeActivityAconHandler();
             homeactivitypopularhandler = new HomeActivityPopularHandler();
-            homeactivitycategorieshandler = new HomeActivityCategoriesHandler();
             homeactivityatrenddetailhandler = new HomeActivityAtrendDetailHandler();
             homeactivitypopulardetailhandler = new HomeActivityPopularDetailHandler();
 
@@ -101,22 +100,21 @@ public class HomeActivity extends AppCompatActivity {
 
             switch (prf.getString("language", "")) {
 
-
                 case "kr":
-                    loginlanguage = "kr";
+                    aliseon.aliseon_setLoginlanguage("kr");
                     Locale lang1 = Locale.KOREAN;
                     Configuration config1 = new Configuration();
                     config1.locale = lang1;
                     getResources().updateConfiguration(config1, getResources().getDisplayMetrics());
                     break;
                 case "en":
-                    loginlanguage = "en";
+                    aliseon.aliseon_setLoginlanguage("en");
                     Locale lang2 = Locale.ENGLISH;
                     Configuration config2 = new Configuration();
                     config2.locale = lang2;
                     getResources().updateConfiguration(config2, getResources().getDisplayMetrics());
                 case "ar":
-                    loginlanguage = "ar";
+                    aliseon.aliseon_setLoginlanguage("ar");
                     Locale lang3 = Locale.ENGLISH;
                     Configuration config3 = new Configuration();
                     config3.locale = lang3;
@@ -128,8 +126,7 @@ public class HomeActivity extends AppCompatActivity {
             homeactivitypopularhandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkTaskAtrend networktaskatrend = new NetworkTaskAtrend(api_atrend, null);
-                    networktaskatrend.execute();
+                    AtrendPost();
                 }
             });
 
@@ -444,10 +441,10 @@ public class HomeActivity extends AppCompatActivity {
                             @Override
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
-                                    Intent intent = new Intent(HomeActivity.this, VoyageActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                    overridePendingTransition(0, 0);
+//                                    Intent intent = new Intent(HomeActivity.this, VoyageActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                    startActivity(intent);
+//                                    overridePendingTransition(0, 0);
                                 } else {
 
                                 }
@@ -460,10 +457,10 @@ public class HomeActivity extends AppCompatActivity {
                                 if (hasFocus) {
                                     Home.setImageResource(R.drawable.home);
 //                                User.setImageResource(R.drawable.userselect);
-                                    Intent intent = new Intent(HomeActivity.this, SubscribeActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                    overridePendingTransition(0, 0);
+//                                    Intent intent = new Intent(HomeActivity.this, SubscribeActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                    startActivity(intent);
+//                                    overridePendingTransition(0, 0);
 //                finish();
                                 } else {
                                     User.setImageResource(R.drawable.user);
@@ -487,27 +484,19 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        switch (focusing){
-            case -1 :
-                focusing = 0;
-                overridePendingTransition(0, 0);
-                break;
-            case 0 :
-                Home.requestFocus();
-                overridePendingTransition(0, 0);
-                break;
-//            case -2 :
-//                recreate();
-//                focusing = 0;
-//                break;
-        }
-    }
-
     public void readData()
     {
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+//        int loginid = aliseon.aliseon_getLoginid();
+//        String loginlanguage = aliseon.aliseon_getLoginlanguage();
+//        String logincountry = aliseon.aliseon_getLogincountry();
+//        String logincurrency = aliseon.aliseon_getLogincurrency();
+        int loginid;
+        String loginlanguage;
+        String logincountry;
+        String logincurrency;
+
         prf = getSharedPreferences("login_session",MODE_PRIVATE);
         prf.getString("userinfo_name", "");
         Log.d(TAG2, "info >>> " + prf.getString("userinfo_name", ""));
@@ -526,6 +515,11 @@ public class HomeActivity extends AppCompatActivity {
         prf.getString("currency", "");
         Log.d(TAG2, "currency >>> " + prf.getString("currency", ""));
         logincurrency = prf.getString("currency", "");
+
+        aliseon.aliseon_setLoginid(loginid);
+        aliseon.aliseon_setLoginlanguage(loginlanguage);
+        aliseon.aliseon_setLogincurrency(logincurrency);
+
     }
 
     class HomeActivityTitleHandler extends Handler {
@@ -533,15 +527,15 @@ public class HomeActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             // 다른 Thread에서 전달받은 Message 처리
             if (msg.what == 800) {
-                Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
 //                finish();
             }
             if (msg.what == 1000) {
-                Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
 //                finish();
             }
         }
@@ -587,28 +581,73 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        int homeapiload = aliseon.aliseon_getHomeAPIload();
+        String imageurl = aliseon.aliseon_getImageURL();
+
         if(homeapiload == 1) {
+
+            //Atrend
+            ArrayList<String> atrend_id = aliseon.aliseon_getAtrend_id();
+            ArrayList<String> atrend_user_id = aliseon.aliseon_getAtrend_user_id();
+            ArrayList<String> atrend_type = aliseon.aliseon_getAtrend_type();
+            ArrayList<String> atrend_product_id = aliseon.aliseon_getAtrend_product_id();
+            ArrayList<String> atrend_contents_id = aliseon.aliseon_getAtrend_contents_id();
+            ArrayList<String> atrend_title = aliseon.aliseon_getAtrend_title();
+            ArrayList<String> atrend_sub_title = aliseon.aliseon_getAtrend_sub_title();
+            ArrayList<String> atrend_description = aliseon.aliseon_getAtrend_description();
+            ArrayList<String> atrend_summary = aliseon.aliseon_getAtrend_summary();
+            ArrayList<Integer> atrend_view = aliseon.aliseon_getAtrend_view();
+            ArrayList<Integer> atrend_like = aliseon.aliseon_getAtrend_like();
+            ArrayList<String> atrend_color = aliseon.aliseon_getAtrend_color();
+            ArrayList<String> atrend_start_at = aliseon.aliseon_getAtrend_start_at();
+            ArrayList<String> atrend_create_at = aliseon.aliseon_getAtrend_create_at();
+            ArrayList<String> atrend_update_at = aliseon.aliseon_getAtrend_update_at();
+            ArrayList<String> atrend_opacity = aliseon.aliseon_getAtrend_opacity();
+            ArrayList<Integer> atrend_status = aliseon.aliseon_getAtrend_status();
+            ArrayList<String> atrend_background = aliseon.aliseon_getAtrend_background();
+            ArrayList<String> atrend_thumbnail = aliseon.aliseon_getAtrend_thumbnail();
+
+            //Popular
+            ArrayList<String> popular_id = aliseon.aliseon_getPopular_id();
+            ArrayList<String> popular_user_id = aliseon.aliseon_getPopular_user_id();
+            ArrayList<String> popular_product_id = aliseon.aliseon_getPopular_product_id();
+            ArrayList<String> popular_contents_id = aliseon.aliseon_getPopular_contents_id();
+            ArrayList<String> popular_contents_type = aliseon.aliseon_getPopular_contents_type();
+            ArrayList<String> popular_category_id = aliseon.aliseon_getPopular_category_id();
+            ArrayList<Integer> popular_status = aliseon.aliseon_getPopular_status();
+            ArrayList<String> popular_description = aliseon.aliseon_getPopular_description();
+            ArrayList<String> popular_create_at = aliseon.aliseon_getPopular_create_at();
+            ArrayList<String> popular_update_at = aliseon.aliseon_getPopular_update_at();
+            ArrayList<Integer> popular_like_count = aliseon.aliseon_getPopular_like_count();
+            ArrayList<Integer> popular_view_count = aliseon.aliseon_getPopular_view_count();
+            ArrayList<Integer> popular_comment_count = aliseon.aliseon_getPopular_comment_count();
+            ArrayList<String> popular_category_en = aliseon.aliseon_getPopular_category_en();
+            ArrayList<String> popular_category_kr = aliseon.aliseon_getPopular_category_kr();
+            ArrayList<String> popular_nickname = aliseon.aliseon_getPopular_nickname();
+            ArrayList<String> popular_photo = aliseon.aliseon_getPopular_photo();
+            ArrayList<ArrayList<String>> popular_p_thumbnail = aliseon.aliseon_getPopular_p_thumbnail();
 
             prf = getSharedPreferences("login_session", MODE_PRIVATE);
 
             switch (prf.getString("language", "")) {
 
-
                 case "kr":
-                    loginlanguage = "kr";
+                    aliseon.aliseon_setLoginlanguage("kr");
                     Locale lang1 = Locale.KOREAN;
                     Configuration config1 = new Configuration();
                     config1.locale = lang1;
                     getResources().updateConfiguration(config1, getResources().getDisplayMetrics());
                     break;
                 case "en":
-                    loginlanguage = "en";
+                    aliseon.aliseon_setLoginlanguage("en");
                     Locale lang2 = Locale.ENGLISH;
                     Configuration config2 = new Configuration();
                     config2.locale = lang2;
                     getResources().updateConfiguration(config2, getResources().getDisplayMetrics());
                 case "ar":
-                    loginlanguage = "ar";
+                    aliseon.aliseon_setLoginlanguage("ar");
                     Locale lang3 = Locale.ENGLISH;
                     Configuration config3 = new Configuration();
                     config3.locale = lang3;
@@ -741,7 +780,7 @@ public class HomeActivity extends AppCompatActivity {
             banner1.setTextColor(Color.rgb(255, 255, 255));
             banner2.setTextColor(Color.rgb(255, 255, 255));
             banner3.setTextColor(Color.rgb(255, 255, 255));
-            banner1.setText(atrend_subtitle.get(0));
+            banner1.setText(atrend_sub_title.get(0));
             banner2.setText(atrend_title.get(0));
             banner3.setText(atrend_summary.get(0));
             banner1.setTextSize(21);
@@ -1047,10 +1086,10 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                         if (hasFocus) {
-                            title = atrend_title.get(atrendcount);
+//                            title = atrend_title.get(atrendcount);
                             Glide.with(banner).load(imageurl + atrend_thumbnail.get(atrendcount)).into(banner);
                             Layout3_3_1_1.setBackgroundColor(Color.rgb(255, 255, 255));
-                            banner1.setText(atrend_subtitle.get(atrendcount));
+                            banner1.setText(atrend_sub_title.get(atrendcount));
                             banner2.setText(atrend_title.get(atrendcount));
                             banner3.setText(atrend_summary.get(atrendcount));
                             scrollview.smoothScrollTo(500, 0);
@@ -1065,6 +1104,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
+//                        Log.d("TESTATREND", String.valueOf(atrendcount));
                         Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
                         intent.putExtra("index", atrendcount);
                         intent.putExtra("category",1);
@@ -1498,10 +1538,10 @@ public class HomeActivity extends AppCompatActivity {
                                 if (hasFocus) {
                                     Home.setImageResource(R.drawable.home);
 //                                User.setImageResource(R.drawable.userselect);
-                                    Intent intent = new Intent(HomeActivity.this, SubscribeActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
-                                    overridePendingTransition(0, 0);
+//                                    Intent intent = new Intent(HomeActivity.this, SubscribeActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                    startActivity(intent);
+//                                    overridePendingTransition(0, 0);
 //                finish();
                                 } else{
                                     User.setImageResource(R.drawable.user);
@@ -1740,11 +1780,11 @@ public class HomeActivity extends AppCompatActivity {
 
 //                nowurl = imageurl + atrend_detail_maincontent.get(0);
 
-                Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
-                intent.putExtra("index", selected_num + 1);
-                intent.putExtra("category",0);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, AliseonOTTPlayerActivity.class);
+//                intent.putExtra("index", selected_num + 1);
+//                intent.putExtra("category",0);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
 
             }
         }
@@ -1772,21 +1812,244 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    class HomeActivityCategoriesHandler extends Handler{
+//    class HomeActivityCategoriesHandler extends Handler{
+//
+//        @Override
+//        public void handleMessage(Message msg){
+//
+//            if(msg.what == 1000){
+//                Home.requestFocus();
+//                Intent intent = new Intent(HomeActivity.this, VoyageActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
+//                overridePendingTransition(0, 0);
+//
+//            }
+//
+//        }
+//
+//    }
 
-        @Override
-        public void handleMessage(Message msg){
+    private void AtrendPost(){
 
-            if(msg.what == 1000){
-                Home.requestFocus();
-                Intent intent = new Intent(HomeActivity.this, VoyageActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int atrendstart = aliseon.aliseon_getAtrendStart();
+        int atrendlimit = aliseon.aliseon_getAtrendLimit();
+        String loginlanguage = aliseon.aliseon_getLoginlanguage();
+        String logincurrency = aliseon.aliseon_getLogincurrency();
+
+        Call<Atrend> call = AliseonAPI.AtrendPost(access_token, atrendstart, atrendlimit, loginlanguage, logincurrency, 1);
+
+        call.enqueue(new Callback<Atrend>() {
+            @Override
+            public void onResponse(Call<Atrend> call, Response<Atrend> response) {
+
+                Atrend postResponse = (Atrend) response.body();
+                Log.d("STATUS:", "COMPLETE");
+                Log.d("Code : ", "" + response.code());
+//                Log.d("Status : ", "" + postResponse.getStatus());
+
+                ArrayList<String> atrend_id = new ArrayList<>();
+                ArrayList<String> atrend_user_id = new ArrayList<>();
+                ArrayList<String> atrend_type = new ArrayList<>();
+                ArrayList<String> atrend_product_id = new ArrayList<>();
+                ArrayList<String> atrend_contents_id = new ArrayList<>();
+                ArrayList<String> atrend_title = new ArrayList<>();
+                ArrayList<String> atrend_subtitle = new ArrayList<>();
+                ArrayList<String> atrend_description = new ArrayList<>();
+                ArrayList<String> atrend_summary = new ArrayList<>();
+                ArrayList<Integer> atrend_view = new ArrayList<>();
+                ArrayList<Integer> atrend_like = new ArrayList<>();
+                ArrayList<String> atrend_color = new ArrayList<>();
+                ArrayList<String> atrend_start_at = new ArrayList<>();
+                ArrayList<String> atrend_create_at = new ArrayList<>();
+                ArrayList<String> atrend_update_at = new ArrayList<>();
+                ArrayList<String> atrend_opacity = new ArrayList<>();
+                ArrayList<Integer> atrend_status = new ArrayList<>();
+                ArrayList<String> atrend_background = new ArrayList<>();
+                ArrayList<String> atrend_thumbnail = new ArrayList<>();
+
+                for(int i = 0; i < postResponse.getList().getToday().size(); i++) {
+
+                    atrend_id.add(postResponse.getList().getToday().get(i).getId());
+                    atrend_user_id.add(postResponse.getList().getToday().get(i).getUser_id());
+                    atrend_type.add(postResponse.getList().getToday().get(i).getType());
+                    atrend_product_id.add(postResponse.getList().getToday().get(i).getProductId());
+                    atrend_contents_id.add(postResponse.getList().getToday().get(i).getContentsId());
+                    atrend_title.add(postResponse.getList().getToday().get(i).getTitle());
+                    atrend_subtitle.add(postResponse.getList().getToday().get(i).getSubTitle());
+                    atrend_description.add(postResponse.getList().getToday().get(i).getDescription());
+                    atrend_summary.add(postResponse.getList().getToday().get(i).getSummary());
+                    atrend_view.add(postResponse.getList().getToday().get(i).getView());
+                    atrend_like.add(postResponse.getList().getToday().get(i).getLike());
+                    atrend_color.add(postResponse.getList().getToday().get(i).getColor());
+                    atrend_start_at.add(postResponse.getList().getToday().get(i).getStartAt());
+                    atrend_create_at.add(postResponse.getList().getToday().get(i).getCreateAt());
+                    atrend_update_at.add(postResponse.getList().getToday().get(i).getUpdateAt());
+                    atrend_opacity.add(postResponse.getList().getToday().get(i).getOpacity());
+                    atrend_status.add(postResponse.getList().getToday().get(i).getStatus());
+                    atrend_background.add(postResponse.getList().getToday().get(i).getBackground());
+                    atrend_thumbnail.add(postResponse.getList().getToday().get(i).getThumbnail());
+
+                }
+
+                for(int i = 0; i < postResponse.getList().getLast().size(); i++) {
+
+                    atrend_id.add(postResponse.getList().getLast().get(i).getId());
+                    atrend_user_id.add(postResponse.getList().getLast().get(i).getUser_id());
+                    atrend_type.add(postResponse.getList().getLast().get(i).getType());
+                    atrend_product_id.add(postResponse.getList().getLast().get(i).getProductId());
+                    atrend_contents_id.add(postResponse.getList().getLast().get(i).getContentsId());
+                    atrend_title.add(postResponse.getList().getLast().get(i).getTitle());
+                    atrend_subtitle.add(postResponse.getList().getLast().get(i).getSubTitle());
+                    atrend_description.add(postResponse.getList().getLast().get(i).getDescription());
+                    atrend_summary.add(postResponse.getList().getLast().get(i).getSummary());
+                    atrend_view.add(postResponse.getList().getLast().get(i).getView());
+                    atrend_like.add(postResponse.getList().getLast().get(i).getLike());
+                    atrend_color.add(postResponse.getList().getLast().get(i).getColor());
+                    atrend_start_at.add(postResponse.getList().getLast().get(i).getStartAt());
+                    atrend_create_at.add(postResponse.getList().getLast().get(i).getCreateAt());
+                    atrend_update_at.add(postResponse.getList().getLast().get(i).getUpdateAt());
+                    atrend_opacity.add(postResponse.getList().getLast().get(i).getOpacity());
+                    atrend_status.add(postResponse.getList().getLast().get(i).getStatus());
+                    atrend_background.add(postResponse.getList().getLast().get(i).getBackground());
+                    atrend_thumbnail.add(postResponse.getList().getLast().get(i).getThumbnail());
+
+                }
+
+                aliseon.aliseon_setAtrend_id(atrend_id);
+                aliseon.aliseon_setAtrend_user_id(atrend_user_id);
+                aliseon.aliseon_setAtrend_type(atrend_type);
+                aliseon.aliseon_setAtrend_product_id(atrend_product_id);
+                aliseon.aliseon_setAtrend_contents_id(atrend_contents_id);
+                aliseon.aliseon_setAtrend_title(atrend_title);
+                aliseon.aliseon_setAtrend_sub_title(atrend_subtitle);
+                aliseon.aliseon_setAtrend_description(atrend_description);
+                aliseon.aliseon_setAtrend_summary(atrend_summary);
+                aliseon.aliseon_setAtrend_view(atrend_view);
+                aliseon.aliseon_setAtrend_like(atrend_like);
+                aliseon.aliseon_setAtrend_color(atrend_color);
+                aliseon.aliseon_setAtrend_start_at(atrend_start_at);
+                aliseon.aliseon_setAtrend_create_at(atrend_create_at);
+                aliseon.aliseon_setAtrend_update_at(atrend_update_at);
+                aliseon.aliseon_setAtrend_opacity(atrend_opacity);
+                aliseon.aliseon_setAtrend_status(atrend_status);
+                aliseon.aliseon_setAtrend_background(atrend_background);
+                aliseon.aliseon_setAtrend_thumbnail(atrend_thumbnail);
+
+                PopularPost();
 
             }
 
-        }
+            @Override
+            public void onFailure(Call<Atrend> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+//                LoadingmHandler.sendEmptyMessage(800);
+
+            }
+
+        });
+
+    }
+
+    private void PopularPost(){
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int popularstart = aliseon.aliseon_getPopularStart();
+        int popularlimit = aliseon.aliseon_getPopularLimit();
+
+        Call<Popular> call = AliseonAPI.PopularPost(access_token, "0", 0 , popularstart, popularlimit);
+
+        call.enqueue(new Callback<Popular>() {
+            @Override
+            public void onResponse(Call<Popular> call, Response<Popular> response) {
+
+                Popular postResponse = (Popular) response.body();
+                Log.d("STATUS:", "COMPLETE");
+                Log.d("Code : ", "" + response.code());
+                Log.d("Status : ", "" + postResponse.getStatus());
+
+                ArrayList<String> popular_id = new ArrayList<>();
+                ArrayList<String> popular_user_id = new ArrayList<>();
+                ArrayList<String> popular_product_id = new ArrayList<>();
+                ArrayList<String> popular_contents_id = new ArrayList<>();
+                ArrayList<String> popular_contents_type = new ArrayList<>();
+                ArrayList<String> popular_category_id = new ArrayList<>();
+                ArrayList<Integer> popular_status = new ArrayList<>();
+                ArrayList<String> popular_description = new ArrayList<>();
+                ArrayList<String> popular_create_at = new ArrayList<>();
+                ArrayList<String> popular_update_at = new ArrayList<>();
+                ArrayList<Integer> popular_like_count = new ArrayList<>();
+                ArrayList<Integer> popular_view_count = new ArrayList<>();
+                ArrayList<Integer> popular_comment_count = new ArrayList<>();
+                ArrayList<String> popular_category_en = new ArrayList<>();
+                ArrayList<String> popular_category_kr = new ArrayList<>();
+                ArrayList<String> popular_nickname = new ArrayList<>();
+                ArrayList<String> popular_photo = new ArrayList<>();
+                ArrayList<ArrayList<String>> popular_p_thumbnail = new ArrayList<>();
+                ArrayList<String> popular_c_thumbnail = new ArrayList<>();
+
+                for(int i = 0; i < postResponse.popular_list.size(); i++) {
+
+                    popular_id.add(postResponse.popular_list.get(i).getId());
+                    popular_user_id.add(postResponse.popular_list.get(i).getUserId());
+                    popular_product_id.add(postResponse.popular_list.get(i).getProductId());
+                    popular_contents_id.add(postResponse.popular_list.get(i).getContentsId());
+                    popular_contents_type.add(postResponse.popular_list.get(i).getContentsType());
+                    popular_category_id.add(postResponse.popular_list.get(i).getCategoryId());
+                    popular_status.add(postResponse.popular_list.get(i).getStatus());
+                    popular_description.add(postResponse.popular_list.get(i).getDescription());
+                    popular_create_at.add(postResponse.popular_list.get(i).getCreateAt());
+                    popular_update_at.add(postResponse.popular_list.get(i).getUpdateAt());
+                    popular_like_count.add(postResponse.popular_list.get(i).getLikeCount());
+                    popular_view_count.add(postResponse.popular_list.get(i).getViewCount());
+                    popular_comment_count.add(postResponse.popular_list.get(i).getCommentCount());
+                    popular_category_en.add(postResponse.popular_list.get(i).getCategoryEn());
+                    popular_category_kr.add(postResponse.popular_list.get(i).getCategoryKo());
+                    popular_nickname.add(postResponse.popular_list.get(i).getNickname());
+                    popular_photo.add(postResponse.popular_list.get(i).getPhoto());
+                    popular_p_thumbnail.add(postResponse.popular_list.get(i).getThumbnail());
+
+                }
+
+                aliseon.aliseon_setPopular_id(popular_id);
+                aliseon.aliseon_setPopular_user_id(popular_user_id);
+                aliseon.aliseon_setPopular_product_id(popular_product_id);
+                aliseon.aliseon_setPopular_contents_id(popular_contents_id);
+                aliseon.aliseon_setPopular_contents_type(popular_contents_type);
+                aliseon.aliseon_setPopular_category_id(popular_category_id);
+                aliseon.aliseon_setPopular_status(popular_status);
+                aliseon.aliseon_setPopular_description(popular_description);
+                aliseon.aliseon_setPopular_create_at(popular_create_at);
+                aliseon.aliseon_setPopular_update_at(popular_update_at);
+                aliseon.aliseon_setPopular_like_count(popular_like_count);
+                aliseon.aliseon_setPopular_view_count(popular_view_count);
+                aliseon.aliseon_setPopular_comment_count(popular_comment_count);
+                aliseon.aliseon_setPopular_category_en(popular_category_en);
+                aliseon.aliseon_setPopular_category_kr(popular_category_kr);
+                aliseon.aliseon_setPopular_nickname(popular_nickname);
+                aliseon.aliseon_setPopular_photo(popular_photo);
+                aliseon.aliseon_setPopular_p_thumbnail(popular_p_thumbnail);
+
+                aliseon.aliseon_setHomeAPIload(1);
+                homeactivitypopularhandler.sendEmptyMessage(1000);
+
+            }
+
+            @Override
+            public void onFailure(Call<Popular> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+//                LoadingmHandler.sendEmptyMessage(800);
+
+            }
+
+        });
 
     }
 

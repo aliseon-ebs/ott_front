@@ -20,34 +20,30 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.CreatorMyInfo;
+import com.aliseon.ott.API.MyList;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskMyInfo;
-import com.aliseon.ott.networktask.NetworkTaskMyList;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.aliseon.ott.Variable.api_my_info;
-import static com.aliseon.ott.Variable.api_my_list;
-import static com.aliseon.ott.Variable.my_list_description;
-import static com.aliseon.ott.Variable.my_list_id;
-import static com.aliseon.ott.Variable.my_list_nickname;
-import static com.aliseon.ott.Variable.my_list_p_thumbnail;
-import static com.aliseon.ott.Variable.my_list_profile;
-import static com.aliseon.ott.Variable.my_list_view_count;
-import static com.aliseon.ott.Variable.my_subscribeto_cnt;
-import static com.aliseon.ott.Variable.myapiload;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.my_desc;
-import static com.aliseon.ott.Variable.my_nickname;
-import static com.aliseon.ott.Variable.mystart;
-import static com.aliseon.ott.Variable.mylimit;
 
 public class MyActivity extends AppCompatActivity {
 
     private static String TAG = "현재 url 가져오기";
+
+
+    private AliseonAPI AliseonAPI;
 
     CircleImageView My;
 
@@ -59,7 +55,23 @@ public class MyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+        Integer myapiload = aliseon.aliseon_getMyAPIload();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        Log.d("MYPOST", String.valueOf(myapiload));
+
         if (myapiload == 0) {
+
+            Log.d("MYPOST", "API is 0");
 
         SharedPreferences prf = getSharedPreferences("login_session", MODE_PRIVATE);
 
@@ -88,8 +100,7 @@ public class MyActivity extends AppCompatActivity {
             myactivityhandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkTaskMyInfo networktaskmyinfo = new NetworkTaskMyInfo(api_my_info, null);
-                    networktaskmyinfo.execute();
+                    MyInfoPost();
                 }
             });
 
@@ -169,7 +180,7 @@ public class MyActivity extends AppCompatActivity {
             if (prf.getString("userinfo_picture", "").equals("empty")) {
                 My.setImageResource(R.drawable.noimg_profile);
             } else {
-                Glide.with(this).load(prf.getString("userinfo_picture", "")).into(My);
+                Glide.with(this).load(imageurl + prf.getString("userinfo_picture", "")).into(My);
             }
 
             Setting.setImageResource(R.drawable.setting);
@@ -406,6 +417,33 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+        Integer myapiload = aliseon.aliseon_getMyAPIload();
+
+        String my_id = aliseon.aliseon_getMy_id();
+        String my_nickname = aliseon.aliseon_getMy_nickname();
+        String my_photo = aliseon.aliseon_getMy_photo();
+        String my_desc = aliseon.aliseon_getMy_desc();
+        String my_subscribeto_cnt = aliseon.aliseon_getMy_subscribeto_cnt();
+        ArrayList<ArrayList<String>> my_list_p_thumbnail = aliseon.aliseon_getMy_list_p_thumbnail();
+        ArrayList<String> my_list_profile = aliseon.aliseon_getMy_list_profile();
+        ArrayList<String> my_list_nickname = aliseon.aliseon_getMy_list_nickname();
+        ArrayList<String> my_list_description = aliseon.aliseon_getMy_list_description();
+        ArrayList<Integer> my_list_view_count = aliseon.aliseon_getMy_list_view_count();
+        int mystart = aliseon.aliseon_getMystart();
+        int mylimit = aliseon.aliseon_getMylimit();
+
+        ArrayList<String> my_list_id = aliseon.aliseon_getMy_list_id();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
 
         if(myapiload == 1) {
 
@@ -658,7 +696,9 @@ public class MyActivity extends AppCompatActivity {
             TV1.setPadding(30, 0, 0, 0);
             TV1.setText(my_nickname);
 
-            if (!my_desc.contains("null")) {
+            Log.d("VALUEERRORTEST", "ASD : " + my_desc);
+
+            if (my_desc != null) {
                 TV2.setText(my_desc);
             }
 
@@ -1021,6 +1061,7 @@ public class MyActivity extends AppCompatActivity {
 //                            intent.putExtra("category",0);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //                            startActivity(intent);
+
                                 Intent intent = new Intent(MyActivity.this, AliseonOTTPlayerActivity.class);
                                 intent.putExtra("index", jjj);
                                 intent.putExtra("category",4);
@@ -1059,6 +1100,10 @@ public class MyActivity extends AppCompatActivity {
                         myactivitycontentsloadinghandler.post(new Runnable() {
                             @Override
                             public void run() {
+
+                                int mystart = aliseon.aliseon_getMystart();
+                                int mylimit = aliseon.aliseon_getMylimit();
+
                                 progressbar.setVisibility(View.VISIBLE);
                                 if(mystart == 0){
                                     mystart = mystart + 12;
@@ -1066,8 +1111,8 @@ public class MyActivity extends AppCompatActivity {
                                     mystart = mystart + 8;
                                 }
                                 mylimit = 12;
-                                NetworkTaskMyList networktaskmylist = new NetworkTaskMyList(api_my_list, null);
-                                networktaskmylist.execute();
+//                                NetworkTaskMyList networktaskmylist = new NetworkTaskMyList(api_my_list, null);
+//                                networktaskmylist.execute();
                             }
                         });
 
@@ -1206,5 +1251,210 @@ public class MyActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(0,0);
+    }
+
+    private void MyInfoPost() {
+
+        Log.d("MYPOSTRUN", "YES IT IS");
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        Integer user_id = aliseon.aliseon_getLoginid();
+
+        Log.d("MYPOSTRUN", "USER ID : " + user_id);
+        Log.d("MYPOSTRUN", "ACCESSTOKEN : " + access_token);
+
+        Call<CreatorMyInfo> call = AliseonAPI.CreatorMyInfoPost(access_token, String.valueOf(user_id));
+
+        call.enqueue(new Callback<CreatorMyInfo>() {
+            @Override
+            public void onResponse(Call<CreatorMyInfo> call, Response<CreatorMyInfo> response) {
+
+                Log.d("MYPOSTAPI", "MYINFORUN");
+
+                Integer myapiload = aliseon.aliseon_getMyAPIload();
+
+                CreatorMyInfo postResponse = (CreatorMyInfo) response.body();
+
+                Log.d("MYPOSTAPI", String.valueOf(postResponse));
+
+                try {
+
+                    String id = postResponse.creator_my_list.getId();
+                    String nickname = postResponse.creator_my_list.getNickname();
+                    String photo = postResponse.creator_my_list.getPhoto();
+                    String zip = postResponse.creator_my_list.getZip();
+                    String city = postResponse.creator_my_list.getCity();
+                    String state = postResponse.creator_my_list.getState();
+                    String address = postResponse.creator_my_list.getAddress();
+                    String subscribeto_cnt = String.valueOf(postResponse.creator_my_list.getSubscribetoCnt());
+                    String contents_cnt = String.valueOf(postResponse.creator_my_list.getContentsCnt());
+                    String desc = postResponse.creator_my_list.getDesc();
+
+                    aliseon.aliseon_setMy_id(id);
+                    aliseon.aliseon_setMy_nickname(nickname);
+                    aliseon.aliseon_setMy_photo(photo);
+                    aliseon.aliseon_setMy_zip(zip);
+                    aliseon.aliseon_setMy_city(city);
+                    aliseon.aliseon_setMy_state(state);
+                    aliseon.aliseon_setMy_address(address);
+                    aliseon.aliseon_setMy_subscribeto_cnt(subscribeto_cnt);
+                    aliseon.aliseon_setMy_contents_cnt(contents_cnt);
+                    aliseon.aliseon_setMy_desc(desc);
+
+                    Log.d("MyInfoDATA", "내정보: " + id + "/" + nickname + "/" + photo + "/" + zip + "/" + city + "/" + state + "/" + address + "/" + subscribeto_cnt + "/" + contents_cnt + "/" + desc);
+
+                    Log.d("MYPOST","APILOADCHECK " + myapiload);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                if (myapiload == 0) {
+                    MyListPost();
+
+                } else if (myapiload == 1) {
+                    myactivityhandler.sendEmptyMessage(800);
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<CreatorMyInfo> call, Throwable t) {
+                Log.d("MYPOSTAPI", "ERROR=================================");
+                Log.d("MYPOSTAPI", String.valueOf(t));
+                Log.d("MYPOSTAPI", "ERROR=================================");
+            }
+        });
+    }
+
+    private void MyListPost() {
+
+        Log.d("MYPOSTRUN", "FROM LIST POST YES");
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        Integer user_id = aliseon.aliseon_getLoginid();
+        Integer mystart = aliseon.aliseon_getMystart();
+        Integer mylimit = aliseon.aliseon_getMylimit();
+
+        // 다른 Activity와 같은 API를 사용함, 혼동 가능성 있으니 주의
+        Call<MyList> call = AliseonAPI.MyListPost(access_token, String.valueOf(user_id), 1, 0, mystart, mylimit);
+
+        call.enqueue(new Callback<MyList>() {
+
+            @Override
+            public void onResponse(Call<MyList> call, Response<MyList> response) {
+
+                Integer myapiload = aliseon.aliseon_getMyAPIload();
+
+                MyList postResponse = (MyList) response.body();
+
+                ArrayList<String> my_list_id = new ArrayList<>();
+                ArrayList<String> my_list_user_id = new ArrayList<>();
+                ArrayList<Integer> my_list_status = new ArrayList<>();
+                ArrayList<String> my_list_description = new ArrayList<>();
+                ArrayList<String> my_list_create_at = new ArrayList<>();
+                ArrayList<String> my_list_update_at = new ArrayList<>();
+                ArrayList<Integer> my_list_like_count  = new ArrayList<>();
+                ArrayList<Integer> my_list_view_count  = new ArrayList<>();
+                ArrayList<Integer> my_list_comment_count  = new ArrayList<>();
+                ArrayList<String> my_list_nickname  = new ArrayList<>();
+                ArrayList<String> my_list_profile = new ArrayList<>();
+                ArrayList<ArrayList<String>> my_list_p_thumbnail= new ArrayList<ArrayList<String>>();
+
+
+                try {
+                    for (int i = 0; i < postResponse.my_list.size(); i++) {
+
+                        ArrayList<String> my_list_c_thumbnail = new ArrayList<>();
+
+                        String id = postResponse.my_list.get(i).getId();
+                        String user_id = postResponse.my_list.get(i).getUserId();
+                        Integer status = postResponse.my_list.get(i).getStatus();
+                        String description = postResponse.my_list.get(i).getDescription();
+                        String create_at = postResponse.my_list.get(i).getCreateAt();
+                        String update_at = postResponse.my_list.get(i).getUpdateAt();
+                        Integer like_count = postResponse.my_list.get(i).getLikeCount();
+                        Integer view_count = postResponse.my_list.get(i).getViewCount();
+                        Integer comment_count = postResponse.my_list.get(i).getCommentCount();
+                        String nickname = postResponse.my_list.get(i).getNickname();
+                        String profile = postResponse.my_list.get(i).getProfile();
+                        ArrayList<String> c_thumbnail = postResponse.my_list.get(i).getThumbnail();
+
+                        my_list_id.add(id);
+                        my_list_user_id.add(user_id);
+                        my_list_status.add(status);
+
+                        if (description.length() > 25) {
+                            my_list_description.add(description.substring(0, 25) + "...");
+                        } else {
+                            my_list_description.add(description);
+                        }
+
+                        my_list_create_at.add(create_at);
+                        my_list_update_at.add(update_at);
+                        my_list_like_count.add(like_count);
+                        my_list_view_count.add(view_count);
+                        my_list_comment_count.add(comment_count);
+                        my_list_nickname.add(nickname);
+                        my_list_profile.add(profile);
+
+                        try {
+                            if (c_thumbnail != null) {
+                                for (int ii = 0; ii < c_thumbnail.size(); ii++) {
+                                    String thumbnail = c_thumbnail.get(ii);
+                                    my_list_c_thumbnail.add(thumbnail);
+                                }
+                                my_list_p_thumbnail.add(my_list_c_thumbnail);
+
+                            } else {
+                                my_list_p_thumbnail.add(my_list_c_thumbnail);
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                aliseon.aliseon_setMy_list_id(my_list_id);
+                aliseon.aliseon_setMy_list_user_id(my_list_user_id);
+                aliseon.aliseon_setMy_list_status(my_list_status);
+                aliseon.aliseon_setMy_list_description(my_list_description);
+                aliseon.aliseon_setMy_list_create_at(my_list_create_at);
+                aliseon.aliseon_setMy_list_update_at(my_list_update_at);
+                aliseon.aliseon_setMy_list_like_count(my_list_like_count);
+                aliseon.aliseon_setMy_list_view_count(my_list_view_count);
+                aliseon.aliseon_setMy_list_comment_count(my_list_comment_count);
+                aliseon.aliseon_setMy_list_nickname(my_list_nickname);
+                aliseon.aliseon_setMy_list_profile(my_list_profile);
+                aliseon.aliseon_setMy_list_p_thumbnail(my_list_p_thumbnail);
+
+                if (myapiload == 0) {
+                    aliseon.aliseon_setMyAPIload(1);
+                    myactivityhandler.sendEmptyMessage(1000);
+                } else if (myapiload == 1) {
+                    myactivitycontentsloadinghandler.sendEmptyMessage(1000);
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<MyList> call, Throwable t) {
+
+            }
+
+        });
+
+
     }
 }

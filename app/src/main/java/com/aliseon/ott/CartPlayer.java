@@ -10,16 +10,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import static com.aliseon.ott.Variable.childlist;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.logincurrency;
-import static com.aliseon.ott.Variable.playerfeedimage;
-import static com.aliseon.ott.Variable.playerfeedname;
-import static com.aliseon.ott.Variable.playerfeedpricecomputed;
+import java.util.ArrayList;
 
 public class CartPlayer extends LinearLayout{
 
     public ImageView cartimage;
+
+    Aliseon aliseon = (Aliseon) getContext();
 
     public CartPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,6 +31,17 @@ public class CartPlayer extends LinearLayout{
         init(context);
     }
     private void init(Context context){
+
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        int childlist = aliseon.aliseon_getChild_list();
+
+        String logincurrency = aliseon.aliseon_getLogincurrency();
+
+        ArrayList<String> playerfeedimage = aliseon.aliseon_getPlayer_feed_list_crop();
+        ArrayList<String> playerfeedname = aliseon.aliseon_getPlayer_feed_list_author_nickname();
+        ArrayList<String> playerfeedpricecomputed = aliseon.aliseon_Playerfeedpricecomputed();
+
         LayoutInflater inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.player_cart,this,true);
 

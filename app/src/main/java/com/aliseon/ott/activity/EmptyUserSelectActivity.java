@@ -18,6 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
 import com.bumptech.glide.Glide;
 
@@ -26,11 +28,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.aliseon.ott.Variable.userinfo;
-import static com.aliseon.ott.Variable.userinfouid;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EmptyUserSelectActivity extends AppCompatActivity {
+
+        AliseonAPI AliseonAPI;
 
         private ArrayList<String> user_cate;
 
@@ -42,6 +45,20 @@ public class EmptyUserSelectActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_user_account_useraccountmanagement);
+
+            Aliseon aliseon = (Aliseon) getApplicationContext();
+            String aliseonapi = aliseon.aliseon_getAliseonapi();
+            String imageurl = aliseon.aliseon_getImageURL();
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(aliseonapi)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            AliseonAPI = retrofit.create(AliseonAPI.class);
+
+            ArrayList<String> userinfo = aliseon.aliseon_getTvott_userinfo();
+            ArrayList<Integer> userinfouid = aliseon.aliseon_getTvott_userinfouid();
 
             readData();
 

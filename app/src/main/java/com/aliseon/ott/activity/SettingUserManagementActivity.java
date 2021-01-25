@@ -22,10 +22,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.TvottUsers;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskUsersChange1;
-import com.aliseon.ott.networktask.NetworkTaskUsersChange2;
-import com.aliseon.ott.networktask.NetworkTaskUsersChange3;
 import com.bumptech.glide.Glide;
 
 
@@ -33,13 +33,15 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.aliseon.ott.Variable.loginlanguage;
-import static com.aliseon.ott.Variable.loginid;
-import static com.aliseon.ott.Variable.logincurrency;
-import static com.aliseon.ott.Variable.*;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SettingUserManagementActivity extends AppCompatActivity {
+
+    private AliseonAPI AliseonAPI;
 
     private ArrayList<String> user_cate;
 
@@ -66,6 +68,22 @@ public class SettingUserManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account_useraccountmanagement);
 
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        ArrayList<String> userinfo = aliseon.aliseon_getTvott_userinfo();
+        ArrayList<Integer> userinfouid = aliseon.aliseon_getTvott_userinfouid();
+
+        int settinguseraccountmanagementapiload = aliseon.aliseon_getSettinguseraccountmanagementapiload();
+
         if(settinguseraccountmanagementapiload == 0) {
 
             Log.d("userinfo 사이즈", "" + userinfo.size());
@@ -75,20 +93,20 @@ public class SettingUserManagementActivity extends AppCompatActivity {
 
             switch (prf.getString("language", "")) {
                 case "kr":
-                    loginlanguage = "kr";
+                    aliseon.aliseon_setLoginlanguage("kr");
                     Locale lang1 = Locale.KOREAN;
                     Configuration config1 = new Configuration();
                     config1.locale = lang1;
                     getResources().updateConfiguration(config1, getResources().getDisplayMetrics());
                     break;
                 case "en":
-                    loginlanguage = "en";
+                    aliseon.aliseon_setLoginlanguage("en");
                     Locale lang2 = Locale.ENGLISH;
                     Configuration config2 = new Configuration();
                     config2.locale = lang2;
                     getResources().updateConfiguration(config2, getResources().getDisplayMetrics());
                 case "ar":
-                    loginlanguage = "ar";
+                    aliseon.aliseon_setLoginlanguage("ar");
                     Locale lang3 = Locale.ENGLISH;
                     Configuration config3 = new Configuration();
                     config3.locale = lang3;
@@ -973,7 +991,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                         Intent intent = new Intent(SettingUserManagementActivity.this, AccountAddActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
-//                finish();
+                        finish();
                     }
                 }
             });
@@ -984,8 +1002,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                     settingactivityuseraccountmanagementaccountchange1handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            NetworkTaskUsersChange1 networktaskuserschange1 = new NetworkTaskUsersChange1(api_tvott_users, null);
-                            networktaskuserschange1.execute();
+                            UserChangePost(1);
                         }
                     });
 //                Intent intent = new Intent(SettingActivityUserAccountmanagement.this, AccountChange1.class);
@@ -1001,7 +1018,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                     Intent intent = new Intent(SettingUserManagementActivity.this, AccountDisconnect1Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
-//                finish();
+                finish();
                 }
             });
 
@@ -1011,8 +1028,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                     settingactivityuseraccountmanagementaccountchange2handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            NetworkTaskUsersChange2 networktaskuserschange2 = new NetworkTaskUsersChange2(api_tvott_users, null);
-                            networktaskuserschange2.execute();
+                            UserChangePost(2);
                         }
                     });
 //                Intent intent = new Intent(SettingActivityUserAccountmanagement.this, AccountChange2.class);
@@ -1028,7 +1044,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                     Intent intent = new Intent(SettingUserManagementActivity.this, AccountDisconnect2Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
-//                finish();
+                finish();
                 }
             });
 
@@ -1038,8 +1054,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                     settingactivityuseraccountmanagementaccountchange3handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            NetworkTaskUsersChange3 networktaskuserschange3 = new NetworkTaskUsersChange3(api_tvott_users, null);
-                            networktaskuserschange3.execute();
+                            UserChangePost(3);
                         }
                     });
 //                Intent intent = new Intent(SettingActivityUserAccountmanagement.this, AccountChange3.class);
@@ -1055,7 +1070,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                     Intent intent = new Intent(SettingUserManagementActivity.this, AccountDisconnect3Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
-//                finish();
+                finish();
                 }
             });
 
@@ -5371,7 +5386,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
             // 다른 Thread에서 전달받은 Message 처리
             if (msg.what == 1000) {
 
-                AllClear();
+//                AllClear();
 
                 ActivityCompat.finishAffinity(SettingUserManagementActivity.this);
                 Intent intent = new Intent(SettingUserManagementActivity.this, LoadingActivity.class);
@@ -5390,7 +5405,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
             // 다른 Thread에서 전달받은 Message 처리
             if (msg.what == 1000) {
 
-                AllClear();
+//                AllClear();
 
                 ActivityCompat.finishAffinity(SettingUserManagementActivity.this);
                 Intent intent = new Intent(SettingUserManagementActivity.this, LoadingActivity.class);
@@ -5407,7 +5422,7 @@ public class SettingUserManagementActivity extends AppCompatActivity {
             // 다른 Thread에서 전달받은 Message 처리
             if (msg.what == 1000) {
 
-                AllClear();
+//                AllClear();
 
                 ActivityCompat.finishAffinity(SettingUserManagementActivity.this);
                 Intent intent = new Intent(SettingUserManagementActivity.this, LoadingActivity.class);
@@ -5420,6 +5435,9 @@ public class SettingUserManagementActivity extends AppCompatActivity {
 
     public void readData()
     {
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
         prf = getSharedPreferences("login_session",MODE_PRIVATE);
         prf.getString("userinfo_name", "");
         Log.d(TAG2, "info >>> " + prf.getString("userinfo_name", ""));
@@ -5427,17 +5445,162 @@ public class SettingUserManagementActivity extends AppCompatActivity {
         Log.d(TAG2, "picture >>> " + prf.getString("userinfo_picture", ""));
         prf.getInt("user_id", 0);
         Log.d(TAG2, "id >>> " + prf.getInt("user_id", 0));
-        loginid = prf.getInt("user_id", 0);
+
+        aliseon.aliseon_setLoginid(prf.getInt("user_id", 0));
+
         prf.getString("language", "");
         Log.d(TAG2, "language >>> " + prf.getString("language", ""));
-        loginlanguage = prf.getString("language", "");
+
+        aliseon.aliseon_setLoginlanguage(prf.getString("language", ""));
+
         prf.getBoolean("selectaccount", true);
         Log.d(TAG2, "selectaccount >>> " + prf.getBoolean("selectaccount", true));
         prf.getString("country", "");
         Log.d(TAG2, "country >>> " + prf.getString("country", ""));
         prf.getString("currency", "");
         Log.d(TAG2, "currency >>> " + prf.getString("currency", ""));
-        logincurrency = prf.getString("currency", "");
+
+        aliseon.aliseon_setLogincurrency(prf.getString("currency", ""));
+    }
+
+    private void UserChangePost(int selector) {
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+
+        Log.d("SELECTED", String.valueOf(selector));
+
+        Call<TvottUsers> call = AliseonAPI.TvottUsersPost(access_token);
+
+        call.enqueue(new Callback<TvottUsers>() {
+            @Override
+            public void onResponse(Call<TvottUsers> call, Response<TvottUsers> response) {
+
+                TvottUsers postResponse = (TvottUsers) response.body();
+                Log.d("STATUS:", "COMPLETE");
+                Log.d("Code : ", "" + response.code());
+                Log.d("Status : ", "" + postResponse.getList());
+                Log.d("Status : ", "" + postResponse.getStatus());
+
+                ArrayList<Integer> userinfouid = new ArrayList<>();
+                ArrayList<String> userinfo = new ArrayList<>();
+
+                for(int i = 0; i < postResponse.getList().size(); i++){
+
+                    Log.d("result id : ", "" + postResponse.getList().get(i).getId());
+                    Log.d("result nickname : ", "" + postResponse.getList().get(i).getNickname());
+                    Log.d("result photo : ", "" + postResponse.getList().get(i).getPhoto());
+                    Log.d("result language : ", "" + postResponse.getList().get(i).getLanguage());
+                    Log.d("result country : ", "" + postResponse.getList().get(i).getCountry());
+                    Log.d("result currency : ", "" + postResponse.getList().get(i).getCurrency());
+
+                    switch (i){
+                        case 0 :
+                            userinfouid.add(0,postResponse.getList().get(i).getId());
+                            userinfo.add(0,postResponse.getList().get(i).getNickname());
+                            userinfo.add(1,postResponse.getList().get(i).getPhoto());
+                            userinfo.add(2,postResponse.getList().get(i).getLanguage());
+                            userinfo.add(3,postResponse.getList().get(i).getCountry());
+                            userinfo.add(4,postResponse.getList().get(i).getCurrency());
+                            break;
+                        case 1 :
+                            userinfouid.add(1,postResponse.getList().get(i).getId());
+                            userinfo.add(5,postResponse.getList().get(i).getNickname());
+                            userinfo.add(6,postResponse.getList().get(i).getPhoto());
+                            userinfo.add(7,postResponse.getList().get(i).getLanguage());
+                            userinfo.add(8,postResponse.getList().get(i).getCountry());
+                            userinfo.add(9,postResponse.getList().get(i).getCurrency());
+                            break;
+                        case 2:
+                            userinfouid.add(2,postResponse.getList().get(i).getId());
+                            userinfo.add(10,postResponse.getList().get(i).getNickname());
+                            userinfo.add(11,postResponse.getList().get(i).getPhoto());
+                            userinfo.add(12,postResponse.getList().get(i).getLanguage());
+                            userinfo.add(13,postResponse.getList().get(i).getCountry());
+                            userinfo.add(14,postResponse.getList().get(i).getCurrency());
+                            break;
+                    }
+
+                    aliseon.aliseon_setTvott_userinfouid(userinfouid);
+                    aliseon.aliseon_setTvott_userinfo(userinfo);
+
+                }
+
+                SharedPreferences.Editor editor = prf.edit();
+
+                switch (selector) {
+                    case 1:
+
+                        editor.clear();
+                        editor.putString("userinfo_name", userinfo.get(0));
+                        editor.putString("userinfo_picture", userinfo.get(1));
+                        editor.putInt("user_id", userinfouid.get(0));
+                        editor.putString("language", userinfo.get(2));
+                        editor.putString("country", userinfo.get(3));
+                        editor.putString("currency", userinfo.get(4));
+                        editor.putBoolean("selectaccount", true);
+                        editor.commit();
+
+                        aliseon.aliseon_setLoginid(userinfouid.get(0));
+                        aliseon.aliseon_setLoginlanguage(userinfo.get(2));
+                        aliseon.aliseon_setLogincountry(userinfo.get(3));
+                        aliseon.aliseon_setLogincurrency(userinfo.get(4));
+
+                        settingactivityuseraccountmanagementaccountchange1handler.sendEmptyMessage(1000);
+
+                        break;
+
+                    case 2:
+
+                        editor.clear();
+                        editor.putString("userinfo_name", userinfo.get(5));
+                        editor.putString("userinfo_picture", userinfo.get(6));
+                        editor.putInt("user_id", userinfouid.get(1));
+                        editor.putString("language", userinfo.get(7));
+                        editor.putString("country", userinfo.get(8));
+                        editor.putString("currency", userinfo.get(9));
+                        editor.putBoolean("selectaccount", true);
+                        editor.commit();
+
+                        aliseon.aliseon_setLoginid(userinfouid.get(1));
+                        aliseon.aliseon_setLoginlanguage(userinfo.get(7));
+                        aliseon.aliseon_setLogincountry(userinfo.get(8));
+                        aliseon.aliseon_setLogincurrency(userinfo.get(9));
+
+                        settingactivityuseraccountmanagementaccountchange2handler.sendEmptyMessage(1000);
+
+                        break;
+
+                    case 3:
+
+                        editor.clear();
+                        editor.putString("userinfo_name", userinfo.get(10));
+                        editor.putString("userinfo_picture", userinfo.get(11));
+                        editor.putInt("user_id", userinfouid.get(2));
+                        editor.putString("language", userinfo.get(12));
+                        editor.putString("country", userinfo.get(13));
+                        editor.putString("currency", userinfo.get(14));
+                        editor.putBoolean("selectaccount", true);
+                        editor.commit();
+
+                        aliseon.aliseon_setLoginid(userinfouid.get(2));
+                        aliseon.aliseon_setLoginlanguage(userinfo.get(12));
+                        aliseon.aliseon_setLogincountry(userinfo.get(13));
+                        aliseon.aliseon_setLogincurrency(userinfo.get(14));
+
+                        settingactivityuseraccountmanagementaccountchange3handler.sendEmptyMessage(1000);
+
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TvottUsers> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

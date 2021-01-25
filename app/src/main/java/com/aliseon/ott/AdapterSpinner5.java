@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static com.aliseon.ott.Variable.addoption;
 
 public class AdapterSpinner5  extends BaseAdapter {
     Context context;
     List<String> option;
     LayoutInflater inflater;
+
+    Aliseon aliseon;
 
 
     public AdapterSpinner5(Context context, List<String> option){
@@ -62,6 +63,9 @@ public class AdapterSpinner5  extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
+
+        ArrayList<String> addoption = aliseon.aliseon_getAddoption();
+
         addoption.add(option.get(position));
         return option.get(position);
     }

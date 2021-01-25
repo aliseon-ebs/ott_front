@@ -7,15 +7,35 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
 
-import static com.aliseon.ott.Variable.userinfouid;
+import java.util.ArrayList;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AliseonOTTPlayerCartLoginActivity extends AppCompatActivity {
+
+    private AliseonAPI AliseonAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        ArrayList<Integer> userinfouid = aliseon.aliseon_getTvott_userinfouid();
+
         setContentView(R.layout.player_login_cart);
 
         Button button = (Button) findViewById(R.id.playersubscribelogin);

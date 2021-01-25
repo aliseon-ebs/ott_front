@@ -22,53 +22,33 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.SubscribeFrom;
+import com.aliseon.ott.API.MyList;
+import com.aliseon.ott.API.Voyage;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskMySubscribeFrom;
-import com.aliseon.ott.networktask.NetworkTaskSubscribeMyList;
-import com.aliseon.ott.networktask.NetworkTaskTvottSubscribeVoyage;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.aliseon.ott.Variable.api_my_list;
-import static com.aliseon.ott.Variable.api_subscribe_from;
-import static com.aliseon.ott.Variable.api_voyage;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.param_creator_info;
-import static com.aliseon.ott.Variable.subscribe_creator_list_id;
-import static com.aliseon.ott.Variable.subscribe_creator_list_nickname;
-import static com.aliseon.ott.Variable.subscribe_creator_list_photo;
-import static com.aliseon.ott.Variable.subscribe_select_creator_id;
-import static com.aliseon.ott.Variable.subscribe_select_creator_num;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_category_en;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_category_id;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_category_kr;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_comment_count;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_contents_id;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_contents_type;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_create_at;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_description;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_id;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_like_count;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_name;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_p_thumbnail;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_photo;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_product_id;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_status;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_update_at;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_user_id;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_view_count;
-import static com.aliseon.ott.Variable.subscribeapiload;
-import static com.aliseon.ott.Variable.subscribefocusapiload;
-import static com.aliseon.ott.Variable.subscribevoyagestart;
-import static com.aliseon.ott.Variable.subscribevoyagelimit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+//import static com.aliseon.ott.Aliseon.param_subscribe_activity;
 
 public class SubscribeActivity extends AppCompatActivity {
 
     public static SubscribeActivityHandler subscribeactivityhandler;
     static SubscribeActivityContentsLoadingHandler subscribeactivitycontentsloadinghandler;
+
+    private AliseonAPI AliseonAPI;
 
     private static String TAG = "현재 url 가져오기";
 
@@ -80,7 +60,23 @@ public class SubscribeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscribe);
 
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+
+        Log.d("VALUETEST", "RUN 0");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
         if (subscribeapiload == 0) {
+            Log.d("VALUETEST", "RUN 000");
 
         SharedPreferences prf = getSharedPreferences("login_session", MODE_PRIVATE);
 
@@ -109,8 +105,7 @@ public class SubscribeActivity extends AppCompatActivity {
             subscribeactivityhandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkTaskMySubscribeFrom networktasksubscribefrom = new NetworkTaskMySubscribeFrom(api_subscribe_from, null);
-                    networktasksubscribefrom.execute();
+                    SubscribeFromPost();
                 }
             });
 
@@ -182,7 +177,7 @@ public class SubscribeActivity extends AppCompatActivity {
             if (prf.getString("userinfo_picture", "").equals("empty")) {
                 My.setImageResource(R.drawable.noimg_profile);
             } else {
-                Glide.with(this).load(prf.getString("userinfo_picture", "")).into(My);
+                Glide.with(this).load(imageurl + prf.getString("userinfo_picture", "")).into(My);
             }
 
             Setting.setImageResource(R.drawable.setting);
@@ -386,7 +381,45 @@ public class SubscribeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+        int subscribefocusapiload = aliseon.aliseon_getSubscribeFocusAPIload();
+        int param_creator_info = aliseon.aliseon_getParam_creator_info();
+
+        int subscribevoyagestart = aliseon.aliseon_getSubscribeVoyageStart();
+        int subscribeVoyageLimit = aliseon.aliseon_getSubscribeVoyageLimit();
+
+        int subscribe_select_creator_id = aliseon.aliseon_getSubscribe_select_creator_id();
+        int subscribe_select_creator_num = aliseon.aliseon_getSubscribe_select_creator_num();
+
+        ArrayList<Integer> subscribe_creator_list_id = aliseon.aliseon_getSubscribe_creator_list_id();
+        ArrayList<String> subscribe_creator_list_nickname = aliseon.aliseon_getSubscribe_creator_list_nickname();
+        ArrayList<String> subscribe_creator_list_photo = aliseon.aliseon_getSubscribe_creator_list_photo();
+
+        ArrayList<String> subscribe_voyage_list_id = aliseon.aliseon_getSubscribe_voyage_list_id();
+        ArrayList<String> subscribe_voyage_list_user_id = aliseon.aliseon_getSubscribe_voyage_list_user_id();
+        ArrayList<String> subscribe_voyage_list_product_id = aliseon.aliseon_getSubscribe_voyage_list_product_id();
+        ArrayList<String> subscribe_voyage_list_contents_id = aliseon.aliseon_getSubscribe_voyage_list_contents_id();
+        ArrayList<String> subscribe_voyage_list_contents_type = aliseon.aliseon_getSubscribe_voyage_list_contents_type();
+        ArrayList<String> subscribe_voyage_list_category_id = aliseon.aliseon_getSubscribe_voyage_list_category_id();
+        ArrayList<Integer> subscribe_voyage_list_status = aliseon.aliseon_getSubscribe_voyage_list_status();
+        ArrayList<String> subscribe_voyage_list_create_at = aliseon.aliseon_getSubscribe_voyage_list_create_at();
+        ArrayList<String> subscribe_voyage_list_update_at = aliseon.aliseon_getSubscribe_voyage_list_update_at();
+        ArrayList<Integer> subscribe_voyage_list_like_count = aliseon.aliseon_getSubscribe_voyage_list_like_count();
+        ArrayList<Integer> subscribe_voyage_list_view_count = aliseon.aliseon_getSubscribe_voyage_list_view_count();
+        ArrayList<Integer> subscribe_voyage_list_comment_count = aliseon.aliseon_getSubscribe_voyage_list_comment_count();
+        ArrayList<String> subscribe_voyage_list_category_en = aliseon.aliseon_getSubscribe_voyage_list_category_en();
+        ArrayList<String> subscribe_voyage_list_category_kr = aliseon.aliseon_getSubscribe_voyage_list_category_kr();
+        ArrayList<String> subscribe_voyage_list_name = aliseon.aliseon_getSubscribe_voyage_list_nickname();
+        ArrayList<String> subscribe_voyage_list_photo = aliseon.aliseon_getSubscribe_voyage_list_photo();
+        ArrayList<String> subscribe_voyage_list_description = aliseon.aliseon_getSubscribe_voyage_list_description();
+        ArrayList<ArrayList<String>> subscribe_voyage_list_p_thumbnail = aliseon.aliseon_getSubscribe_voyage_list_p_thumbnail();
+
         SharedPreferences prf = getSharedPreferences("login_session", MODE_PRIVATE);
+
 
         if (subscribeapiload == 1) {
 
@@ -676,37 +709,18 @@ public class SubscribeActivity extends AppCompatActivity {
                             } else {
                                 Layout3_1_1_1.setId(R.id.subscribe1);
                                 Layout3_1_1.setBackgroundColor(Color.rgb(255, 255, 255));
-                                subscribevoyagestart = 0;
-                                subscribe_select_creator_num = 1;
+                                aliseon.aliseon_setSubscribeVoyageStart(0);
+                                aliseon.aliseon_setSubscribe_select_creator_num(1);
 
                                 if (subscribeapiload == 1 && subscribefocusapiload == 0) {
 
-                                    subscribefocusapiload = 1;
-
-                                    subscribe_voyage_list_id.clear();
-                                    subscribe_voyage_list_user_id.clear();
-                                    subscribe_voyage_list_product_id.clear();
-                                    subscribe_voyage_list_contents_id.clear();
-                                    subscribe_voyage_list_contents_type.clear();
-                                    subscribe_voyage_list_category_id.clear();
-                                    subscribe_voyage_list_status.clear();
-                                    subscribe_voyage_list_create_at.clear();
-                                    subscribe_voyage_list_update_at.clear();
-                                    subscribe_voyage_list_like_count.clear();
-                                    subscribe_voyage_list_view_count.clear();
-                                    subscribe_voyage_list_comment_count.clear();
-                                    subscribe_voyage_list_category_en.clear();
-                                    subscribe_voyage_list_category_kr.clear();
-                                    subscribe_voyage_list_name.clear();
-                                    subscribe_voyage_list_photo.clear();
-                                    subscribe_voyage_list_description.clear();
-                                    subscribe_voyage_list_p_thumbnail.clear();
+                                    aliseon.aliseon_setSubscribeFocusAPIload(1);
+                                    aliseon.aliseon_clearSubscribeVoyage();
 
                                     subscribeactivityhandler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            NetworkTaskTvottSubscribeVoyage networktasktvottvoyage = new NetworkTaskTvottSubscribeVoyage(api_voyage, null);
-                                            networktasktvottvoyage.execute();
+                                            SubscribeVoyagePost();
                                         }
                                     });
 
@@ -780,42 +794,24 @@ public class SubscribeActivity extends AppCompatActivity {
 
                         } else {
                             Layout3_1_1_1.setId(R.id.subscribe1);
-                            subscribe_select_creator_id = subscribe_creator_list_id.get(iii);
-                            subscribe_select_creator_num = iii + 2;
+                            aliseon.aliseon_setSubscribe_select_creator_id(subscribe_creator_list_id.get(iii));
+                            aliseon.aliseon_setSubscribe_select_creator_num(iii + 2);
+
 
                             Layout3_1_1.setBackgroundColor(Color.rgb(255, 255, 255));
                             subscribe_tv2.setTextColor(Color.rgb(0, 0, 0));
 
-                            subscribevoyagestart = 0;
+                            aliseon.aliseon_setSubscribeVoyageStart(0);
 
                             if (subscribeapiload == 1 &&subscribefocusapiload == 0) {
 
-                                subscribefocusapiload = 1;
-
-                                subscribe_voyage_list_id.clear();
-                                subscribe_voyage_list_user_id.clear();
-                                subscribe_voyage_list_product_id.clear();
-                                subscribe_voyage_list_contents_id.clear();
-                                subscribe_voyage_list_contents_type.clear();
-                                subscribe_voyage_list_category_id.clear();
-                                subscribe_voyage_list_status.clear();
-                                subscribe_voyage_list_create_at.clear();
-                                subscribe_voyage_list_update_at.clear();
-                                subscribe_voyage_list_like_count.clear();
-                                subscribe_voyage_list_view_count.clear();
-                                subscribe_voyage_list_comment_count.clear();
-                                subscribe_voyage_list_category_en.clear();
-                                subscribe_voyage_list_category_kr.clear();
-                                subscribe_voyage_list_name.clear();
-                                subscribe_voyage_list_photo.clear();
-                                subscribe_voyage_list_description.clear();
-                                subscribe_voyage_list_p_thumbnail.clear();
+                                aliseon.aliseon_setSubscribeFocusAPIload(1);
+                                aliseon.aliseon_clearSubscribeVoyage();
 
                                 subscribeactivityhandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        NetworkTaskSubscribeMyList networktasksubscribemylist = new NetworkTaskSubscribeMyList(api_my_list, null);
-                                        networktasksubscribemylist.execute();
+                                        SubscribeMyListPost();
                                     }
                                 });
 
@@ -831,11 +827,17 @@ public class SubscribeActivity extends AppCompatActivity {
                 Layout3_1_1_1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        creatorapiload = 0;
-//                        creator_id = subscribe_list_id.get(iii);
-//                        param_unsubscr_id = subscribe_list_sbscr_id.get(iii);
 
-                        param_creator_info = subscribe_select_creator_id;
+                        Aliseon aliseon = (Aliseon) getApplicationContext();
+                        int subscribe_select_creator_id = aliseon.aliseon_getSubscribe_select_creator_id();
+                        ArrayList<String> subscribe_list_id = aliseon.aliseon_getSubscribe_voyage_list_id();
+
+                        aliseon.aliseon_setCreatorAPIload(0);
+                        aliseon.aliseon_setCreator_id(Integer.parseInt(subscribe_list_id.get(iii)));
+
+//                        aliseon.aliseon_setParam_unsubscr_id(subscribe_list_sbscr_id.get(iii));
+
+                        aliseon.aliseon_setParam_creator_info(subscribe_select_creator_id);
 
                         Intent intent = new Intent(SubscribeActivity.this, CreatorActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -1172,13 +1174,13 @@ public class SubscribeActivity extends AppCompatActivity {
                                 public void run() {
                                     progressbar.setVisibility(View.VISIBLE);
                                     if (subscribevoyagestart == 0) {
-                                        subscribevoyagestart = subscribevoyagestart + 12;
+                                        aliseon.aliseon_setSubscribeVoyageStart(subscribevoyagestart + 12);
                                     } else {
-                                        subscribevoyagestart = subscribevoyagestart + 8;
+                                        aliseon.aliseon_setSubscribeVoyageStart(subscribevoyagestart + 8);
                                     }
-                                    subscribevoyagelimit = 12;
-                                    NetworkTaskTvottSubscribeVoyage networktasktvottsubscribevoyage = new NetworkTaskTvottSubscribeVoyage(api_voyage, null);
-                                    networktasktvottsubscribevoyage.execute();
+
+                                    aliseon.aliseon_setSubscribeVoyageLimit(12);
+                                    SubscribeVoyagePost();
                                 }
                             });
 
@@ -1201,13 +1203,13 @@ public class SubscribeActivity extends AppCompatActivity {
                                 public void run() {
                                     progressbar.setVisibility(View.VISIBLE);
                                     if (subscribevoyagestart == 0) {
-                                        subscribevoyagestart = subscribevoyagestart + 12;
+                                        aliseon.aliseon_setSubscribeVoyageStart(subscribevoyagestart + 12);
                                     } else {
-                                        subscribevoyagestart = subscribevoyagestart + 8;
+                                        aliseon.aliseon_setSubscribeVoyageStart(subscribevoyagestart + 8);
                                     }
-                                    subscribevoyagelimit = 12;
-                                    NetworkTaskSubscribeMyList networktasksubscribemylist = new NetworkTaskSubscribeMyList(api_my_list, null);
-                                    networktasksubscribemylist.execute();
+                                    aliseon.aliseon_setSubscribeVoyageLimit(12);
+
+                                    SubscribeMyListPost();
                                 }
                             });
 
@@ -1257,11 +1259,12 @@ public class SubscribeActivity extends AppCompatActivity {
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
 //                                        Search.setImageResource(R.drawable.searchselect);
-                                    subscribeapiload = 0;
-                                    subscribe_creator_list_id.clear();
-                                    subscribe_creator_list_nickname.clear();
-                                    subscribe_creator_list_photo.clear();
-                                    subscribe_select_creator_num = 0;
+                                    Aliseon aliseon = (Aliseon) getApplicationContext();
+                                    aliseon.aliseon_setSubscribeAPIload(0);
+                                    aliseon.aliseon_clearSubscribeCreator();
+
+                                    aliseon.aliseon_setSubscribe_select_creator_num(0);
+
                                     User.setImageResource(R.drawable.user);
                                     Intent intent = new Intent(SubscribeActivity.this, VoyageActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -1279,7 +1282,7 @@ public class SubscribeActivity extends AppCompatActivity {
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
 //                                        Search.setImageResource(R.drawable.searchselect);
-                                    subscribe_select_creator_num = 0;
+                                    aliseon.aliseon_setSubscribe_select_creator_num(0);
                                     Cart.setImageResource(R.drawable.cart);
                                     Intent intent = new Intent(SubscribeActivity.this, CartActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -1297,9 +1300,9 @@ public class SubscribeActivity extends AppCompatActivity {
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
 //                                        Search.setImageResource(R.drawable.searchselect);
-                                    Intent intent = new Intent(SubscribeActivity.this, MyActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                    startActivity(intent);
+//                                    Intent intent = new Intent(SubscribeActivity.this, MyActivity.class);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                    startActivity(intent);
 //                finish();
                                 } else {
                                 }
@@ -1326,13 +1329,13 @@ public class SubscribeActivity extends AppCompatActivity {
                 Intent intent = new Intent(SubscribeActivity.this, AliseonOTTPlayerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-//                finish();
+                finish();
             }
             if (msg.what == 1000) {
                 Intent intent = new Intent(SubscribeActivity.this, AliseonOTTPlayerActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-//                finish();
+                finish();
             }
         }
     }
@@ -1340,11 +1343,14 @@ public class SubscribeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        subscribe_select_creator_num = 0;
-        subscribeapiload = 0;
-        subscribe_creator_list_id.clear();
-        subscribe_creator_list_nickname.clear();
-        subscribe_creator_list_photo.clear();
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
+        aliseon.aliseon_setSubscribe_select_creator_num(0);
+
+        aliseon.aliseon_setSubscribeAPIload(0);
+        aliseon.aliseon_clearSubscribeCreator();
+
         User.requestFocus();
         overridePendingTransition(0, 0);
     }
@@ -1364,34 +1370,41 @@ public class SubscribeActivity extends AppCompatActivity {
     public class SubscribeActivityHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
+
+            Aliseon aliseon = (Aliseon) getApplicationContext();
+
             if (msg.what == 700) {
 
-                subscribeapiload = 1;
-                subscribefocusapiload = 0;
+                aliseon.aliseon_setSubscribeAPIload(1);
+                aliseon.aliseon_setSubscribeFocusAPIload(0);
+
                 onResume();
 
             }
 
             if (msg.what == 800) {
 
-                subscribeapiload = 1;
-                subscribefocusapiload = 0;
+                aliseon.aliseon_setSubscribeAPIload(1);
+                aliseon.aliseon_setSubscribeFocusAPIload(0);
+
                 onResume();
 
             }
 
             if (msg.what == 900) {
 
-                subscribeapiload = 1;
-                subscribefocusapiload = 0;
+                aliseon.aliseon_setSubscribeAPIload(1);
+                aliseon.aliseon_setSubscribeFocusAPIload(0);
+
                 onResume();
 
             }
 
             if (msg.what == 1000) {
 
-                subscribeapiload = 1;
-                subscribefocusapiload = 0;
+                aliseon.aliseon_setSubscribeAPIload(1);
+                aliseon.aliseon_setSubscribeFocusAPIload(0);
+
                 onResume();
 
             }
@@ -1417,4 +1430,285 @@ public class SubscribeActivity extends AppCompatActivity {
         }
     }
 
+    private void SubscribeFromPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+
+        int userid = aliseon.aliseon_getLoginid();
+        Log.d("USERID", String.valueOf(userid));
+
+        int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+        int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
+
+        Call<SubscribeFrom> call = AliseonAPI.SubscribeFromPost(access_token, String.valueOf(userid));
+
+        call.enqueue(new Callback<SubscribeFrom>() {
+            @Override
+            public void onResponse(Call<SubscribeFrom> call, Response<SubscribeFrom> response) {
+                SubscribeFrom postResponse = (SubscribeFrom) response.body();
+
+                Log.d("VALUETEST", String.valueOf(postResponse));
+
+                ArrayList<Integer> subscribe_creator_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_photo = new ArrayList<>();
+
+                for (int i = 0; i < postResponse.subscribe_from_list.size(); i++) {
+                    subscribe_creator_list_id.add(postResponse.subscribe_from_list.get(i).getId());
+                    subscribe_creator_list_nickname.add(postResponse.subscribe_from_list.get(i).getNickname());
+                    subscribe_creator_list_photo.add(postResponse.subscribe_from_list.get(i).getPhoto());
+                }
+
+                aliseon.aliseon_setSubscribe_creator_list_id(subscribe_creator_list_id);
+                aliseon.aliseon_setSubscribe_creator_list_nickname(subscribe_creator_list_nickname);
+                aliseon.aliseon_setSubscribe_creator_list_photo(subscribe_creator_list_photo);
+
+                if(subscribeapiload == 0 && param_subscribe_activity == 0){
+
+                    SubscribeVoyagePost();
+
+                } else if(subscribeapiload == 1 && param_subscribe_activity == 0){
+
+                    subscribeactivityhandler.sendEmptyMessage(800);
+
+                } else if (param_subscribe_activity == 1) {
+
+//                    CreatorDetailClear();
+//                    MyDetailClear();
+
+//                    NetworkTaskCreatorSubscribeTo networktaskcreatorsubscribeto = new NetworkTaskCreatorSubscribeTo(api_subscribe_to, null);
+//                    networktaskcreatorsubscribeto.execute();
+
+                } else if (param_subscribe_activity == 2) {
+
+//                    NetworkTaskMySubscribeTo networktaskmysubscribeto = new NetworkTaskMySubscribeTo(api_subscribe_to, null);
+//                    networktaskmysubscribeto.execute();
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribeFrom> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void SubscribeVoyagePost(){
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int subscribevoyagestart = aliseon.aliseon_getSubscribeVoyageStart();
+        int subscribevoyagelimit = aliseon.aliseon_getSubscribeVoyageLimit();
+
+        Call<Voyage> call = AliseonAPI.VoyagePost(access_token, "1", 1 ,0, 0, 50, "en");
+
+        call.enqueue(new Callback<Voyage>() {
+            @Override
+            public void onResponse(Call<Voyage> call, Response<Voyage> response) {
+
+                int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+                int subscribefocusapiload = aliseon.aliseon_getSubscribeFocusAPIload();
+
+                Voyage postResponse = (Voyage) response.body();
+                Log.d("STATUS:", "COMPLETE");
+                Log.d("Code : ", "" + response.code());
+                Log.d("Status : ", "" + postResponse.getStatus());
+                Log.d("Status : ", "" + postResponse.voyage_list);
+
+
+                ArrayList<String> subscribe_voyage_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_user_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_product_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_contents_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_contents_type = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_category_id = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_status = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_description = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_create_at = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_update_at = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_like_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_view_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_comment_count = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_category_en = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_category_kr = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_photo = new ArrayList<>();
+                ArrayList<ArrayList<String>> subscribe_voyage_list_p_thumbnail = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_c_thumbnail = new ArrayList<>();
+
+                for(int i = 0; i < postResponse.voyage_list.size(); i++) {
+
+                    subscribe_voyage_list_id.add(postResponse.voyage_list.get(i).getId());
+                    subscribe_voyage_list_user_id.add(postResponse.voyage_list.get(i).getUserId());
+                    subscribe_voyage_list_product_id.add(postResponse.voyage_list.get(i).getProductId());
+                    subscribe_voyage_list_contents_id.add(postResponse.voyage_list.get(i).getContentsId());
+                    subscribe_voyage_list_contents_type.add(postResponse.voyage_list.get(i).getContentsType());
+                    subscribe_voyage_list_category_id.add(postResponse.voyage_list.get(i).getCategoryId());
+                    subscribe_voyage_list_status.add(postResponse.voyage_list.get(i).getStatus());
+                    subscribe_voyage_list_description.add(postResponse.voyage_list.get(i).getDescription());
+                    subscribe_voyage_list_create_at.add(postResponse.voyage_list.get(i).getCreateAt());
+                    subscribe_voyage_list_update_at.add(postResponse.voyage_list.get(i).getUpdateAt());
+                    subscribe_voyage_list_like_count.add(postResponse.voyage_list.get(i).getLikeCount());
+                    subscribe_voyage_list_view_count.add(postResponse.voyage_list.get(i).getViewCount());
+                    subscribe_voyage_list_comment_count.add(postResponse.voyage_list.get(i).getCommentCount());
+                    subscribe_voyage_list_category_en.add(postResponse.voyage_list.get(i).getCategoryEn());
+                    subscribe_voyage_list_category_kr.add(postResponse.voyage_list.get(i).getCategoryKo());
+                    subscribe_voyage_list_nickname.add(postResponse.voyage_list.get(i).getNickname());
+                    subscribe_voyage_list_photo.add(postResponse.voyage_list.get(i).getPhoto());
+                    subscribe_voyage_list_p_thumbnail.add(postResponse.voyage_list.get(i).getThumbnail());
+
+                }
+
+                aliseon.aliseon_setSubscribe_voyage_list_id(subscribe_voyage_list_id);
+                aliseon.aliseon_setSubscribe_voyage_list_user_id(subscribe_voyage_list_user_id);
+                aliseon.aliseon_setSubscribe_voyage_list_product_id(subscribe_voyage_list_product_id);
+                aliseon.aliseon_setSubscribe_voyage_list_contents_id(subscribe_voyage_list_contents_id);
+                aliseon.aliseon_setSubscribe_voyage_list_contents_type(subscribe_voyage_list_contents_type);
+                aliseon.aliseon_setSubscribe_voyage_list_category_id(subscribe_voyage_list_category_id);
+                aliseon.aliseon_setSubscribe_voyage_list_status(subscribe_voyage_list_status);
+                aliseon.aliseon_setSubscribe_voyage_list_description(subscribe_voyage_list_description);
+                aliseon.aliseon_setSubscribe_voyage_list_create_at(subscribe_voyage_list_create_at);
+                aliseon.aliseon_setSubscribe_voyage_list_update_at(subscribe_voyage_list_update_at);
+                aliseon.aliseon_setSubscribe_voyage_list_like_count(subscribe_voyage_list_like_count);
+                aliseon.aliseon_setSubscribe_voyage_list_view_count(subscribe_voyage_list_view_count);
+                aliseon.aliseon_setSubscribe_voyage_list_comment_count(subscribe_voyage_list_comment_count);
+                aliseon.aliseon_setSubscribe_voyage_list_category_en(subscribe_voyage_list_category_en);
+                aliseon.aliseon_setSubscribe_voyage_list_category_kr(subscribe_voyage_list_category_kr);
+                aliseon.aliseon_setSubscribe_voyage_list_nickname(subscribe_voyage_list_nickname);
+                aliseon.aliseon_setSubscribe_voyage_list_photo(subscribe_voyage_list_photo);
+                aliseon.aliseon_setSubscribe_voyage_list_p_thumbnail(subscribe_voyage_list_p_thumbnail);
+
+                if(subscribeapiload == 0 && subscribefocusapiload == 0) {
+
+                    aliseon.aliseon_setSubscribeAPIload(1);
+                    subscribeactivityhandler.sendEmptyMessage(1000);
+
+                } else if(subscribeapiload == 0 && subscribefocusapiload == 1) {
+
+                    subscribeactivityhandler.sendEmptyMessage(1000);
+
+                } else if(subscribeapiload == 1 && subscribefocusapiload == 0) {
+
+                subscribeactivityhandler.sendEmptyMessage(1000);
+
+                } else if(subscribeapiload == 1 && subscribefocusapiload == 1) {
+
+                    subscribeactivityhandler.sendEmptyMessage(1000);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Voyage> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+                subscribeactivityhandler.sendEmptyMessage(800);
+
+            }
+
+        });
+
+    }
+
+    private void SubscribeMyListPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String subscribe_select_creator_id = String.valueOf(aliseon.aliseon_getSubscribe_select_creator_id());
+
+        Call<MyList> call = AliseonAPI.MyListPost(access_token, subscribe_select_creator_id, 1 ,0, 0, 50);
+
+        call.enqueue(new Callback<MyList>() {
+            @Override
+            public void onResponse(Call<MyList> call, Response<MyList> response) {
+
+                int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+                int subscribefocusapiload = aliseon.aliseon_getSubscribeFocusAPIload();
+
+                MyList postResponse = (MyList) response.body();
+
+                ArrayList<String> subscribe_voyage_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_user_id = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_status = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_description = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_create_at = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_update_at = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_like_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_view_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_comment_count = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_photo = new ArrayList<>();
+                ArrayList<ArrayList<String>> subscribe_voyage_list_p_thumbnail = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_c_thumbnail = new ArrayList<>();
+
+                try {
+
+                    for (int i = 0; i < postResponse.my_list.size(); i++) {
+
+                        subscribe_voyage_list_id.add(postResponse.my_list.get(i).getId());
+                        subscribe_voyage_list_user_id.add(postResponse.my_list.get(i).getUserId());
+                        subscribe_voyage_list_status.add(postResponse.my_list.get(i).getStatus());
+                        subscribe_voyage_list_description.add(postResponse.my_list.get(i).getDescription());
+                        subscribe_voyage_list_create_at.add(postResponse.my_list.get(i).getCreateAt());
+                        subscribe_voyage_list_update_at.add(postResponse.my_list.get(i).getUpdateAt());
+                        subscribe_voyage_list_like_count.add(postResponse.my_list.get(i).getLikeCount());
+                        subscribe_voyage_list_view_count.add(postResponse.my_list.get(i).getViewCount());
+                        subscribe_voyage_list_comment_count.add(postResponse.my_list.get(i).getCommentCount());
+                        subscribe_voyage_list_nickname.add(postResponse.my_list.get(i).getNickname());
+                        subscribe_voyage_list_photo.add(postResponse.my_list.get(i).getProfile());
+                        subscribe_voyage_list_p_thumbnail.add(postResponse.my_list.get(i).getThumbnail());
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                aliseon.aliseon_setSubscribe_voyage_list_id(subscribe_voyage_list_id);
+                aliseon.aliseon_setSubscribe_voyage_list_user_id(subscribe_voyage_list_user_id);
+                aliseon.aliseon_setSubscribe_voyage_list_status(subscribe_voyage_list_status);
+                aliseon.aliseon_setSubscribe_voyage_list_description(subscribe_voyage_list_description);
+                aliseon.aliseon_setSubscribe_voyage_list_create_at(subscribe_voyage_list_create_at);
+                aliseon.aliseon_setSubscribe_voyage_list_update_at(subscribe_voyage_list_update_at);
+                aliseon.aliseon_setSubscribe_voyage_list_like_count(subscribe_voyage_list_like_count);
+                aliseon.aliseon_setSubscribe_voyage_list_view_count(subscribe_voyage_list_view_count);
+                aliseon.aliseon_setSubscribe_voyage_list_comment_count(subscribe_voyage_list_comment_count);
+                aliseon.aliseon_setSubscribe_voyage_list_nickname(subscribe_voyage_list_nickname);
+                aliseon.aliseon_setSubscribe_voyage_list_photo(subscribe_voyage_list_photo);
+                aliseon.aliseon_setSubscribe_voyage_list_p_thumbnail(subscribe_voyage_list_p_thumbnail);
+
+                if(subscribeapiload == 0 && subscribefocusapiload == 0) {
+
+                    aliseon.aliseon_setSubscribeAPIload(1);
+                    subscribeactivityhandler.sendEmptyMessage(700);
+
+                } else if(subscribeapiload == 0 && subscribefocusapiload == 1) {
+
+                    subscribeactivityhandler.sendEmptyMessage(800);
+
+                } else if(subscribeapiload == 1 && subscribefocusapiload == 0) {
+
+                    subscribeactivityhandler.sendEmptyMessage(900);
+
+                } else if(subscribeapiload == 1 && subscribefocusapiload == 1) {
+
+                    subscribeactivityhandler.sendEmptyMessage(1000);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MyList> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+                subscribeactivityhandler.sendEmptyMessage(800);
+            }
+        });
+    }
 }

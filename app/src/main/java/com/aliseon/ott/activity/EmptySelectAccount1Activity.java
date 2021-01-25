@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
 import com.bumptech.glide.Glide;
 
@@ -23,8 +25,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.aliseon.ott.Variable.userinfo;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EmptySelectAccount1Activity extends AppCompatActivity {
 
@@ -32,10 +34,27 @@ public class EmptySelectAccount1Activity extends AppCompatActivity {
 
     private ArrayList<String> user_cate;
 
+    com.aliseon.ott.AliseonAPI AliseonAPI;
+
+    SharedPreferences pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account_selectuser1);
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        ArrayList<String> userinfo = aliseon.aliseon_getTvott_userinfo();
 
         SharedPreferences prf = getSharedPreferences("login_session",MODE_PRIVATE);
 

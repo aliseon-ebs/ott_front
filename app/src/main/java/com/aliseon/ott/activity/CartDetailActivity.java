@@ -30,35 +30,28 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.ProductBuy;
+import com.aliseon.ott.API.ProductDetail;
+import com.aliseon.ott.API.ProductInfo;
 import com.aliseon.ott.AdapterSpinner5;
 import com.aliseon.ott.AdapterSpinner6;
+import com.aliseon.ott.Aliseon;
+import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskProductInfo;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static com.aliseon.ott.Variable.cartapiload;
-import static com.aliseon.ott.Variable.cartdetail_productbuy_option_connection;
-import static com.aliseon.ott.Variable.cartdetail_productbuy_option_name;
-import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_price;
-import static com.aliseon.ott.Variable.cartdetail_productbuy_p_option_original_value;
-import static com.aliseon.ott.Variable.cartdetail_productdetail_complete_price;
-import static com.aliseon.ott.Variable.cartdetail_productdetail_free_shipping;
-import static com.aliseon.ott.Variable.cartdetail_productdetail_previous_price;
-import static com.aliseon.ott.Variable.cartdetail_productdetail_sub_title;
-import static com.aliseon.ott.Variable.cartdetail_productdetail_thumbnail;
-import static com.aliseon.ott.Variable.cartdetail_productdetail_title;
-import static com.aliseon.ott.Variable.cartdetail_productinfo_desc;
-import static com.aliseon.ott.Variable.cartdetailapiload;
-import static com.aliseon.ott.Variable.cartitemoption;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.addoption;
-import static com.aliseon.ott.Variable.api_product_info;
-import static com.aliseon.ott.Variable.logincurrency;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CartDetailActivity extends AppCompatActivity {
+
+    AliseonAPI AliseonAPI;
 
     public static CartDetailActivityHandler cartdetailactivityhandler;
 //    static CartActivityDetailItemToCartHandler cartactivitydetailitemtocarthandler;
@@ -73,6 +66,19 @@ public class CartDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_detail);
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        int cartdetailapiload = aliseon.aliseon_getCartdetailAPIload();
 
         if(cartdetailapiload == 0) {
 
@@ -108,8 +114,9 @@ public class CartDetailActivity extends AppCompatActivity {
             cartdetailactivityhandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    NetworkTaskProductInfo networktaskproductinfo = new NetworkTaskProductInfo(api_product_info, null);
-                    networktaskproductinfo.execute();
+
+                    ProductInfoPost();
+
                 }
             });
 
@@ -400,6 +407,41 @@ public class CartDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+        String imageurl = aliseon.aliseon_getImageURL();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        int cartdetailapiload = aliseon.aliseon_getCartdetailAPIload();
+
+        ArrayList<String> addoption = aliseon.aliseon_getAddoption();
+
+        ArrayList<ArrayList<String>> cartitemoption = aliseon.aliseon_getCartitemoption();
+
+
+        String cartdetail_productinfo_desc = aliseon.aliseon_getCartdetail_productinfo_desc();
+        String cartdetail_productdetail_thumbnail = aliseon.aliseon_getCartdetail_productdetail_thumbnail();
+        String cartdetail_productdetail_title = aliseon.aliseon_getCartdetail_productdetail_title();
+        String cartdetail_productdetail_sub_title = aliseon.aliseon_getCartdetail_productdetail_sub_title();
+        int cartdetail_productdetail_previous_price = aliseon.aliseon_getCartdetail_productdetail_previous_price();
+        int cartdetail_productdetail_complete_price = aliseon.aliseon_getCartdetail_productdetail_complete_price();
+        int cartdetail_productdetail_free_shipping = aliseon.aliseon_getCartdetail_productdetail_free_shipping();
+
+        ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_original_value = aliseon.aliseon_getCartdetail_productbuy_p_option_original_value();
+        ArrayList<ArrayList<Integer>> cartdetail_productbuy_p_option_original_price = aliseon.aliseon_getCartdetail_productbuy_p_option_original_price();
+        ArrayList<String> cartdetail_productbuy_option_name = aliseon.aliseon_getCartdetail_productbuy_option_name();
+        ArrayList<Integer> cartdetail_productbuy_option_connection = aliseon.aliseon_getCartdetail_productbuy_option_connection();
+
+
+        String logincurrency = aliseon.aliseon_getLogincurrency();
+
 
         if(cartdetailapiload == 1) {
 
@@ -1085,8 +1127,13 @@ public class CartDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        cartapiload = 0;
-        cartdetailapiload = 0;
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
+        aliseon.aliseon_setCartAPIload(0);
+        aliseon.aliseon_setCartdetailAPIload(0);
+
+//        cartapiload = 0;
+//        cartdetailapiload = 0;
         super.onBackPressed();
         overridePendingTransition(0,0);
     }
@@ -1118,6 +1165,10 @@ public class CartDetailActivity extends AppCompatActivity {
     class CartActivityDetailItemToCartHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
+
+            Aliseon aliseon = (Aliseon) getApplicationContext();
+            ArrayList<String> addoption = aliseon.aliseon_getAddoption();
+
             // 다른 Thread에서 전달받은 Message 처리
             if (msg.what == 1000) {
                 if (addoption.size() == 0) {
@@ -1157,8 +1208,8 @@ public class CartDetailActivity extends AppCompatActivity {
                     builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            cartapiload = 0;
-                            cartdetailapiload = 0;
+                            aliseon.aliseon_setCartAPIload(0);
+                            aliseon.aliseon_setCartdetailAPIload(0);
                             Intent intent = new Intent(CartDetailActivity.this, CartActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
@@ -1180,6 +1231,212 @@ public class CartDetailActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void ProductInfoPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String product_id = aliseon.aliseon_getParam_product_id();
+        String lang = aliseon.aliseon_getLoginlanguage();
+        String currency = aliseon.aliseon_getLogincurrency();
+
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "API NAME : ProductInfoPost");
+        Log.d("APIRUNNING", "DATA : " + access_token + " / " + product_id + " / " + lang + " / " + currency);
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "==================================================================");
+
+        Call<ProductInfo> call = AliseonAPI.ProductInfoPost(access_token, product_id, lang,currency);
+
+        call.enqueue(new Callback<ProductInfo>() {
+            @Override
+            public void onResponse(Call<ProductInfo> call, Response<ProductInfo> response) {
+
+                int cartdetailapiload = aliseon.aliseon_getCartdetailAPIload();
+
+                ProductInfo postResponse = (ProductInfo) response.body();
+
+                int id = postResponse.getList().get(0).getId();
+                String desc = postResponse.getList().get(0).getDesc();
+
+                aliseon.aliseon_setCartdetail_productinfo_id(id);
+                aliseon.aliseon_setCartdetail_productinfo_desc(desc);
+
+                if (cartdetailapiload == 0) {
+                    ProductDetailPost();
+
+                } else if (cartdetailapiload == 1) {
+                    cartdetailactivityhandler.sendEmptyMessage(800);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ProductInfo> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void ProductDetailPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String product_id = aliseon.aliseon_getParam_product_id();
+        String lang = aliseon.aliseon_getLoginlanguage();
+        String currency = aliseon.aliseon_getLogincurrency();
+
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "API NAME : ProductDetailPost");
+        Log.d("APIRUNNING", "DATA : " + access_token + " / " + product_id + " / " + lang + " / " + currency);
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "==================================================================");
+
+        Call<ProductDetail> call = AliseonAPI.ProductDetailPost(access_token, product_id, lang,currency);
+
+        call.enqueue(new Callback<ProductDetail>() {
+            @Override
+            public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
+
+                int cartdetailapiload = aliseon.aliseon_getCartdetailAPIload();
+
+                ProductDetail postResponse = (ProductDetail) response.body();
+
+                int id = postResponse.getList().get(0).getId();
+                int vendor_id = postResponse.getList().get(0).getVendorId();
+                String thumbnail = postResponse.getList().get(0).getThumbnail();
+                String title = postResponse.getList().get(0).getName();
+                String sub_title = postResponse.getList().get(0).getSubName();
+                int previous_price = postResponse.getList().get(0).getPreviousPrice();
+                int complete_price = postResponse.getList().get(0).getCompletePrice();
+                int basic_shipping = postResponse.getList().get(0).getBasicShipping();
+                int free_shipping = postResponse.getList().get(0).getFreeShipping();
+
+                aliseon.aliseon_setCartdetail_productdetail_id(id);
+                aliseon.aliseon_setCartdetail_productdetail_vendor_id(vendor_id);
+                aliseon.aliseon_setCartdetail_productdetail_thumbnail(thumbnail);
+                aliseon.aliseon_setCartdetail_productdetail_title(title);
+                aliseon.aliseon_setCartdetail_productdetail_sub_title(sub_title);
+                aliseon.aliseon_setCartdetail_productdetail_previous_price(previous_price);
+                aliseon.aliseon_setCartdetail_productdetail_complete_price(complete_price);
+                aliseon.aliseon_setCartdetail_productdetail_basic_shipping(basic_shipping);
+                aliseon.aliseon_setCartdetail_productdetail_free_shipping(free_shipping);
+
+                if (cartdetailapiload == 0) {
+                    ProductBuyPost();
+
+                } else if (cartdetailapiload == 1) {
+                    cartdetailactivityhandler.sendEmptyMessage(800);
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ProductDetail> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void ProductBuyPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String product_id = aliseon.aliseon_getParam_product_id();
+
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "API NAME : ProductBuyPost");
+        Log.d("APIRUNNING", "DATA : " + access_token + " / " + product_id);
+        Log.d("APIRUNNING", "==================================================================");
+        Log.d("APIRUNNING", "==================================================================");
+
+        Call<ProductBuy> call = AliseonAPI.ProductBuyPost(access_token, product_id);
+
+        call.enqueue(new Callback<ProductBuy>() {
+            @Override
+            public void onResponse(Call<ProductBuy> call, Response<ProductBuy> response) {
+
+                int cartdetailapiload = aliseon.aliseon_getCartdetailAPIload();
+
+                ProductBuy postResponse = (ProductBuy) response.body();
+
+                ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_name = new ArrayList<>();
+                ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_original_value = new ArrayList<>();
+                ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_original_price = new ArrayList<>();
+                ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_value = new ArrayList<>();
+                ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_price = new ArrayList<>();
+                ArrayList<ArrayList<String>> cartdetail_productbuy_p_option_stock = new ArrayList<>();
+
+                for ( int i = 0; i < postResponse.getList().size(); i++ ) {
+
+                    ArrayList<String> cartdetail_productbuy_c_option_value = new ArrayList<>();
+                    ArrayList<String> cartdetail_productbuy_c_option_price = new ArrayList<>();
+                    ArrayList<String> cartdetail_productbuy_c_option_stock = new ArrayList<>();
+
+                    ArrayList<String> name = postResponse.getList().get(i).getName();
+                    ArrayList<String> originalPrice = postResponse.getList().get(i).getOriginalPrice();
+                    ArrayList<String> originalValue = postResponse.getList().get(i).getOriginalValue();
+                    ArrayList<String> value = postResponse.getList().get(i).getValue();
+                    ArrayList<String> price = postResponse.getList().get(i).getPrice();
+                    ArrayList<String> stock = postResponse.getList().get(i).getStock();
+
+                    try {
+
+                        cartdetail_productbuy_p_option_name.add(name);
+                        cartdetail_productbuy_p_option_original_value.add(originalValue);
+                        cartdetail_productbuy_p_option_original_price.add(originalPrice);
+                        cartdetail_productbuy_p_option_value.add(value);
+                        cartdetail_productbuy_p_option_price.add(price);
+                        cartdetail_productbuy_p_option_stock.add(stock);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                        Log.d("APIERROR", "ERROR FROM Product/Buy");
+                        Log.d("APIERROR", "VALUE CHECK IN THIS");
+                        Log.d("APIERROR", String.valueOf(name));
+                        Log.d("APIERROR", String.valueOf(originalValue));
+                        Log.d("APIERROR", String.valueOf(originalPrice));
+                        Log.d("APIERROR", String.valueOf(value));
+                        Log.d("APIERROR", String.valueOf(price));
+                        Log.d("APIERROR", String.valueOf(stock));
+
+
+                    }
+
+
+
+                }
+
+
+
+                if (cartdetailapiload == 0) {
+
+//                    cartdetailapiload = 1;
+                    aliseon.aliseon_setCartdetailAPIload(1);
+                    cartdetailactivityhandler.sendEmptyMessage(1000);
+
+
+                } else if (cartdetailapiload == 1) {
+                    cartdetailactivityhandler.sendEmptyMessage(800);
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ProductBuy> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

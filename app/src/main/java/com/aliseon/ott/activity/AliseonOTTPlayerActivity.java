@@ -26,12 +26,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.AtrendDetail;
+import com.aliseon.ott.API.PopularDetail;
+import com.aliseon.ott.API.VoyageDetail;
+import com.aliseon.ott.Aliseon;
 import com.aliseon.ott.CartPlayer;
 import com.aliseon.ott.ContentsPlayer;
 import com.aliseon.ott.R;
-import com.aliseon.ott.networktask.NetworkTaskAtrendDetail;
-import com.aliseon.ott.networktask.NetworkTaskTvottPopularDetail;
-import com.aliseon.ott.networktask.NetworkTaskTvottVoyageDetail;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
@@ -46,105 +47,106 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.aliseon.ott.Variable.atrend_detail_product_id;
-import static com.aliseon.ott.Variable.creator_list_description;
-import static com.aliseon.ott.Variable.creator_list_id;
-import static com.aliseon.ott.Variable.creator_list_nickname;
-import static com.aliseon.ott.Variable.creator_list_profile;
-import static com.aliseon.ott.Variable.creator_nickname;
-import static com.aliseon.ott.Variable.creator_photo;
-import static com.aliseon.ott.Variable.loginid;
-import static com.aliseon.ott.Variable.my_list_description;
-import static com.aliseon.ott.Variable.my_list_id;
-import static com.aliseon.ott.Variable.my_list_nickname;
-import static com.aliseon.ott.Variable.my_list_profile;
-import static com.aliseon.ott.Variable.nowurl;
-import static com.aliseon.ott.Variable.api_atrend_detail;
-import static com.aliseon.ott.Variable.api_tvott_popular_detail;
-import static com.aliseon.ott.Variable.api_voyage_detail;
-import static com.aliseon.ott.Variable.atrend_detail_maincontent;
-import static com.aliseon.ott.Variable.atrend_detail_product_name;
-import static com.aliseon.ott.Variable.atrend_detail_product_price;
-import static com.aliseon.ott.Variable.atrend_detail_product_thumbnail;
-import static com.aliseon.ott.Variable.atrend_id;
-import static com.aliseon.ott.Variable.atrend_related_description;
-import static com.aliseon.ott.Variable.atrend_related_id;
-import static com.aliseon.ott.Variable.atrend_related_thumbnail;
-import static com.aliseon.ott.Variable.atrend_subtitle;
-import static com.aliseon.ott.Variable.atrend_title;
-import static com.aliseon.ott.Variable.creatorauthorid;
-import static com.aliseon.ott.Variable.creatorprofile;
-import static com.aliseon.ott.Variable.creatortitle;
-import static com.aliseon.ott.Variable.imageurl;
-import static com.aliseon.ott.Variable.maintitle;
-import static com.aliseon.ott.Variable.param_product_id;
-import static com.aliseon.ott.Variable.player_feed_list_author_nickname;
-import static com.aliseon.ott.Variable.player_feed_list_author_picture;
-import static com.aliseon.ott.Variable.player_feed_list_content;
-import static com.aliseon.ott.Variable.player_feed_list_crop;
-import static com.aliseon.ott.Variable.player_feed_list_id;
-import static com.aliseon.ott.Variable.player_feed_list_views;
-import static com.aliseon.ott.Variable.playerfeedimage;
-import static com.aliseon.ott.Variable.popular_description;
-import static com.aliseon.ott.Variable.popular_detail_contents;
-import static com.aliseon.ott.Variable.popular_detail_item_id;
-import static com.aliseon.ott.Variable.popular_detail_item_name;
-import static com.aliseon.ott.Variable.popular_detail_item_price;
-import static com.aliseon.ott.Variable.popular_detail_item_thumbnail;
-import static com.aliseon.ott.Variable.popular_detail_name;
-import static com.aliseon.ott.Variable.popular_detail_photo;
-import static com.aliseon.ott.Variable.popular_detail_product_id;
-import static com.aliseon.ott.Variable.popular_id;
-import static com.aliseon.ott.Variable.popular_nickname;
-import static com.aliseon.ott.Variable.popular_photo;
-import static com.aliseon.ott.Variable.popular_related_contents;
-import static com.aliseon.ott.Variable.popular_related_description;
-import static com.aliseon.ott.Variable.popular_related_id;
-import static com.aliseon.ott.Variable.select;
-import static com.aliseon.ott.Variable.subscribe_checker;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_description;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_id;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_name;
-import static com.aliseon.ott.Variable.subscribe_voyage_list_photo;
-import static com.aliseon.ott.Variable.subtitle;
-import static com.aliseon.ott.Variable.typeselector;
-import static com.aliseon.ott.Variable.childlist;
-import static com.aliseon.ott.Variable.contentcounter;
-import static com.aliseon.ott.Variable.focusing;
-import static com.aliseon.ott.Variable.playerdataload;
-import static com.aliseon.ott.Variable.refresh_num;
-import static com.aliseon.ott.Variable.voyage_description;
-import static com.aliseon.ott.Variable.voyage_detail_contents;
-import static com.aliseon.ott.Variable.voyage_detail_item_id;
-import static com.aliseon.ott.Variable.voyage_detail_item_name;
-import static com.aliseon.ott.Variable.voyage_detail_item_price;
-import static com.aliseon.ott.Variable.voyage_detail_item_thumbnail;
-import static com.aliseon.ott.Variable.voyage_detail_product_id;
-import static com.aliseon.ott.Variable.voyage_id;
-import static com.aliseon.ott.Variable.voyage_nickname;
-import static com.aliseon.ott.Variable.voyage_photo;
-import static com.aliseon.ott.Variable.voyage_related_contents;
-import static com.aliseon.ott.Variable.voyage_related_description;
-import static com.aliseon.ott.Variable.voyage_related_id;
-import static com.aliseon.ott.Variable.param_atrend_id;
-import static com.aliseon.ott.Variable.select_voyage_id;
-import static com.aliseon.ott.Variable.playerfeedname;
-import static com.aliseon.ott.Variable.playerfeedid;
-import static com.aliseon.ott.Variable.playerfeedpricecomputed;
-import static com.aliseon.ott.Variable.voyageresult_description;
-import static com.aliseon.ott.Variable.voyageresult_id;
-import static com.aliseon.ott.Variable.voyageresult_nickname;
-import static com.aliseon.ott.Variable.voyageresult_photo;
+import com.aliseon.ott.AliseonAPI;
+
+//import static com.aliseon.ott.Aliseon.atrend_detail_product_id;
+//import static com.aliseon.ott.Aliseon.creator_list_description;
+//import static com.aliseon.ott.Aliseon.creator_list_id;
+//import static com.aliseon.ott.Aliseon.creator_list_nickname;
+//import static com.aliseon.ott.Aliseon.creator_list_profile;
+//import static com.aliseon.ott.Aliseon.loginid;
+//import static com.aliseon.ott.Aliseon.my_list_description;
+//import static com.aliseon.ott.Aliseon.my_list_id;
+//import static com.aliseon.ott.Aliseon.my_list_nickname;
+//import static com.aliseon.ott.Aliseon.my_list_profile;
+//import static com.aliseon.ott.Aliseon.nowurl;
+//import static com.aliseon.ott.Aliseon.api_atrend_detail;
+//import static com.aliseon.ott.Aliseon.api_tvott_popular_detail;
+//import static com.aliseon.ott.Aliseon.api_voyage_detail;
+//import static com.aliseon.ott.Aliseon.atrend_detail_maincontent;
+//import static com.aliseon.ott.Aliseon.atrend_detail_product_name;
+//import static com.aliseon.ott.Aliseon.atrend_detail_product_price;
+//import static com.aliseon.ott.Aliseon.atrend_detail_product_thumbnail;
+//import static com.aliseon.ott.Aliseon.atrend_id;
+//import static com.aliseon.ott.Aliseon.atrend_related_description;
+//import static com.aliseon.ott.Aliseon.atrend_related_id;
+//import static com.aliseon.ott.Aliseon.atrend_related_thumbnail;
+//import static com.aliseon.ott.Aliseon.atrend_subtitle;
+//import static com.aliseon.ott.Aliseon.atrend_title;
+//import static com.aliseon.ott.Aliseon.creatorauthorid;
+//import static com.aliseon.ott.Aliseon.creatorprofile;
+//import static com.aliseon.ott.Aliseon.creatortitle;
+//import static com.aliseon.ott.Aliseon.imageurl;
+//import static com.aliseon.ott.Aliseon.maintitle;
+//import static com.aliseon.ott.Aliseon.param_product_id;
+//import static com.aliseon.ott.Aliseon.player_feed_list_author_nickname;
+//import static com.aliseon.ott.Aliseon.player_feed_list_author_picture;
+//import static com.aliseon.ott.Aliseon.player_feed_list_content;
+//import static com.aliseon.ott.Aliseon.player_feed_list_crop;
+//import static com.aliseon.ott.Aliseon.player_feed_list_id;
+//import static com.aliseon.ott.Aliseon.player_feed_list_views;
+//import static com.aliseon.ott.Aliseon.playerfeedimage;
+//import static com.aliseon.ott.Aliseon.popular_description;
+//import static com.aliseon.ott.Aliseon.popular_detail_contents;
+//import static com.aliseon.ott.Aliseon.popular_detail_item_id;
+//import static com.aliseon.ott.Aliseon.popular_detail_item_name;
+//import static com.aliseon.ott.Aliseon.popular_detail_item_price;
+//import static com.aliseon.ott.Aliseon.popular_detail_item_thumbnail;
+//import static com.aliseon.ott.Aliseon.popular_detail_product_id;
+//import static com.aliseon.ott.Aliseon.popular_id;
+//import static com.aliseon.ott.Aliseon.popular_nickname;
+//import static com.aliseon.ott.Aliseon.popular_photo;
+//import static com.aliseon.ott.Aliseon.popular_related_contents;
+//import static com.aliseon.ott.Aliseon.popular_related_description;
+//import static com.aliseon.ott.Aliseon.popular_related_id;
+//import static com.aliseon.ott.Aliseon.select;
+//import static com.aliseon.ott.Aliseon.subscribe_voyage_list_description;
+//import static com.aliseon.ott.Aliseon.subscribe_voyage_list_id;
+//import static com.aliseon.ott.Aliseon.subscribe_voyage_list_name;
+//import static com.aliseon.ott.Aliseon.subscribe_voyage_list_photo;
+//import static com.aliseon.ott.Aliseon.subtitle;
+//import static com.aliseon.ott.Aliseon.typeselector;
+//import static com.aliseon.ott.Aliseon.childlist;
+//import static com.aliseon.ott.Aliseon.contentcounter;
+//import static com.aliseon.ott.Aliseon.playerdataload;
+//import static com.aliseon.ott.Aliseon.refresh_num;
+//import static com.aliseon.ott.Aliseon.voyage_description;
+//import static com.aliseon.ott.Aliseon.voyage_detail_contents;
+//import static com.aliseon.ott.Aliseon.voyage_detail_item_id;
+//import static com.aliseon.ott.Aliseon.voyage_detail_item_name;
+//import static com.aliseon.ott.Aliseon.voyage_detail_item_price;
+//import static com.aliseon.ott.Aliseon.voyage_detail_item_thumbnail;
+//import static com.aliseon.ott.Aliseon.voyage_detail_product_id;
+//import static com.aliseon.ott.Aliseon.voyage_id;
+//import static com.aliseon.ott.Aliseon.voyage_nickname;
+//import static com.aliseon.ott.Aliseon.voyage_photo;
+//import static com.aliseon.ott.Aliseon.voyage_related_contents;
+//import static com.aliseon.ott.Aliseon.voyage_related_description;
+//import static com.aliseon.ott.Aliseon.voyage_related_id;
+//import static com.aliseon.ott.Aliseon.param_atrend_id;
+//import static com.aliseon.ott.Aliseon.select_voyage_id;
+//import static com.aliseon.ott.Aliseon.playerfeedname;
+//import static com.aliseon.ott.Aliseon.playerfeedid;
+//import static com.aliseon.ott.Aliseon.playerfeedpricecomputed;
+//import static com.aliseon.ott.Aliseon.voyageresult_description;
+//import static com.aliseon.ott.Aliseon.voyageresult_id;
+//import static com.aliseon.ott.Aliseon.voyageresult_nickname;
+//import static com.aliseon.ott.Aliseon.voyageresult_photo;
 
 public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
-    public static PlayerCreatorSelectHandler playercreatorselecthandler;
-//    public static playerNextVideoHandler playernextvideohandler;
-    public static PlayerDataLoadHandler playerdataloadhandler;
+    PlayerCreatorSelectHandler playercreatorselecthandler;
+    PlayerDataLoadHandler playerdataloadhandler;
 
     private PlayerView exoPlayerView;
     private SimpleExoPlayer player;
@@ -153,9 +155,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
     private int currentWindow = 0;
     private Long playbackPosition = 0L;
 
-    private static String TAG = "데이터 값";
-
-
+    private AliseonAPI AliseonAPI;
 
     ProgressBar progressbar;
     FrameLayout framelayoutprogressbar;
@@ -172,7 +172,23 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.player_default);
 
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
         prf = getSharedPreferences("login_session", MODE_PRIVATE);
+
+        playercreatorselecthandler = new PlayerCreatorSelectHandler();
+        playerdataloadhandler = new PlayerDataLoadHandler();
+
+        int childlist = aliseon.aliseon_getChild_list();
+        int contentcounter = aliseon.aliseon_getContent_counter();
 
         switch (prf.getString("language", "")) {
             case "kr":
@@ -193,58 +209,21 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 getResources().updateConfiguration(config3, getResources().getDisplayMetrics());
         }
 
-        playercreatorselecthandler = new PlayerCreatorSelectHandler();
-//        playernextvideohandler = new playerNextVideoHandler();
-        playerdataloadhandler = new PlayerDataLoadHandler();
-
-        player_feed_list_id.clear();
-        player_feed_list_crop.clear();
-        player_feed_list_content.clear();
-        player_feed_list_author_nickname.clear();
-        player_feed_list_author_picture.clear();
-        player_feed_list_views.clear();
+        aliseon.aliseon_clearPlayer_feed_list_author_id();
+        aliseon.aliseon_clearPlayer_feed_list_author_nickname();
+        aliseon.aliseon_clearPlayer_feed_list_author_picture();
+        aliseon.aliseon_clearPlayer_feed_list_content();
+        aliseon.aliseon_clearPlayer_feed_list_crop();
+        aliseon.aliseon_clearPlayer_feed_list_id();
+        aliseon.aliseon_clearPlayer_feed_list_views();
 
         Intent intent = getIntent();
-
-        select = intent.getExtras().getInt("index");
-        // this is just idea
-        typeselector = intent.getExtras().getInt("category");
-
-//        if (prf.getString("userinfo_name", "").equals("empty")
-//                && prf.getString("userinfo_picture", "").equals("empty")
-//                && prf.getInt("user_id", 0) == 0) {
-//            playercreatorselecthandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    offlinemode = 1;
-//                    NetworkTaskTvottPlayerVoyage networktasktvottplayerfeed = new NetworkTaskTvottPlayerVoyage(api_tvott_popular, null);
-////                    networktasktvottplayerfeed.execute();
-//                }
-//            });
-//        } else {
-//            playercreatorselecthandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    offlinemode = 0;
-//                    NetworkTaskTvottPlayerVoyage networktasktvottplayerfeed = new NetworkTaskTvottPlayerVoyage(api_voyage, null);
-////                    networktasktvottplayerfeed.execute();
-//                }
-//            });
-//        }
-
-
-
-
-
-
 
         exoPlayerView = findViewById(R.id.exoPlayerView);
 
         ImageView imageView = (ImageView) findViewById(R.id.exoplayerback);
-//        ImageView imageView2= (ImageView) findViewById(R.id.exo_rew);
         imageView3 = (ImageView) findViewById(R.id.exo_play);
         imageView4 = (ImageView) findViewById(R.id.exo_pause);
-//        ImageView imageView5= (ImageView) findViewById(R.id.exo_ffwd);
 
         progressbar = (ProgressBar) findViewById(R.id.exo_progressbar);
         framelayoutprogressbar = (FrameLayout) findViewById(R.id.exo_framelayoutprogressbar);
@@ -254,16 +233,12 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
         imageView.setFocusableInTouchMode(true);
         imageView.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
-//        imageView2.setFocusableInTouchMode(true);
-//        imageView2.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
         imageView3.setFocusableInTouchMode(true);
         imageView3.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
         imageView4.setFocusableInTouchMode(true);
         imageView4.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
         progressbar.setFocusableInTouchMode(true);
         progressbar.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
-//        imageView5.setFocusableInTouchMode(true);
-//        imageView5.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
 
         progressbar.requestFocus();
 
@@ -273,6 +248,19 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         CircleImageView CIV = (CircleImageView) findViewById(R.id.creator_profile);
         TextView TV4 = (TextView) findViewById(R.id.creator_name);
         Button button = (Button) findViewById(R.id.creator_subscribe);
+
+        String subtitle = aliseon.aliseon_getSub_title();
+        String maintitle = aliseon.aliseon_getMain_title();
+        String creatortitle = aliseon.aliseon_getCreator_title();
+        String creatorprofile = aliseon.aliseon_getCreator_profile();
+
+        aliseon.aliseon_setSelect(intent.getExtras().getInt("index"));
+        aliseon.aliseon_setType_selector(intent.getExtras().getInt("category"));
+
+        int typeselector = aliseon.aliseon_getType_selector();
+        int select = aliseon.aliseon_getSelect();
+
+        String nowurl = aliseon.aliseon_getNowurl();
 
         TV1.setText(subtitle);
         TV2.setText(maintitle);
@@ -361,6 +349,19 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
     }
 
     private void initializePlayer() {
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String aliseonapi = aliseon.aliseon_getAliseonapi();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(aliseonapi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        AliseonAPI = retrofit.create(AliseonAPI.class);
+
+        String nowurl = aliseon.aliseon_getNowurl();
+
         if (player == null) {
 
             /*DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this.getApplicationContext());
@@ -475,8 +476,9 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        focusing = -1;
-        playerdataload = 0;
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
+        aliseon.aliseon_setPlayerdataload(0);
         overridePendingTransition(0, 0);
     }
 
@@ -520,21 +522,77 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
     public void onResume() {
 
-        refresh_num = 2;
-
         super.onResume();
+
+        // 필요한 값 import
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+
+        String imageurl = aliseon.aliseon_getImageURL();
+        int childlist = aliseon.aliseon_getChild_list();
+        int contentcounter = aliseon.aliseon_getContent_counter();
+
+        int refresh_num = aliseon.aliseon_getRefresh_num();
+        int subscribe_checker = aliseon.aliseon_getSubscribe_checker();
+        int playerdataload = aliseon.aliseon_getPlayerdataload();
+
+        ArrayList<String> playerfeedimage = aliseon.aliseon_getPlayer_feed_list_crop();
+        ArrayList<String> playerfeedid = aliseon.aliseon_getPlayer_feed_list_id();
+
+        String param_atrend_id = aliseon.aliseon_getParam_atrend_id();
+        String select_voyage_id = aliseon.aliseon_getSelect_voyage_id();
+        ArrayList<String> atrend_id = aliseon.aliseon_getAtrend_id();
+        ArrayList<String> atrend_related_id = aliseon.aliseon_getAtrend_related_id();
+
+        int loginid = aliseon.aliseon_getLoginid();
+        String creatorauthorid = aliseon.aliseon_getCreator_author_id();
+
+        String maintitle = aliseon.aliseon_getMain_title();
+        String subtitle = aliseon.aliseon_getSub_title();
+        ArrayList<String> player_feed_list_content = aliseon.aliseon_getPlayer_feed_list_content();
+        ArrayList<String> player_feed_list_crop = aliseon.aliseon_getPlayer_feed_list_crop();
+
+        ArrayList<String> atrend_title = aliseon.aliseon_getAtrend_title();
+        ArrayList<String> atrend_subtitle = aliseon.aliseon_getAtrend_sub_title();
+        ArrayList<String> atrend_related_description = aliseon.aliseon_getAtrend_related_description();
+        ArrayList<String> atrend_related_thumbnail = aliseon.aliseon_getAtrend_related_thumbnail();
+
+        ArrayList<String> popular_description = aliseon.aliseon_getPopular_description();
+        ArrayList<String> popular_photo = aliseon.aliseon_getPopular_photo();
+        ArrayList<String> popular_nickname = aliseon.aliseon_getPopular_nickname();
+
+        ArrayList<String> voyage_description = aliseon.aliseon_getVoyage_description();
+        ArrayList<String> voyage_nickname = aliseon.aliseon_getVoyage_nickname();
+        ArrayList<String> voyage_photo = aliseon.aliseon_getVoyage_photo();
+
+        ArrayList<String> my_list_description = aliseon.aliseon_getMy_list_description();
+        ArrayList<String> my_list_nickname = aliseon.aliseon_getMy_list_nickname();
+        ArrayList<String> my_list_profile = aliseon.aliseon_getMy_list_profile();
+
+        ArrayList<String> voyageresult_description = aliseon.aliseon_getVoyageresult_description();
+        ArrayList<String> voyageresult_nickname = aliseon.aliseon_getVoyageresult_nickname();
+        ArrayList<String> voyageresult_photo = aliseon.aliseon_getVoyageresult_photo();
+
+        ArrayList<String> creator_list_description = aliseon.aliseon_getCreator_list_description();
+        ArrayList<String> creator_list_nickname = aliseon.aliseon_getCreator_list_nickname();
+        ArrayList<String> creator_list_profile = aliseon.aliseon_getCreator_list_profile();
+
+        ArrayList<String> subscribe_voyage_list_description = aliseon.aliseon_getSubscribe_voyage_list_description();
+        ArrayList<String> subscribe_voyage_list_name = aliseon.aliseon_getSubscribe_voyage_list_nickname();
+        ArrayList<String> subscribe_voyage_list_photo = aliseon.aliseon_getSubscribe_voyage_list_photo();
+
+        aliseon.aliseon_setRefresh_num(2);
+
+
         Intent intent = getIntent();
 
-        select = intent.getExtras().getInt("index");
-        // this is just idea
-        typeselector = intent.getExtras().getInt("category");
+        int typeselector = aliseon.aliseon_getType_selector();
+        int select = aliseon.aliseon_getSelect();
 
         Log.d("불러온 카테고리 번호 : ", String.valueOf(typeselector));
         Log.d("불러온 Index 번호 : ", String.valueOf(select));
 
-        creatortitle = null;
-        creatorprofile = null;
-
+        String creatortitle = aliseon.aliseon_getCreator_title();
+        String creatorprofile = aliseon.aliseon_getCreator_profile();
 
         // 선택한 영상의 데이터
         switch (typeselector) {
@@ -544,63 +602,98 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 subtitle = atrend_subtitle.get(select);
                 player_feed_list_content = atrend_related_description;
                 player_feed_list_crop = atrend_related_thumbnail;
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
+
             case 2:
                 // Popular
                 maintitle = popular_description.get(select);
                 subtitle = popular_description.get(select);
-
                 creatortitle = popular_nickname.get(select);
                 creatorprofile = popular_photo.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
             case 3:
                 // Popular
                 maintitle = voyage_description.get(select);
                 subtitle = voyage_description.get(select);
-
                 creatortitle = voyage_nickname.get(select);
                 creatorprofile = voyage_photo.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
             case 4:
                 // My
                 maintitle = my_list_description.get(select);
                 subtitle = my_list_description.get(select);
-
                 creatortitle = my_list_nickname.get(select);
                 creatorprofile = my_list_profile.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
 
             case 5:
                 // Voyage result
                 maintitle = voyageresult_description.get(select);
                 subtitle = voyageresult_description.get(select);
-
                 creatortitle = voyageresult_nickname.get(select);
                 creatorprofile = voyageresult_photo.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
 
             case 6:
                 // Creator
                 maintitle = creator_list_description.get(select);
                 subtitle = creator_list_description.get(select);
-
                 creatortitle = creator_list_nickname.get(select);
                 creatorprofile = creator_list_profile.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
 
             case 7:
                 // Subscribe
                 maintitle = subscribe_voyage_list_description.get(select);
                 subtitle = subscribe_voyage_list_description.get(select);
-
                 creatortitle = subscribe_voyage_list_name.get(select);
                 creatorprofile = subscribe_voyage_list_photo.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
 
             case 11:
                 // Atrend - related
                 maintitle = player_feed_list_content.get(select);
                 subtitle = player_feed_list_content.get(select);
+
+                aliseon.aliseon_setMain_title(maintitle);
+                aliseon.aliseon_setSub_title(subtitle);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
                 break;
 
             case 12:
@@ -620,93 +713,79 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                     switch (typeselector) {
                         case 1:
                             // Atrend
-                            param_atrend_id = atrend_id.get(select);
-                            NetworkTaskAtrendDetail networktastatrenddetail = new NetworkTaskAtrendDetail(api_atrend_detail, null);
-                            networktastatrenddetail.execute();
+                            aliseon.aliseon_setParam_atrend_id(atrend_id.get(select));
+                            AtrendDetailPost();
                             break;
 
                         case 2:
                             // Popular
-                            select_voyage_id = popular_id.get(select);
-                            NetworkTaskTvottPopularDetail networkTaskTvottpopularDetail = new NetworkTaskTvottPopularDetail(api_tvott_popular_detail, null);
-                            networkTaskTvottpopularDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getPopular_id().get(select));
+                            PopularDetailPost();
                             break;
 
                         case 3:
                             // Voyage
-                            select_voyage_id = voyage_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottVoyageDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottVoyageDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyage_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 4:
                             // My
-                            select_voyage_id = my_list_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottMyDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottMyDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getMy_list_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 5:
                             // Voyage Result
-                            select_voyage_id = voyageresult_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottvoyageresultDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottvoyageresultDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyageresult_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 6:
                             // Creator
-                            select_voyage_id = creator_list_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottcreatorDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottcreatorDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getCreator_list_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 7:
                             // Subscribe
-                            select_voyage_id = subscribe_voyage_list_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottsubscribeDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottsubscribeDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getSubscribe_voyage_list_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 11:
-                            param_atrend_id = atrend_related_id.get(select);
-                            NetworkTaskAtrendDetail networktastatrendrelateddetail = new NetworkTaskAtrendDetail(api_atrend_detail, null);
-                            networktastatrendrelateddetail.execute();
+                            aliseon.aliseon_setParam_atrend_id(atrend_related_id.get(select));
+                            AtrendDetailPost();
                             break;
 
                         case 12:
-                            select_voyage_id = popular_related_id.get(select);
-                            NetworkTaskTvottPopularDetail networkTaskTvottpopularrelatedDetail = new NetworkTaskTvottPopularDetail(api_tvott_popular_detail, null);
-                            networkTaskTvottpopularrelatedDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getPopular_related_id().get(select));
+                            PopularDetailPost();
                             break;
 
                         case 13:
-                            select_voyage_id = voyage_related_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottVoyagerelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottVoyagerelatedDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyage_related_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 14:
-                            select_voyage_id = voyage_related_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottMyrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottMyrelatedDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyage_related_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 15:
-                            select_voyage_id = voyage_related_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottvoyageresultrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottvoyageresultrelatedDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyage_related_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 16:
-                            select_voyage_id = voyage_related_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottcreatorrelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottcreatorrelatedDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyage_related_id().get(select));
+                            VoyageDetailPost();
                             break;
 
                         case 17:
-                            select_voyage_id = voyage_related_id.get(select);
-                            NetworkTaskTvottVoyageDetail networkTaskTvottsubscriberelatedDetail = new NetworkTaskTvottVoyageDetail(api_voyage_detail, null);
-                            networkTaskTvottsubscriberelatedDetail.execute();
+                            aliseon.aliseon_setSelect_voyage_id(aliseon.aliseon_getVoyage_related_id().get(select));
+                            VoyageDetailPost();
                             break;
                     }
                 }
@@ -853,39 +932,41 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                     Button cartproductadd = (Button) cartplayer.findViewById(R.id.cartproductadd1);
 
-                    final int j = i;
-                    cartproductadd.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                    // 정비 필요
 
-
-                            if (prf.getString("userinfo_name", "").equals("empty")
-                                    && prf.getString("userinfo_picture", "").equals("empty")
-                                    && prf.getInt("user_id", 0) == 0) {
-
-                                playerdataload = 0;
-
-                                Intent intent = new Intent(AliseonOTTPlayerActivity.this, AliseonOTTPlayerCartLoginActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                startActivity(intent);
-
-                            } else {
-                                Log.d("WHAT ITEMS:::", String.valueOf(playerfeedid));
-                                Log.d("WHAT ITEMS:::", String.valueOf(playerfeedid.get(0)));
-                                param_product_id = playerfeedid.get(j);
-
-                                playerdataload = 0;
-
-                                Intent intent = new Intent(AliseonOTTPlayerActivity.this, CartDetailActivity.class);
-                                intent.putExtra("cartdetail", j);
-                                intent.putExtra("playercartdetail", 1);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                startActivity(intent);
-
-                            }
-
-                        }
-                    });
+//                    final int j = i;
+//                    cartproductadd.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//
+//                            if (prf.getString("userinfo_name", "").equals("empty")
+//                                    && prf.getString("userinfo_picture", "").equals("empty")
+//                                    && prf.getInt("user_id", 0) == 0) {
+//
+//                                aliseon.aliseon_setPlayerdataload(0);
+//
+//                                Intent intent = new Intent(AliseonOTTPlayerActivity.this, AliseonOTTPlayerCartLoginActivity.class);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                startActivity(intent);
+//
+//                            } else {
+//                                Log.d("WHAT ITEMS:::", String.valueOf(playerfeedid));
+//                                Log.d("WHAT ITEMS:::", String.valueOf(playerfeedid.get(0)));
+//                                param_product_id = playerfeedid.get(j);
+//
+//                                aliseon.aliseon_setPlayerdataload(0);
+//
+//                                Intent intent = new Intent(AliseonOTTPlayerActivity.this, CartDetailActivity.class);
+//                                intent.putExtra("cartdetail", j);
+//                                intent.putExtra("playercartdetail", 1);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                                startActivity(intent);
+//
+//                            }
+//
+//                        }
+//                    });
 
                     cartplayerlayout.addView(cartplayer);
 
@@ -959,10 +1040,12 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                     contentsplayer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            playerdataload = 0;
+
+                            int typeselector = aliseon.aliseon_getType_selector();
+                            aliseon.aliseon_setPlayerdataload(0);
 
                             if (typeselector < 10) {
-                                typeselector = typeselector + 10;
+                                aliseon.aliseon_setType_selector(typeselector + 10);
                             }
 
                             intent.putExtra("index", j);
@@ -1080,20 +1163,62 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                 Log.d("REALLY :", "IS WORKING.");
 
-                playerdataload = 1;
+
+                Aliseon aliseon = (Aliseon) getApplicationContext();
+
+                String imageurl = aliseon.aliseon_getImageURL();
+
+                int playerdataload = aliseon.aliseon_getPlayerdataload();
+                int typeselector = aliseon.aliseon_getType_selector();
+                String nowurl = aliseon.aliseon_getNowurl();
+
+                ArrayList<String> player_feed_list_content = aliseon.aliseon_getPlayer_feed_list_content();
+                ArrayList<String> player_feed_list_crop = aliseon.aliseon_getPlayer_feed_list_crop();
+                ArrayList<String> player_feed_list_id = aliseon.aliseon_getPlayer_feed_list_id();
+
+                ArrayList<String> playerfeedid = aliseon.aliseon_Playerfeedid();
+                ArrayList<String> playerfeedimage = aliseon.aliseon_Playerfeedimage();
+                ArrayList<String> playerfeedname = aliseon.aliseon_Playerfeedname();
+                ArrayList<String> playerfeedpricecomputed = aliseon.aliseon_Playerfeedpricecomputed();
+
+                ArrayList<String> popular_related_description = aliseon.aliseon_getPopular_related_description();
+                ArrayList<String> popular_related_contents = aliseon.aliseon_getPopular_related_contents();
+                ArrayList<String> popular_related_id = aliseon.aliseon_getPopular_related_id();
+
+                ArrayList<String> popular_detail_item_id = aliseon.aliseon_getPopular_detail_item_id();
+                ArrayList<String> popular_detail_contents = aliseon.aliseon_getPopular_detail_contents();
+                ArrayList<String> popular_detail_product_id = aliseon.aliseon_getPopular_detail_product_id();
+                ArrayList<String> popular_detail_item_thumbnail = aliseon.aliseon_getPopular_detail_item_thumbnail();
+                ArrayList<String> popular_detail_item_name = aliseon.aliseon_getPopular_detail_item_name();
+                ArrayList<String> popular_detail_item_price = aliseon.aliseon_getPopular_detail_item_price();
+
+                ArrayList<String> voyage_related_description = aliseon.aliseon_getVoyage_related_description();
+                ArrayList<String> voyage_related_contents = aliseon.aliseon_getVoyage_related_contents();
+                ArrayList<String> voyage_related_id = aliseon.aliseon_getVoyage_related_id();
+
+                ArrayList<String> voyage_detail_item_id = aliseon.aliseon_getVoyage_detail_item_id();
+                ArrayList<String> voyage_detail_product_id = aliseon.aliseon_getVoyage_detail_product_id();
+                ArrayList<String> voyage_detail_item_thumbnail = aliseon.aliseon_getVoyage_detail_item_thumbnail();
+                ArrayList<String> voyage_detail_item_name = aliseon.aliseon_getVoyage_detail_item_name();
+                ArrayList<String> voyage_detail_item_price = aliseon.aliseon_getVoyage_detail_item_price();
+                ArrayList<String> voyage_detail_contents = aliseon.aliseon_getVoyage_detail_contents();
+
+                Log.d("ATRENDPLAYER", String.valueOf(typeselector));
+
+                aliseon.aliseon_setPlayerdataload(1);
 
                 switch (typeselector) {
                     case 1:
                         // Atrend
-                        nowurl = imageurl + atrend_detail_maincontent.get(0);
-                        player_feed_list_content = atrend_related_description;
-                        player_feed_list_crop = atrend_related_thumbnail;
-                        player_feed_list_id = atrend_related_id;
+                        nowurl = imageurl + aliseon.aliseon_getAtrend_detail_maincontent().get(0);
+                        player_feed_list_content = aliseon.aliseon_getAtrend_related_description();
+                        player_feed_list_crop = aliseon.aliseon_getAtrend_related_thumbnail();
+                        player_feed_list_id = aliseon.aliseon_getAtrend_related_id();
 
-                        playerfeedid = atrend_detail_product_id;
-                        playerfeedimage = atrend_detail_product_thumbnail;
-                        playerfeedname = atrend_detail_product_name;
-                        playerfeedpricecomputed = atrend_detail_product_price;
+                        playerfeedid = aliseon.aliseon_getAtrend_detail_product_id();
+                        playerfeedimage = aliseon.aliseon_getAtrend_detail_product_thumbnail();
+                        playerfeedname = aliseon.aliseon_getAtrend_detail_product_name();
+                        playerfeedpricecomputed = aliseon.aliseon_getAtrend_detail_product_price();
                         break;
                     case 2:
                         // Popular
@@ -1181,16 +1306,15 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                     case 11:
                         // Atrend - Related
-                        nowurl = imageurl + atrend_detail_maincontent.get(0);
+                        aliseon.aliseon_setNowurl(imageurl + aliseon.aliseon_getAtrend_detail_maincontent().get(0));
+                        player_feed_list_content = aliseon.aliseon_getAtrend_related_description();
+                        player_feed_list_crop = aliseon.aliseon_getAtrend_related_thumbnail();
+                        player_feed_list_id = aliseon.aliseon_getAtrend_related_id();
 
-                        player_feed_list_content = atrend_related_description;
-                        player_feed_list_crop = atrend_related_thumbnail;
-                        player_feed_list_id = atrend_related_id;
-
-                        playerfeedid = atrend_detail_product_id;
-                        playerfeedimage = atrend_detail_product_thumbnail;
-                        playerfeedname = atrend_detail_product_name;
-                        playerfeedpricecomputed = atrend_detail_product_price;
+                        playerfeedid = aliseon.aliseon_getAtrend_detail_product_id();
+                        playerfeedimage = aliseon.aliseon_getAtrend_detail_product_thumbnail();
+                        playerfeedname = aliseon.aliseon_getAtrend_detail_product_name();
+                        playerfeedpricecomputed = aliseon.aliseon_getAtrend_detail_product_price();
                         break;
 
                     case 12:
@@ -1278,6 +1402,16 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                         break;
                 }
 
+                aliseon.aliseon_setNowurl(nowurl);
+                aliseon.aliseon_setPlayer_feed_list_content(player_feed_list_content);
+                aliseon.aliseon_setPlayer_feed_list_crop(player_feed_list_crop);
+                aliseon.aliseon_setPlayer_feed_list_id(player_feed_list_id);
+
+                aliseon.aliseon_setPlayerfeedid(playerfeedid);
+                aliseon.aliseon_setPlayerfeedimage(playerfeedimage);
+                aliseon.aliseon_setPlayerfeedname(playerfeedname);
+                aliseon.aliseon_setPlayerfeedpricecomputed(playerfeedpricecomputed);
+
                 Log.d("재생되는 링크 ::", nowurl);
 
                 // API 로드가 완료될 경우 영상 재생과 onResume으로 화면을 새로고침
@@ -1288,6 +1422,567 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 Log.d("ERROR ::", "Player Data Loader ERROR");
             }
         }
+    }
+
+    private void AtrendDetailPost() {
+
+        Log.d("ATRENDPOST", "============================================================");
+        Log.d("ATRENDPOST", "============================================================");
+        Log.d("ATRENDPOST", "============================================================");
+
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int user_id = aliseon.aliseon_getLoginid();
+        String atrend_id = aliseon.aliseon_getParam_atrend_id();
+        String lang = aliseon.aliseon_getLoginlanguage();
+        String currency = aliseon.aliseon_getLogincurrency();
+
+        Call<AtrendDetail> call = AliseonAPI.AtrendDetailPost(access_token, user_id, atrend_id, lang, currency);
+
+        call.enqueue(new Callback<AtrendDetail>() {
+            @Override
+            public void onResponse(Call<AtrendDetail> call, Response<AtrendDetail> response) {
+                AtrendDetail postResponse = (AtrendDetail) response.body();
+
+                ArrayList<String> atrend_detail_product_id = aliseon.aliseon_getAtrend_detail_product_id();
+                ArrayList<String> atrend_detail_product_name = aliseon.aliseon_getAtrend_detail_product_name();
+                ArrayList<String> atrend_detail_product_brand = aliseon.aliseon_getAtrend_detail_product_brand();
+                ArrayList<String> atrend_detail_product_thumbnail = aliseon.aliseon_getAtrend_detail_product_thumbnail();
+                ArrayList<String> atrend_detail_product_price = aliseon.aliseon_getAtrend_detail_product_price();
+                ArrayList<String> atrend_detail_product_previous_price = aliseon.aliseon_getAtrend_detail_product_previous_price();
+
+                ArrayList<String> atrend_related_id = aliseon.aliseon_getAtrend_related_id();
+                ArrayList<String> atrend_related_user_id = aliseon.aliseon_getAtrend_related_user_id();
+                ArrayList<String> atrend_related_type = aliseon.aliseon_getAtrend_related_type();
+                ArrayList<String> atrend_related_product_id = aliseon.aliseon_getAtrend_related_product_id();
+                ArrayList<String> atrend_related_title = aliseon.aliseon_getAtrend_related_title();
+                ArrayList<String> atrend_related_subtitle = aliseon.aliseon_getAtrend_related_subtitle();
+                ArrayList<String> atrend_related_description = aliseon.aliseon_getAtrend_related_description();
+                ArrayList<String> atrend_related_summary = aliseon.aliseon_getAtrend_related_summary();
+                ArrayList<String> atrend_related_view = aliseon.aliseon_getAtrend_related_view();
+                ArrayList<String> atrend_related_like = aliseon.aliseon_getAtrend_related_like();
+                ArrayList<String> atrend_related_color = aliseon.aliseon_getAtrend_related_color();
+                ArrayList<String> atrend_related_start_at = aliseon.aliseon_getAtrend_related_start_at();
+                ArrayList<String> atrend_related_create_at = aliseon.aliseon_getAtrend_related_create_at();
+                ArrayList<String> atrend_related_update_at = aliseon.aliseon_getAtrend_related_update_at();
+                ArrayList<String> atrend_related_opacity = aliseon.aliseon_getAtrend_related_opacity();
+                ArrayList<String> atrend_related_status = aliseon.aliseon_getAtrend_related_status();
+                ArrayList<String> atrend_related_background = aliseon.aliseon_getAtrend_related_background();
+                ArrayList<String> atrend_related_thumbnail = aliseon.aliseon_getAtrend_related_thumbnail();
+
+                String dept1_html = postResponse.atrend_detail_list.getDetail().get(0).getDept1Html();
+                String dept2_html = postResponse.atrend_detail_list.getDetail().get(0).getDept2Html();
+                String dept3_html = postResponse.atrend_detail_list.getDetail().get(0).getDept3Html();
+                String dept4_html = postResponse.atrend_detail_list.getDetail().get(0).getDept4Html();
+                String maincontent = postResponse.atrend_detail_list.getDetail().get(0).getMaincontent();
+
+                ArrayList<AtrendDetail.List.Detail.Item.Dept1Product> dept1_product = postResponse.atrend_detail_list.getDetail().get(0).getItems().get(0).getDept1Product();
+                ArrayList<AtrendDetail.List.Detail.Item.Dept1Product> dept2_product = postResponse.atrend_detail_list.getDetail().get(0).getItems().get(0).getDept2Product();
+                ArrayList<AtrendDetail.List.Detail.Item.Dept1Product> dept3_product = postResponse.atrend_detail_list.getDetail().get(0).getItems().get(0).getDept3Product();
+                ArrayList<AtrendDetail.List.Detail.Item.Dept1Product> dept4_product = postResponse.atrend_detail_list.getDetail().get(0).getItems().get(0).getDept4Product();
+
+                // detail
+                for (int i = 0; i < dept1_product.size(); i++) {
+
+                    int id = dept1_product.get(i).getId();
+                    String name = dept1_product.get(i).getName();
+                    String brand = dept1_product.get(i).getBrand();
+                    String thumbnail = dept1_product.get(i).getThumbnail();
+                    int price = dept1_product.get(i).getPrice();
+                    int previousprice = dept1_product.get(i).getPreviousPrice();
+
+                    atrend_detail_product_id.add(String.valueOf(id));
+                    atrend_detail_product_name.add(name);
+                    atrend_detail_product_brand.add(brand);
+                    atrend_detail_product_thumbnail.add(thumbnail);
+                    atrend_detail_product_price.add(String.valueOf(price));
+                    atrend_detail_product_previous_price.add(String.valueOf(previousprice));
+
+                }
+                for (int i = 0; i < dept2_product.size(); i++) {
+
+                    int id = dept2_product.get(i).getId();
+                    String name = dept2_product.get(i).getName();
+                    String brand = dept2_product.get(i).getBrand();
+                    String thumbnail = dept2_product.get(i).getThumbnail();
+                    int price = dept2_product.get(i).getPrice();
+                    int previousprice = dept2_product.get(i).getPreviousPrice();
+
+                    atrend_detail_product_id.add(String.valueOf(id));
+                    atrend_detail_product_name.add(name);
+                    atrend_detail_product_brand.add(brand);
+                    atrend_detail_product_thumbnail.add(thumbnail);
+                    atrend_detail_product_price.add(String.valueOf(price));
+                    atrend_detail_product_previous_price.add(String.valueOf(previousprice));
+
+                }
+                for (int i = 0; i < dept3_product.size(); i++) {
+
+                    int id = dept3_product.get(i).getId();
+                    String name = dept3_product.get(i).getName();
+                    String brand = dept3_product.get(i).getBrand();
+                    String thumbnail = dept3_product.get(i).getThumbnail();
+                    int price = dept3_product.get(i).getPrice();
+                    int previousprice = dept3_product.get(i).getPreviousPrice();
+
+                    atrend_detail_product_id.add(String.valueOf(id));
+                    atrend_detail_product_name.add(name);
+                    atrend_detail_product_brand.add(brand);
+                    atrend_detail_product_thumbnail.add(thumbnail);
+                    atrend_detail_product_price.add(String.valueOf(price));
+                    atrend_detail_product_previous_price.add(String.valueOf(previousprice));
+
+                }
+                for (int i = 0; i < dept4_product.size(); i++) {
+
+                    int id = dept4_product.get(i).getId();
+                    String name = dept4_product.get(i).getName();
+                    String brand = dept4_product.get(i).getBrand();
+                    String thumbnail = dept4_product.get(i).getThumbnail();
+                    int price = dept4_product.get(i).getPrice();
+                    int previousprice = dept4_product.get(i).getPreviousPrice();
+
+                    atrend_detail_product_id.add(String.valueOf(id));
+                    atrend_detail_product_name.add(name);
+                    atrend_detail_product_brand.add(brand);
+                    atrend_detail_product_thumbnail.add(thumbnail);
+                    atrend_detail_product_price.add(String.valueOf(price));
+                    atrend_detail_product_previous_price.add(String.valueOf(previousprice));
+
+                }
+
+                // related
+                for (int i = 0; i < postResponse.atrend_detail_list.getRelated().size(); i++) {
+                    int id = postResponse.atrend_detail_list.getRelated().get(i).getId();
+                    int user_id = postResponse.atrend_detail_list.getRelated().get(i).getUserId();
+                    String type = postResponse.atrend_detail_list.getRelated().get(i).getType();
+                    String product_id = postResponse.atrend_detail_list.getRelated().get(i).getProductId();
+                    String title = postResponse.atrend_detail_list.getRelated().get(i).getTitle();
+                    String sub_title = postResponse.atrend_detail_list.getRelated().get(i).getSubTitle();
+                    String description = postResponse.atrend_detail_list.getRelated().get(i).getDescription();
+                    String summary = postResponse.atrend_detail_list.getRelated().get(i).getSummary();
+                    int view = postResponse.atrend_detail_list.getRelated().get(i).getView();
+                    int like = postResponse.atrend_detail_list.getRelated().get(i).getLike();
+                    String color = postResponse.atrend_detail_list.getRelated().get(i).getColor();
+                    String start_at = postResponse.atrend_detail_list.getRelated().get(i).getStartAt();
+                    String create_at = postResponse.atrend_detail_list.getRelated().get(i).getCreateAt();
+                    String update_at = postResponse.atrend_detail_list.getRelated().get(i).getUpdateAt();
+                    String opacity = postResponse.atrend_detail_list.getRelated().get(i).getOpacity();
+                    int status = postResponse.atrend_detail_list.getRelated().get(i).getStatus();
+                    String background = postResponse.atrend_detail_list.getRelated().get(i).getBackground();
+                    String thumbnail = postResponse.atrend_detail_list.getRelated().get(i).getThumbnail();
+
+                    atrend_related_id.add(String.valueOf(id));
+                    atrend_related_user_id.add(String.valueOf(user_id));
+                    atrend_related_type.add(type);
+                    atrend_related_product_id.add(product_id);
+                    atrend_related_title.add(title);
+                    atrend_related_subtitle.add(sub_title);
+                    atrend_related_description.add(description);
+                    atrend_related_summary.add(summary);
+                    atrend_related_view.add(String.valueOf(view));
+                    atrend_related_like.add(String.valueOf(like));
+                    atrend_related_color.add(color);
+                    atrend_related_start_at.add(start_at);
+                    atrend_related_create_at.add(create_at);
+                    atrend_related_update_at.add(update_at);
+                    atrend_related_opacity.add(opacity);
+                    atrend_related_status.add(String.valueOf(status));
+                    atrend_related_background.add(background);
+                    atrend_related_thumbnail.add(thumbnail);
+                }
+
+                ArrayList<String> a_trend_maincontent = new ArrayList<>();
+                a_trend_maincontent.add(postResponse.atrend_detail_list.getDetail().get(0).getMaincontent());
+
+                aliseon.aliseon_setAtrend_detail_maincontent(a_trend_maincontent);
+
+                aliseon.aliseon_setAtrend_detail_product_id(atrend_detail_product_id);
+                aliseon.aliseon_setAtrend_detail_product_name(atrend_detail_product_name);
+                aliseon.aliseon_setAtrend_detail_product_brand(atrend_detail_product_brand);
+                aliseon.aliseon_setAtrend_detail_product_thumbnail(atrend_detail_product_thumbnail);
+                aliseon.aliseon_setAtrend_detail_product_price(atrend_detail_product_price);
+                aliseon.aliseon_setAtrend_detail_product_previous_price(atrend_detail_product_previous_price);
+
+                aliseon.aliseon_setAtrend_related_id(atrend_related_id);
+                aliseon.aliseon_setAtrend_related_user_id(atrend_related_user_id);
+                aliseon.aliseon_setAtrend_related_type(atrend_related_type);
+                aliseon.aliseon_setAtrend_related_product_id(atrend_related_product_id);
+                aliseon.aliseon_setAtrend_related_title(atrend_related_title);
+                aliseon.aliseon_setAtrend_related_subtitle(atrend_related_subtitle);
+                aliseon.aliseon_setAtrend_related_description(atrend_related_description);
+                aliseon.aliseon_setAtrend_related_summary(atrend_related_summary);
+                aliseon.aliseon_setAtrend_related_view(atrend_related_view);
+                aliseon.aliseon_setAtrend_related_like(atrend_related_like);
+                aliseon.aliseon_setAtrend_related_color(atrend_related_color);
+                aliseon.aliseon_setAtrend_related_start_at(atrend_related_start_at);
+                aliseon.aliseon_setAtrend_related_create_at(atrend_related_create_at);
+                aliseon.aliseon_setAtrend_related_update_at(atrend_related_update_at);
+                aliseon.aliseon_setAtrend_related_opacity(atrend_related_opacity);
+                aliseon.aliseon_setAtrend_related_status(atrend_related_status);
+                aliseon.aliseon_setAtrend_related_background(atrend_related_background);
+                aliseon.aliseon_setAtrend_related_thumbnail(atrend_related_thumbnail);
+
+                playerdataloadhandler.sendEmptyMessage(1000);
+
+            }
+
+            @Override
+            public void onFailure(Call<AtrendDetail> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    private void PopularDetailPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String voyage_id = aliseon.aliseon_getSelect_voyage_id();
+        String lang = aliseon.aliseon_getLoginlanguage();
+        String currency = aliseon.aliseon_getLogincurrency();
+
+        Call<PopularDetail> call = AliseonAPI.PopularDetailPost(access_token, voyage_id, lang, currency);
+
+        call.enqueue(new Callback<PopularDetail>() {
+            @Override
+            public void onResponse(Call<PopularDetail> call, Response<PopularDetail> response) {
+
+                PopularDetail postResponse = (PopularDetail) response.body();
+
+                ArrayList<String> popular_detail_id = new ArrayList<>();
+                ArrayList<String> popular_detail_user_id = new ArrayList<>();
+                ArrayList<String> popular_detail_product_id = new ArrayList<>();
+                ArrayList<String> popular_detail_contents_id = new ArrayList<>();
+                ArrayList<String> popular_detail_contents_type = new ArrayList<>();
+                ArrayList<String> popular_detail_category_id = new ArrayList<>();
+                ArrayList<String> popular_detail_status = new ArrayList<>();
+                ArrayList<String> popular_detail_description = new ArrayList<>();
+                ArrayList<String> popular_detail_create_at = new ArrayList<>();
+                ArrayList<String> popular_detail_update_at = new ArrayList<>();
+                ArrayList<String> popular_detail_like_count = new ArrayList<>();
+                ArrayList<String> popular_detail_view_count = new ArrayList<>();
+                ArrayList<String> popular_detail_comment_count = new ArrayList<>();
+                ArrayList<String> popular_detail_category_en = new ArrayList<>();
+                ArrayList<String> popular_detail_category_kr = new ArrayList<>();
+                ArrayList<String> popular_detail_name = new ArrayList<>();
+                ArrayList<String> popular_detail_photo = new ArrayList<>();
+                ArrayList<String> popular_detail_contents = new ArrayList<>();
+                ArrayList<String> popular_detail_items = new ArrayList<>();
+
+                ArrayList<String> popular_detail_item_id = new ArrayList<>();
+                ArrayList<String> popular_detail_item_name = new ArrayList<>();
+                ArrayList<String> popular_detail_item_brand = new ArrayList<>();
+                ArrayList<String> popular_detail_item_thumbnail = new ArrayList<>();
+                ArrayList<String> popular_detail_item_price = new ArrayList<>();
+                ArrayList<String> popular_detail_item_previous_price = new ArrayList<>();
+
+                ArrayList<String> popular_related_id = new ArrayList<>();
+                ArrayList<String> popular_related_user_id = new ArrayList<>();
+                ArrayList<String> popular_related_status = new ArrayList<>();
+                ArrayList<String> popular_related_description = new ArrayList<>();
+                ArrayList<String> popular_related_create_at = new ArrayList<>();
+                ArrayList<String> popular_related_update_at = new ArrayList<>();
+                ArrayList<String> popular_related_like_count = new ArrayList<>();
+                ArrayList<String> popular_related_view_count = new ArrayList<>();
+                ArrayList<String> popular_related_comment_count = new ArrayList<>();
+                ArrayList<String> popular_related_contents = new ArrayList<>();
+
+                String id = String.valueOf(postResponse.getList().getDetail().get(0).getId());
+                String user_id = String.valueOf(postResponse.getList().getDetail().get(0).getUserId());
+                String product_id = postResponse.getList().getDetail().get(0).getProductId();
+                String contents_id = postResponse.getList().getDetail().get(0).getContentsId();
+                String contents_type = postResponse.getList().getDetail().get(0).getContentsType();
+                String category_id = String.valueOf(postResponse.getList().getDetail().get(0).getCategoryId());
+                String status = String.valueOf(postResponse.getList().getDetail().get(0).getStatus());
+                String description = postResponse.getList().getDetail().get(0).getDescription();
+                String create_at = postResponse.getList().getDetail().get(0).getCreateAt();
+                String update_at = postResponse.getList().getDetail().get(0).getUpdateAt();
+                String like_count = String.valueOf(postResponse.getList().getDetail().get(0).getLikeCount());
+                String view_count = String.valueOf(postResponse.getList().getDetail().get(0).getViewCount());
+                String comment_count = String.valueOf(postResponse.getList().getDetail().get(0).getCommentCount());
+                String category_en = postResponse.getList().getDetail().get(0).getCategoryEn();
+                String category_kr = postResponse.getList().getDetail().get(0).getCategoryKo();
+                String name = postResponse.getList().getDetail().get(0).getNickname();
+                String photo = postResponse.getList().getDetail().get(0).getPhoto();
+                String contents = postResponse.getList().getDetail().get(0).getContents().get(0);
+
+                popular_detail_id.add(id);
+                popular_detail_user_id.add(user_id);
+                popular_detail_product_id.add(product_id);
+                popular_detail_contents_id.add(contents_id);
+                popular_detail_contents_type.add(contents_type);
+                popular_detail_category_id.add(category_id);
+                popular_detail_status.add(status);
+                popular_detail_description.add(description);
+                popular_detail_create_at.add(create_at);
+                popular_detail_update_at.add(update_at);
+                popular_detail_like_count.add(like_count);
+                popular_detail_view_count.add(view_count);
+                popular_detail_comment_count.add(comment_count);
+                popular_detail_category_en.add(category_en);
+                popular_detail_category_kr.add(category_kr);
+                popular_detail_name.add(name);
+                popular_detail_photo.add(photo);
+                popular_detail_contents.add(contents);
+
+
+                for (int i = 0; i < postResponse.getList().getDetail().get(0).getItems().size(); i++) {
+                    String item_id = String.valueOf(postResponse.getList().getDetail().get(0).getItems().get(i).getId());
+                    String item_name = postResponse.getList().getDetail().get(0).getItems().get(i).getName();
+                    String item_brand = postResponse.getList().getDetail().get(0).getItems().get(i).getBrand();
+                    String item_thumbnail = postResponse.getList().getDetail().get(0).getItems().get(i).getThumbnail();
+                    String item_price = String.valueOf(postResponse.getList().getDetail().get(0).getItems().get(i).getPrice());
+                    String item_previous_price = String.valueOf(postResponse.getList().getDetail().get(0).getItems().get(i).getPreviousPrice());
+
+                    popular_detail_item_id.add(item_id);
+                    popular_detail_item_name.add(item_name);
+                    popular_detail_item_brand.add(item_brand);
+                    popular_detail_item_thumbnail.add(item_thumbnail);
+                    popular_detail_item_price.add(item_price);
+                    popular_detail_item_previous_price.add(item_previous_price);
+                }
+
+                for (int j = 0; j < postResponse.getList().getRelated().size(); j++) {
+                    String r_id = String.valueOf(postResponse.getList().getRelated().get(j).getId());
+                    String r_user_id = String.valueOf(postResponse.getList().getRelated().get(j).getUserId());
+                    String r_status = String.valueOf(postResponse.getList().getRelated().get(j).getStatus());
+                    String r_description = postResponse.getList().getRelated().get(j).getDescription();
+                    String r_create_at = postResponse.getList().getRelated().get(j).getCreateAt();
+                    String r_update_at = postResponse.getList().getRelated().get(j).getUpdateAt();
+                    String r_like_count = String.valueOf(postResponse.getList().getRelated().get(j).getLikeCount());
+                    String r_view_count = String.valueOf(postResponse.getList().getRelated().get(j).getViewCount());
+                    String r_comment_count = String.valueOf(postResponse.getList().getRelated().get(j).getCommentCount());
+                    String r_thumbnail = postResponse.getList().getRelated().get(j).getThumbnail();
+
+                    popular_related_id.add(r_id);
+                    popular_related_user_id.add(r_user_id);
+                    popular_related_status.add(r_status);
+                    popular_related_description.add(r_description);
+                    popular_related_create_at.add(r_create_at);
+                    popular_related_update_at.add(r_update_at);
+                    popular_related_like_count.add(r_like_count);
+                    popular_related_view_count.add(r_view_count);
+                    popular_related_comment_count.add(r_comment_count);
+                    popular_related_contents.add(r_thumbnail);
+
+                }
+
+                aliseon.aliseon_setPopular_detail_id(popular_detail_id);
+                aliseon.aliseon_setPopular_detail_user_id(popular_detail_user_id);
+                aliseon.aliseon_setPopular_detail_product_id(popular_detail_product_id);
+                aliseon.aliseon_setPopular_detail_contents_id(popular_detail_contents_id);
+                aliseon.aliseon_setPopular_detail_contents_type(popular_detail_contents_type);
+                aliseon.aliseon_setPopular_detail_category_id(popular_detail_category_id);
+                aliseon.aliseon_setPopular_detail_status(popular_detail_status);
+                aliseon.aliseon_setPopular_detail_description(popular_detail_description);
+                aliseon.aliseon_setPopular_detail_create_at(popular_detail_create_at);
+                aliseon.aliseon_setPopular_detail_update_at(popular_detail_update_at);
+                aliseon.aliseon_setPopular_detail_like_count(popular_detail_like_count);
+                aliseon.aliseon_setPopular_detail_view_count(popular_detail_view_count);
+                aliseon.aliseon_setPopular_detail_comment_count(popular_detail_comment_count);
+                aliseon.aliseon_setPopular_detail_category_en(popular_detail_category_en);
+                aliseon.aliseon_setPopular_detail_category_kr(popular_detail_category_kr);
+                aliseon.aliseon_setPopular_detail_name(popular_detail_name);
+                aliseon.aliseon_setPopular_detail_photo(popular_detail_photo);
+                aliseon.aliseon_setPopular_detail_contents(popular_detail_contents);
+
+                aliseon.aliseon_setPopular_related_id(popular_related_id);
+                aliseon.aliseon_setPopular_related_user_id(popular_related_user_id);
+                aliseon.aliseon_setPopular_related_status(popular_related_status);
+                aliseon.aliseon_setPopular_related_description(popular_related_description);
+                aliseon.aliseon_setPopular_related_create_at(popular_related_create_at);
+                aliseon.aliseon_setPopular_related_update_at(popular_related_update_at);
+                aliseon.aliseon_setPopular_related_like_count(popular_related_like_count);
+                aliseon.aliseon_setPopular_related_view_count(popular_related_view_count);
+                aliseon.aliseon_setPopular_related_comment_count(popular_related_comment_count);
+                aliseon.aliseon_setPopular_related_contents(popular_related_contents);
+
+                playerdataloadhandler.sendEmptyMessage(1000);
+
+            }
+
+            @Override
+            public void onFailure(Call<PopularDetail> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void VoyageDetailPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String user_id = String.valueOf(aliseon.aliseon_getLoginid());
+        String voyage_id = aliseon.aliseon_getSelect_voyage_id();
+        String lang = aliseon.aliseon_getLoginlanguage();
+        String currency = aliseon.aliseon_getLogincurrency();
+
+        Call<VoyageDetail> call = AliseonAPI.VoyageDetailPost(access_token, user_id, voyage_id, 1, lang, currency);
+
+        call.enqueue(new Callback<VoyageDetail>() {
+            @Override
+            public void onResponse(Call<VoyageDetail> call, Response<VoyageDetail> response) {
+
+                VoyageDetail postResponse = (VoyageDetail) response.body();
+
+               ArrayList<String> voyage_detail_id = new ArrayList<>();
+               ArrayList<String> voyage_detail_user_id = new ArrayList<>();
+               ArrayList<String> voyage_detail_product_id = new ArrayList<>();
+               ArrayList<String> voyage_detail_contents_id = new ArrayList<>();
+               ArrayList<String> voyage_detail_contents_type = new ArrayList<>();
+               ArrayList<String> voyage_detail_category_id = new ArrayList<>();
+               ArrayList<String> voyage_detail_status = new ArrayList<>();
+               ArrayList<String> voyage_detail_description = new ArrayList<>();
+               ArrayList<String> voyage_detail_create_at = new ArrayList<>();
+               ArrayList<String> voyage_detail_update_at = new ArrayList<>();
+               ArrayList<String> voyage_detail_like_count = new ArrayList<>();
+               ArrayList<String> voyage_detail_view_count = new ArrayList<>();
+               ArrayList<String> voyage_detail_comment_count = new ArrayList<>();
+               ArrayList<String> voyage_detail_category_en = new ArrayList<>();
+               ArrayList<String> voyage_detail_category_kr = new ArrayList<>();
+               ArrayList<String> voyage_detail_nickname = new ArrayList<>();
+               ArrayList<String> voyage_detail_photo = new ArrayList<>();
+               ArrayList<String> voyage_detail_contents = new ArrayList<>();
+               ArrayList<String> voyage_detail_items = new ArrayList<>();
+
+               ArrayList<String> voyage_detail_item_id = new ArrayList<>();
+               ArrayList<String> voyage_detail_item_name = new ArrayList<>();
+               ArrayList<String> voyage_detail_item_brand = new ArrayList<>();
+               ArrayList<String> voyage_detail_item_thumbnail = new ArrayList<>();
+               ArrayList<String> voyage_detail_item_price = new ArrayList<>();
+               ArrayList<String> voyage_detail_item_previous_price = new ArrayList<>();
+
+               ArrayList<String> voyage_related_id = new ArrayList<>();
+               ArrayList<String> voyage_related_user_id = new ArrayList<>();
+               ArrayList<String> voyage_related_status = new ArrayList<>();
+               ArrayList<String> voyage_related_description = new ArrayList<>();
+               ArrayList<String> voyage_related_create_at = new ArrayList<>();
+               ArrayList<String> voyage_related_update_at = new ArrayList<>();
+               ArrayList<String> voyage_related_like_count = new ArrayList<>();
+               ArrayList<String> voyage_related_view_count = new ArrayList<>();
+               ArrayList<String> voyage_related_comment_count = new ArrayList<>();
+               ArrayList<String> voyage_related_contents = new ArrayList<>();
+
+                String id = String.valueOf(postResponse.getList().getDetail().get(0).getId());
+                String user_id = String.valueOf(postResponse.getList().getDetail().get(0).getUserId());
+                String product_id = postResponse.getList().getDetail().get(0).getProductId();
+                String contents_id = postResponse.getList().getDetail().get(0).getContentsId();
+                String contents_type = postResponse.getList().getDetail().get(0).getContentsType();
+                String category_id = String.valueOf(postResponse.getList().getDetail().get(0).getCategoryId());
+                String status = String.valueOf(postResponse.getList().getDetail().get(0).getStatus());
+                String description = postResponse.getList().getDetail().get(0).getDescription();
+                String create_at = postResponse.getList().getDetail().get(0).getCreateAt();
+                String update_at = postResponse.getList().getDetail().get(0).getUpdateAt();
+                String like_count = String.valueOf(postResponse.getList().getDetail().get(0).getLikeCount());
+                String view_count = String.valueOf(postResponse.getList().getDetail().get(0).getViewCount());
+                String comment_count = String.valueOf(postResponse.getList().getDetail().get(0).getCommentCount());
+                String category_en = postResponse.getList().getDetail().get(0).getCategoryEn();
+                String category_kr = postResponse.getList().getDetail().get(0).getCategoryKo();
+                String name = postResponse.getList().getDetail().get(0).getNickname();
+                String photo = postResponse.getList().getDetail().get(0).getPhoto();
+                String contents = postResponse.getList().getDetail().get(0).getContents().get(0);
+
+                voyage_detail_id.add(id);
+                voyage_detail_user_id.add(user_id);
+                voyage_detail_product_id.add(product_id);
+                voyage_detail_contents_id.add(contents_id);
+                voyage_detail_contents_type.add(contents_type);
+                voyage_detail_category_id.add(category_id);
+                voyage_detail_status.add(status);
+                voyage_detail_description.add(description);
+                voyage_detail_create_at.add(create_at);
+                voyage_detail_update_at.add(update_at);
+                voyage_detail_like_count.add(like_count);
+                voyage_detail_view_count.add(view_count);
+                voyage_detail_comment_count.add(comment_count);
+                voyage_detail_category_en.add(category_en);
+                voyage_detail_category_kr.add(category_kr);
+                voyage_detail_nickname.add(name);
+                voyage_detail_photo.add(photo);
+                voyage_detail_contents.add(contents);
+
+
+                for (int i = 0; i < postResponse.getList().getDetail().get(0).getItems().size(); i++) {
+                    String item_id = String.valueOf(postResponse.getList().getDetail().get(0).getItems().get(i).getId());
+                    String item_name = postResponse.getList().getDetail().get(0).getItems().get(i).getName();
+                    String item_brand = postResponse.getList().getDetail().get(0).getItems().get(i).getBrand();
+                    String item_thumbnail = postResponse.getList().getDetail().get(0).getItems().get(i).getThumbnail();
+                    String item_price = String.valueOf(postResponse.getList().getDetail().get(0).getItems().get(i).getPrice());
+                    String item_previous_price = String.valueOf(postResponse.getList().getDetail().get(0).getItems().get(i).getPreviousPrice());
+
+                    voyage_detail_item_id.add(item_id);
+                    voyage_detail_item_name.add(item_name);
+                    voyage_detail_item_brand.add(item_brand);
+                    voyage_detail_item_thumbnail.add(item_thumbnail);
+                    voyage_detail_item_price.add(item_price);
+                    voyage_detail_item_previous_price.add(item_previous_price);
+                }
+
+                for (int j = 0; j < postResponse.getList().getRelated().size(); j++) {
+                    String r_id = String.valueOf(postResponse.getList().getRelated().get(j).getId());
+                    String r_user_id = String.valueOf(postResponse.getList().getRelated().get(j).getUserId());
+                    String r_status = String.valueOf(postResponse.getList().getRelated().get(j).getStatus());
+                    String r_description = postResponse.getList().getRelated().get(j).getDescription();
+                    String r_create_at = postResponse.getList().getRelated().get(j).getCreateAt();
+                    String r_update_at = postResponse.getList().getRelated().get(j).getUpdateAt();
+                    String r_like_count = String.valueOf(postResponse.getList().getRelated().get(j).getLikeCount());
+                    String r_view_count = String.valueOf(postResponse.getList().getRelated().get(j).getViewCount());
+                    String r_comment_count = String.valueOf(postResponse.getList().getRelated().get(j).getCommentCount());
+                    String r_thumbnail = postResponse.getList().getRelated().get(j).getThumbnail().get(0);
+
+                    voyage_related_id.add(r_id);
+                    voyage_related_user_id.add(r_user_id);
+                    voyage_related_status.add(r_status);
+                    voyage_related_description.add(r_description);
+                    voyage_related_create_at.add(r_create_at);
+                    voyage_related_update_at.add(r_update_at);
+                    voyage_related_like_count.add(r_like_count);
+                    voyage_related_view_count.add(r_view_count);
+                    voyage_related_comment_count.add(r_comment_count);
+                    voyage_related_contents.add(r_thumbnail);
+
+                }
+
+                aliseon.aliseon_setVoyage_detail_id(voyage_detail_id);
+                aliseon.aliseon_setVoyage_detail_user_id(voyage_detail_user_id);
+                aliseon.aliseon_setVoyage_detail_product_id(voyage_detail_product_id);
+                aliseon.aliseon_setVoyage_detail_contents_id(voyage_detail_contents_id);
+                aliseon.aliseon_setVoyage_detail_contents_type(voyage_detail_contents_type);
+                aliseon.aliseon_setVoyage_detail_category_id(voyage_detail_category_id);
+                aliseon.aliseon_setVoyage_detail_status(voyage_detail_status);
+                aliseon.aliseon_setVoyage_detail_description(voyage_detail_description);
+                aliseon.aliseon_setVoyage_detail_create_at(voyage_detail_create_at);
+                aliseon.aliseon_setVoyage_detail_update_at(voyage_detail_update_at);
+                aliseon.aliseon_setVoyage_detail_like_count(voyage_detail_like_count);
+                aliseon.aliseon_setVoyage_detail_view_count(voyage_detail_view_count);
+                aliseon.aliseon_setVoyage_detail_comment_count(voyage_detail_comment_count);
+                aliseon.aliseon_setVoyage_detail_category_en(voyage_detail_category_en);
+                aliseon.aliseon_setVoyage_detail_category_kr(voyage_detail_category_kr);
+                aliseon.aliseon_setVoyage_detail_nickname(voyage_detail_nickname);
+                aliseon.aliseon_setVoyage_detail_photo(voyage_detail_photo);
+                aliseon.aliseon_setVoyage_detail_contents(voyage_detail_contents);
+
+                aliseon.aliseon_setVoyage_related_id(voyage_related_id);
+                aliseon.aliseon_setVoyage_related_user_id(voyage_related_user_id);
+                aliseon.aliseon_setVoyage_related_status(voyage_related_status);
+                aliseon.aliseon_setVoyage_related_description(voyage_related_description);
+                aliseon.aliseon_setVoyage_related_create_at(voyage_related_create_at);
+                aliseon.aliseon_setVoyage_related_update_at(voyage_related_update_at);
+                aliseon.aliseon_setVoyage_related_like_count(voyage_related_like_count);
+                aliseon.aliseon_setVoyage_related_view_count(voyage_related_view_count);
+                aliseon.aliseon_setVoyage_related_comment_count(voyage_related_comment_count);
+                aliseon.aliseon_setVoyage_related_contents(voyage_related_contents);
+
+                playerdataloadhandler.sendEmptyMessage(1000);
+            }
+
+            @Override
+            public void onFailure(Call<VoyageDetail> call, Throwable t) {
+
+            }
+        });
     }
 
 //    public class playerNextVideoHandler extends Handler {
