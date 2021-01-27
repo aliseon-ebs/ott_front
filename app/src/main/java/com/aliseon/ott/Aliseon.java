@@ -15,12 +15,7 @@ public class Aliseon extends Application {
 
     private String api_auth = aliseonapi + "/auth";
     private String api_usersetting_user_phone = aliseonapi + "/usersetting/user/phone";
-    private String api_category = aliseonapi + "" +
-            "" +
-            "" +
-            "" +
-            "" +
-            "/category";
+    private String api_category = aliseonapi + "/category";
     private String api_tvott_users = aliseonapi + "/tvott/users";
     private String api_tvott_users_add = aliseonapi + "/tvott/users/add";
     private String api_tvott_deluser = aliseonapi + "/tvott/users/delete";
@@ -203,6 +198,7 @@ public class Aliseon extends Application {
     private ArrayList<String> player_feed_list_author_nickname;
     private ArrayList<Integer> player_feed_list_views;
 
+    private String atrend_detail_title;
     private ArrayList<String> atrend_detail_maincontent;
     private ArrayList<String> atrend_detail_detp_html;
     private ArrayList<String> atrend_detail_product_id;
@@ -930,6 +926,7 @@ public class Aliseon extends Application {
 
     // AtrendDetail
     // get
+    public String aliseon_getAtrend_detail_title() { return atrend_detail_title; }
     public ArrayList<String> aliseon_getAtrend_detail_maincontent() { return atrend_detail_maincontent; }
     public ArrayList<String> aliseon_getAtrend_detail_detp_htmp() { return atrend_detail_detp_html; }
     public ArrayList<String> aliseon_getAtrend_detail_product_id() { return atrend_detail_product_id; }
@@ -940,6 +937,7 @@ public class Aliseon extends Application {
     public ArrayList<String> aliseon_getAtrend_detail_product_previous_price() { return atrend_detail_product_previous_price; }
 
     // set
+    public void aliseon_setAtrend_detail_title(String atrend_detail_title) { this.atrend_detail_title = atrend_detail_title; }
     public void aliseon_setAtrend_detail_maincontent (ArrayList<String> atrend_detail_maincontent) { this.atrend_detail_maincontent = atrend_detail_maincontent;}
     public void aliseon_setAtrend_detail_detp_html (ArrayList<String> atrend_detail_detp_html) { this.atrend_detail_detp_html = atrend_detail_detp_html;}
     public void aliseon_setAtrend_detail_product_id (ArrayList<String> atrend_detail_product_id) { this.atrend_detail_product_id = atrend_detail_product_id;}
@@ -2244,10 +2242,10 @@ public class Aliseon extends Application {
 
     public int aliseon_getPlayerdataload() { return playerdataload; }
     public String aliseon_getNowurl() { return nowurl; }
-    public ArrayList<String> aliseon_Playerfeedid() { return playerfeedid; }
-    public ArrayList<String> aliseon_Playerfeedimage() { return playerfeedimage; }
-    public ArrayList<String> aliseon_Playerfeedname() { return playerfeedname; }
-    public ArrayList<String> aliseon_Playerfeedpricecomputed() { return playerfeedpricecomputed; }
+    public ArrayList<String> aliseon_getPlayerfeedid() { return playerfeedid; }
+    public ArrayList<String> aliseon_getPlayerfeedimage() { return playerfeedimage; }
+    public ArrayList<String> aliseon_getPlayerfeedname() { return playerfeedname; }
+    public ArrayList<String> aliseon_getPlayerfeedpricecomputed() { return playerfeedpricecomputed; }
 
     // set
     public void aliseon_setSelect_voyage_id(String select_voyage_id) { this.select_voyage_id = select_voyage_id; }

@@ -197,7 +197,7 @@ public class AccountDisconnect1Activity extends AppCompatActivity {
                 alertDialog.show();
             }
             if (msg.what == 1000) {
-                Intent intent = new Intent(AccountDisconnect1Activity.this, SettingUserManagementActivity.class);
+                Intent intent = new Intent(AccountDisconnect1Activity.this, LoadingActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
 //                finish();
@@ -347,19 +347,28 @@ public class AccountDisconnect1Activity extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = pref.edit();
 
-                SharedPreferences.Editor editor1 = pref.edit();
-                if(userinfouid.size() == 0) {
+                if (postResponse.getList().size() == 0 || pref.getInt("user_id", 0) == userinfouid.get(0)) {
 
-                }   else if (pref.getInt("user_id", 0) == userinfouid.get(0)) {
-                    editor1.putString("userinfo_name", "empty");
-                    editor1.putString("userinfo_picture", "empty");
-                    editor1.putInt("user_id", 0);
-                    editor1.putString("language", "empty");
-                    editor1.putString("country", "empty");
-                    editor1.putString("currency", "empty");
-                    editor1.putBoolean("selectaccount", false);
-                    editor1.commit();
+                    aliseon.aliseon_setTvott_userinfo(new ArrayList<>());
+
+
+                    SharedPreferences.Editor editor1 = pref.edit();
+
+                    if(userinfouid.size() == 0) {
+
+                    }   else if (pref.getInt("user_id", 0) == userinfouid.get(0)) {
+                        editor1.putString("userinfo_name", "empty");
+                        editor1.putString("userinfo_picture", "empty");
+                        editor1.putInt("user_id", 0);
+                        editor1.putString("language", "empty");
+                        editor1.putString("country", "empty");
+                        editor1.putString("currency", "empty");
+                        editor1.putBoolean("selectaccount", false);
+                        editor1.commit();
+                    }
                 }
+
+
 
                 if(LoadingActivity.pref.getBoolean("selectaccount", true) == false){
                     Disconnect1mHandler.sendEmptyMessage(600);

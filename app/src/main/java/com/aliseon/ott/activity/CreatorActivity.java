@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 
 import com.aliseon.ott.API.CreatorMyInfo;
 import com.aliseon.ott.API.MyList;
+import com.aliseon.ott.API.SubscribePost;
 import com.aliseon.ott.Aliseon;
 import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
@@ -568,6 +569,8 @@ public class CreatorActivity extends AppCompatActivity {
                 button2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        aliseon.aliseon_setParam_subscribe_type("add");
+                        SubscribePost();
 ////                        param_subscr_id = creator_id;
 //                        subscribe_checker = 1;
 //                        creatorapiload = 0;
@@ -587,6 +590,8 @@ public class CreatorActivity extends AppCompatActivity {
                 button2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        aliseon.aliseon_setParam_subscribe_type("delete");
+                        SubscribePost();
 //                        // 단순히 클릭하면 구독 해제됨, 주의
 ////                        param_unsubscr_id = creator_subscr_id;
 //                        subscribe_checker = 0;
@@ -1096,6 +1101,36 @@ public class CreatorActivity extends AppCompatActivity {
         }
     }
 
+    private void SubscribePost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        int user_id = aliseon.aliseon_getParam_creator_info();
+        int target_id = aliseon.aliseon_getCreator_id();
+        String param_subscribe_type = aliseon.aliseon_getParam_subscribe_type();
+
+        Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, String.valueOf(user_id), String.valueOf(target_id), param_subscribe_type);
+
+        call.enqueue(new Callback<SubscribePost>() {
+            @Override
+            public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
+
+                int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
+
+                if (param_subscribe_activity == 1) {
+
+                } else if (param_subscribe_activity == 2) {
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribePost> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void CreatorInfoPost() {
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
@@ -1116,6 +1151,7 @@ public class CreatorActivity extends AppCompatActivity {
 
                 Integer id = Integer.valueOf(postResponse.creator_my_list.getId());
                 String name = postResponse.creator_my_list.getName();
+                String nickname = postResponse.creator_my_list.getNickname();
                 String photo = postResponse.creator_my_list.getPhoto();
                 String zip = postResponse.creator_my_list.getZip();
                 String city = postResponse.creator_my_list.getCity();
@@ -1126,7 +1162,7 @@ public class CreatorActivity extends AppCompatActivity {
                 String desc = postResponse.creator_my_list.getDesc();
 
                 aliseon.aliseon_setCreator_id(id);
-                aliseon.aliseon_setCreator_nickname(name);
+                aliseon.aliseon_setCreator_nickname(nickname);
                 aliseon.aliseon_setCreator_photo(photo);
                 aliseon.aliseon_setCreator_zip(zip);
                 aliseon.aliseon_setCreator_city(city);
@@ -1250,6 +1286,83 @@ public class CreatorActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void SubscribeMyListPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String subscribe_select_creator_id = String.valueOf(aliseon.aliseon_getSubscribe_select_creator_id());
+
+        Call<MyList> call = AliseonAPI.MyListPost(access_token, subscribe_select_creator_id, 1 ,0, 0, 50);
+
+        call.enqueue(new Callback<MyList>() {
+            @Override
+            public void onResponse(Call<MyList> call, Response<MyList> response) {
+
+                int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+                int subscribefocusapiload = aliseon.aliseon_getSubscribeFocusAPIload();
+
+                MyList postResponse = (MyList) response.body();
+
+                ArrayList<String> subscribe_voyage_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_user_id = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_status = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_description = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_create_at = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_update_at = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_like_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_view_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_comment_count = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_photo = new ArrayList<>();
+                ArrayList<ArrayList<String>> subscribe_voyage_list_p_thumbnail = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_c_thumbnail = new ArrayList<>();
+
+                try {
+
+                    for (int i = 0; i < postResponse.my_list.size(); i++) {
+
+                        subscribe_voyage_list_id.add(postResponse.my_list.get(i).getId());
+                        subscribe_voyage_list_user_id.add(postResponse.my_list.get(i).getUserId());
+                        subscribe_voyage_list_status.add(postResponse.my_list.get(i).getStatus());
+                        subscribe_voyage_list_description.add(postResponse.my_list.get(i).getDescription());
+                        subscribe_voyage_list_create_at.add(postResponse.my_list.get(i).getCreateAt());
+                        subscribe_voyage_list_update_at.add(postResponse.my_list.get(i).getUpdateAt());
+                        subscribe_voyage_list_like_count.add(postResponse.my_list.get(i).getLikeCount());
+                        subscribe_voyage_list_view_count.add(postResponse.my_list.get(i).getViewCount());
+                        subscribe_voyage_list_comment_count.add(postResponse.my_list.get(i).getCommentCount());
+                        subscribe_voyage_list_nickname.add(postResponse.my_list.get(i).getNickname());
+                        subscribe_voyage_list_photo.add(postResponse.my_list.get(i).getProfile());
+                        subscribe_voyage_list_p_thumbnail.add(postResponse.my_list.get(i).getThumbnail());
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                aliseon.aliseon_setSubscribe_voyage_list_id(subscribe_voyage_list_id);
+                aliseon.aliseon_setSubscribe_voyage_list_user_id(subscribe_voyage_list_user_id);
+                aliseon.aliseon_setSubscribe_voyage_list_status(subscribe_voyage_list_status);
+                aliseon.aliseon_setSubscribe_voyage_list_description(subscribe_voyage_list_description);
+                aliseon.aliseon_setSubscribe_voyage_list_create_at(subscribe_voyage_list_create_at);
+                aliseon.aliseon_setSubscribe_voyage_list_update_at(subscribe_voyage_list_update_at);
+                aliseon.aliseon_setSubscribe_voyage_list_like_count(subscribe_voyage_list_like_count);
+                aliseon.aliseon_setSubscribe_voyage_list_view_count(subscribe_voyage_list_view_count);
+                aliseon.aliseon_setSubscribe_voyage_list_comment_count(subscribe_voyage_list_comment_count);
+                aliseon.aliseon_setSubscribe_voyage_list_nickname(subscribe_voyage_list_nickname);
+                aliseon.aliseon_setSubscribe_voyage_list_photo(subscribe_voyage_list_photo);
+                aliseon.aliseon_setSubscribe_voyage_list_p_thumbnail(subscribe_voyage_list_p_thumbnail);
+
+            }
+
+            @Override
+            public void onFailure(Call<MyList> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
+
+            }
+        });
     }
 
 }

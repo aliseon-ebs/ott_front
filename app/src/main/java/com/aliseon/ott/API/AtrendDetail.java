@@ -32,6 +32,10 @@ public class AtrendDetail {
         public void setRelated(ArrayList<Related> related) { this.related = related; }
 
         public class Detail {
+
+            @SerializedName("title")
+            @Expose
+            private String title;
             
             @SerializedName("dept1_html")
             @Expose
@@ -56,6 +60,10 @@ public class AtrendDetail {
             @SerializedName("items")
             @Expose
             private ArrayList<Item> items = null;
+
+            public String getTitle() { return title; }
+
+            public void setTitle(String title) { this.title = title; }
 
             public String getDept1Html() { return dept1Html; }
 

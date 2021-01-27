@@ -161,7 +161,7 @@ public class Cart {
         @SerializedName("photo") String photo;
         @SerializedName("nickname") String nickname;
         @SerializedName("seller_id") Integer sellerId;
-        @SerializedName("shop_name") String shopName;
+        @SerializedName("store_name") String shopName;
 
         public String getId() {
             return id;

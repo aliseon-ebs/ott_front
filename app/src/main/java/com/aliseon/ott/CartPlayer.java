@@ -2,6 +2,7 @@ package com.aliseon.ott;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,9 +39,9 @@ public class CartPlayer extends LinearLayout{
 
         String logincurrency = aliseon.aliseon_getLogincurrency();
 
-        ArrayList<String> playerfeedimage = aliseon.aliseon_getPlayer_feed_list_crop();
-        ArrayList<String> playerfeedname = aliseon.aliseon_getPlayer_feed_list_author_nickname();
-        ArrayList<String> playerfeedpricecomputed = aliseon.aliseon_Playerfeedpricecomputed();
+        ArrayList<String> playerfeedimage = aliseon.aliseon_getPlayerfeedimage();
+        ArrayList<String> playerfeedname = aliseon.aliseon_getPlayerfeedname();
+        ArrayList<String> playerfeedpricecomputed = aliseon.aliseon_getPlayerfeedpricecomputed();
 
         LayoutInflater inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.player_cart,this,true);
@@ -50,6 +51,8 @@ public class CartPlayer extends LinearLayout{
         TextView cartproductname = (TextView) findViewById(R.id.cartproductname1);
         TextView cartproductprice = (TextView) findViewById(R.id.cartproductprice1);
         Button cartproductadd = (Button) findViewById(R.id.cartproductadd1);
+
+        Log.d("IMAGETEST", imageurl + playerfeedimage.get(childlist));
 
         Glide.with(this).load(imageurl + playerfeedimage.get(childlist)).into(cartimage);
         cartproductname.setText(playerfeedname.get(childlist));

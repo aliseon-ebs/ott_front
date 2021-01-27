@@ -832,8 +832,10 @@ public class SubscribeActivity extends AppCompatActivity {
                         int subscribe_select_creator_id = aliseon.aliseon_getSubscribe_select_creator_id();
                         ArrayList<String> subscribe_list_id = aliseon.aliseon_getSubscribe_voyage_list_id();
 
+                        Log.d("SUBSCRIBETEST", String.valueOf(subscribe_list_id));
+
                         aliseon.aliseon_setCreatorAPIload(0);
-                        aliseon.aliseon_setCreator_id(Integer.parseInt(subscribe_list_id.get(iii)));
+                        aliseon.aliseon_setCreator_id(subscribe_creator_list_id.get(iii));
 
 //                        aliseon.aliseon_setParam_unsubscr_id(subscribe_list_sbscr_id.get(iii));
 

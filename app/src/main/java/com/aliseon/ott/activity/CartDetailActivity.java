@@ -105,8 +105,8 @@ public class CartDetailActivity extends AppCompatActivity {
 
             Intent intent = getIntent();
 
-//            int select = intent.getExtras().getInt("cartdetail");
-//            int playerselect = intent.getExtras().getInt("playercartdetail");
+            int select = intent.getExtras().getInt("cartdetail");
+            int playerselect = intent.getExtras().getInt("playercartdetail");
 
 //            cartactivitydetailitemtocarthandler = new CartActivityDetailItemToCartHandler();
 
