@@ -161,7 +161,7 @@ public interface AliseonAPI {
             @Field("dept") int dept
     );
     @FormUrlEncoded
-    @POST("subscribe/from")
+    @POST("subscribe/post")
     Call<SubscribePost> SubscribePost(
             @Field("access_token") String access_token,
             @Field("from_id") String user_id,

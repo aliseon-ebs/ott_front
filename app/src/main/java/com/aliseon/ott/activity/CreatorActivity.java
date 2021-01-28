@@ -28,6 +28,10 @@ import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -569,8 +573,7 @@ public class CreatorActivity extends AppCompatActivity {
                 button2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        aliseon.aliseon_setParam_subscribe_type("add");
-                        SubscribePost();
+                        SubscribePost("add");
 ////                        param_subscr_id = creator_id;
 //                        subscribe_checker = 1;
 //                        creatorapiload = 0;
@@ -591,11 +594,11 @@ public class CreatorActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         aliseon.aliseon_setParam_subscribe_type("delete");
-                        SubscribePost();
 //                        // 단순히 클릭하면 구독 해제됨, 주의
 ////                        param_unsubscr_id = creator_subscr_id;
 //                        subscribe_checker = 0;
 //                        creatorapiload = 0;
+                        SubscribePost("delete");
 //                        NetworkTaskSubscribeUnsubscribe networktasksubscribeunsubscribe = new NetworkTaskSubscribeUnsubscribe(api_subscribe_unsubscribe, null);
 //                        networktasksubscribeunsubscribe.execute();
                     }
@@ -1101,36 +1104,6 @@ public class CreatorActivity extends AppCompatActivity {
         }
     }
 
-    private void SubscribePost() {
-        Aliseon aliseon = (Aliseon) getApplicationContext();
-        String access_token = aliseon.aliseon_getAccesstoken();
-        int user_id = aliseon.aliseon_getParam_creator_info();
-        int target_id = aliseon.aliseon_getCreator_id();
-        String param_subscribe_type = aliseon.aliseon_getParam_subscribe_type();
-
-        Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, String.valueOf(user_id), String.valueOf(target_id), param_subscribe_type);
-
-        call.enqueue(new Callback<SubscribePost>() {
-            @Override
-            public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
-
-                int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
-
-                if (param_subscribe_activity == 1) {
-
-                } else if (param_subscribe_activity == 2) {
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<SubscribePost> call, Throwable t) {
-
-            }
-        });
-    }
-
     private void CreatorInfoPost() {
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
@@ -1360,6 +1333,50 @@ public class CreatorActivity extends AppCompatActivity {
             public void onFailure(Call<MyList> call, Throwable t) {
                 Log.d("STATUS:", "FAILED");
                 Log.d("STATUS:", t.getMessage());
+
+            }
+        });
+    }
+
+    private void SubscribePost(String type) {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String user_id = String.valueOf(aliseon.aliseon_getLoginid());
+        String creator_id = String.valueOf(aliseon.aliseon_getParam_creator_info());
+
+        Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, user_id, creator_id, type);
+
+        call.enqueue(new Callback<SubscribePost>() {
+            @Override
+            public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
+
+                SubscribePost postResponse = (SubscribePost) response.body();
+
+                if (response.code() == 404) {
+                    Log.d("404ERROR", "" + response.message());
+                    Log.d("404ERROR", "" + response.errorBody().toString());
+                    try {
+                        JSONObject jsonObject = null;
+                        jsonObject = new JSONObject(response.errorBody().string());
+                        String userMessage = jsonObject.getString("message");
+                        Log.d("RESULTERROR", userMessage);
+
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+
+                    Log.d("CREATORSTATUS", String.valueOf(postResponse.getStatus()));
+                    SubscribeMyListPost();
+                    onResume();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribePost> call, Throwable t) {
 
             }
         });

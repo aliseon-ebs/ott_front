@@ -27,7 +27,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.aliseon.ott.API.AtrendDetail;
+import com.aliseon.ott.API.MyList;
 import com.aliseon.ott.API.PopularDetail;
+import com.aliseon.ott.API.SubscribePost;
 import com.aliseon.ott.API.VoyageDetail;
 import com.aliseon.ott.Aliseon;
 import com.aliseon.ott.CartPlayer;
@@ -47,6 +49,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -58,6 +61,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.aliseon.ott.AliseonAPI;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class AliseonOTTPlayerActivity extends AppCompatActivity {
@@ -513,6 +519,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
         String creatortitle = aliseon.aliseon_getCreator_title();
         String creatorprofile = aliseon.aliseon_getCreator_profile();
 
+        SubscribeMyListPost();
         // 선택한 영상의 데이터
         switch (typeselector) {
             case 1:
@@ -1963,6 +1970,127 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<VoyageDetail> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void SubscribePost(String type) {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String user_id = String.valueOf(aliseon.aliseon_getLoginid());
+        String creator_id = String.valueOf(aliseon.aliseon_getParam_creator_info());
+
+        Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, user_id, creator_id, type);
+
+        call.enqueue(new Callback<SubscribePost>() {
+            @Override
+            public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
+
+                SubscribePost postResponse = (SubscribePost) response.body();
+
+                if (response.code() == 404) {
+                    Log.d("404ERROR", "" + response.message());
+                    Log.d("404ERROR", "" + response.errorBody().toString());
+                    try {
+                        JSONObject jsonObject = null;
+                        jsonObject = new JSONObject(response.errorBody().string());
+                        String userMessage = jsonObject.getString("message");
+                        Log.d("RESULTERROR", userMessage);
+
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+
+                    Log.d("CREATORSTATUS", String.valueOf(postResponse.getStatus()));
+                    SubscribeMyListPost();
+                    onResume();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribePost> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void SubscribeMyListPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+        String login_id = String.valueOf(aliseon.aliseon_getLoginid());
+
+        Call<MyList> call = AliseonAPI.MyListPost(access_token, login_id, 1 ,0, 0, 50);
+
+        call.enqueue(new Callback<MyList>() {
+            @Override
+            public void onResponse(Call<MyList> call, Response<MyList> response) {
+
+                int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+                int subscribefocusapiload = aliseon.aliseon_getSubscribeFocusAPIload();
+
+                MyList postResponse = (MyList) response.body();
+
+                ArrayList<String> subscribe_voyage_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_user_id = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_status = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_description = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_create_at = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_update_at = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_like_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_view_count = new ArrayList<>();
+                ArrayList<Integer> subscribe_voyage_list_comment_count = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_photo = new ArrayList<>();
+                ArrayList<ArrayList<String>> subscribe_voyage_list_p_thumbnail = new ArrayList<>();
+                ArrayList<String> subscribe_voyage_list_c_thumbnail = new ArrayList<>();
+
+                try {
+
+                    for (int i = 0; i < postResponse.my_list.size(); i++) {
+
+                        subscribe_voyage_list_id.add(postResponse.my_list.get(i).getId());
+                        subscribe_voyage_list_user_id.add(postResponse.my_list.get(i).getUserId());
+                        subscribe_voyage_list_status.add(postResponse.my_list.get(i).getStatus());
+                        subscribe_voyage_list_description.add(postResponse.my_list.get(i).getDescription());
+                        subscribe_voyage_list_create_at.add(postResponse.my_list.get(i).getCreateAt());
+                        subscribe_voyage_list_update_at.add(postResponse.my_list.get(i).getUpdateAt());
+                        subscribe_voyage_list_like_count.add(postResponse.my_list.get(i).getLikeCount());
+                        subscribe_voyage_list_view_count.add(postResponse.my_list.get(i).getViewCount());
+                        subscribe_voyage_list_comment_count.add(postResponse.my_list.get(i).getCommentCount());
+                        subscribe_voyage_list_nickname.add(postResponse.my_list.get(i).getNickname());
+                        subscribe_voyage_list_photo.add(postResponse.my_list.get(i).getProfile());
+                        subscribe_voyage_list_p_thumbnail.add(postResponse.my_list.get(i).getThumbnail());
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                aliseon.aliseon_setSubscribe_voyage_list_id(subscribe_voyage_list_id);
+                aliseon.aliseon_setSubscribe_voyage_list_user_id(subscribe_voyage_list_user_id);
+                aliseon.aliseon_setSubscribe_voyage_list_status(subscribe_voyage_list_status);
+                aliseon.aliseon_setSubscribe_voyage_list_description(subscribe_voyage_list_description);
+                aliseon.aliseon_setSubscribe_voyage_list_create_at(subscribe_voyage_list_create_at);
+                aliseon.aliseon_setSubscribe_voyage_list_update_at(subscribe_voyage_list_update_at);
+                aliseon.aliseon_setSubscribe_voyage_list_like_count(subscribe_voyage_list_like_count);
+                aliseon.aliseon_setSubscribe_voyage_list_view_count(subscribe_voyage_list_view_count);
+                aliseon.aliseon_setSubscribe_voyage_list_comment_count(subscribe_voyage_list_comment_count);
+                aliseon.aliseon_setSubscribe_voyage_list_nickname(subscribe_voyage_list_nickname);
+                aliseon.aliseon_setSubscribe_voyage_list_photo(subscribe_voyage_list_photo);
+                aliseon.aliseon_setSubscribe_voyage_list_p_thumbnail(subscribe_voyage_list_p_thumbnail);
+
+            }
+
+            @Override
+            public void onFailure(Call<MyList> call, Throwable t) {
+                Log.d("STATUS:", "FAILED");
+                Log.d("STATUS:", t.getMessage());
 
             }
         });
