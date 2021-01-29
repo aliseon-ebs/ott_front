@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 
 import com.aliseon.ott.API.CreatorMyInfo;
 import com.aliseon.ott.API.MyList;
+import com.aliseon.ott.API.SubscribeFrom;
 import com.aliseon.ott.API.SubscribePost;
 import com.aliseon.ott.Aliseon;
 import com.aliseon.ott.AliseonAPI;
@@ -548,6 +549,7 @@ public class CreatorActivity extends AppCompatActivity {
             button1.setTextColor(Color.rgb(255, 255, 255));
             button1.setTextSize(10);
             Button button2 = new Button(this);
+            button2.setId(R.id.creator_subscribe);
 
 
             for(int i = 0; i < subscribe_creator_list_id.size(); i++){
@@ -561,49 +563,85 @@ public class CreatorActivity extends AppCompatActivity {
 
             }
 
-            if (subscribe_checker == 0) {
+            switch (aliseon.aliseon_getSubscribe_checker()) {
+                case 0:
+                    // 구독 안된 크리에이터일 경우
+                    Log.d("isSubscribe", "NO");
+                    button2.setText(getResources().getString(R.string.subscribe));
+                    button2.setBackground(ContextCompat.getDrawable(this, R.drawable.buttonsetting));
+                    button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
+                    button2.setTextColor(Color.rgb(255, 255, 255));
+                    button2.setTextSize(10);
 
-                Log.d("isSubscribe", "NO");
-                button2.setText(getResources().getString(R.string.subscribe));
-                button2.setBackground(ContextCompat.getDrawable(this, R.drawable.buttonsetting));
-                button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
-                button2.setTextColor(Color.rgb(255, 255, 255));
-                button2.setTextSize(10);
+                    break;
 
-                button2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SubscribePost("add");
-////                        param_subscr_id = creator_id;
-//                        subscribe_checker = 1;
-//                        creatorapiload = 0;
-//                        NetworkTaskSubscribeChannels networktasksubscribechannels = new NetworkTaskSubscribeChannels(api_subscribe_channels, null);
-//                        networktasksubscribechannels.execute();
+                case 1:
+                    // 구독한 크리에이터일 경우
+                    Log.d("isSubscribe", "YES");
+                    button2.setText(getResources().getString(R.string.subscribed));
+                    button2.setBackground(ContextCompat.getDrawable(this, R.drawable.blackbuttonsetting));
+                    button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
+                    button2.setTextColor(Color.rgb(255, 255, 255));
+                    button2.setTextSize(10);
 
-                    }
-                });
-            } else if (subscribe_checker == 1) {
-                Log.d("isSubscribe", "YES");
-                button2.setText(getResources().getString(R.string.subscribed));
-                button2.setBackground(ContextCompat.getDrawable(this, R.drawable.blackbuttonsetting));
-                button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
-                button2.setTextColor(Color.rgb(255, 255, 255));
-                button2.setTextSize(10);
-
-                button2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        aliseon.aliseon_setParam_subscribe_type("delete");
-//                        // 단순히 클릭하면 구독 해제됨, 주의
-////                        param_unsubscr_id = creator_subscr_id;
-//                        subscribe_checker = 0;
-//                        creatorapiload = 0;
-                        SubscribePost("delete");
-//                        NetworkTaskSubscribeUnsubscribe networktasksubscribeunsubscribe = new NetworkTaskSubscribeUnsubscribe(api_subscribe_unsubscribe, null);
-//                        networktasksubscribeunsubscribe.execute();
-                    }
-                });
+                    break;
             }
+
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (aliseon.aliseon_getSubscribe_checker() == 0) {
+                        SubscribePost("add");
+                    } else {
+                        SubscribePost("delete");
+                    }
+                }
+            });
+
+
+//            if (subscribe_checker == 0) {
+//
+//                Log.d("isSubscribe", "NO");
+//                button2.setText(getResources().getString(R.string.subscribe));
+//                button2.setBackground(ContextCompat.getDrawable(this, R.drawable.buttonsetting));
+//                button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
+//                button2.setTextColor(Color.rgb(255, 255, 255));
+//                button2.setTextSize(10);
+//
+//                button2.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        SubscribePost("add");
+//////                        param_subscr_id = creator_id;
+////                        subscribe_checker = 1;
+////                        creatorapiload = 0;
+////                        NetworkTaskSubscribeChannels networktasksubscribechannels = new NetworkTaskSubscribeChannels(api_subscribe_channels, null);
+////                        networktasksubscribechannels.execute();
+//
+//                    }
+//                });
+//            } else if (subscribe_checker == 1) {
+//                Log.d("isSubscribe", "YES");
+//                button2.setText(getResources().getString(R.string.subscribed));
+//                button2.setBackground(ContextCompat.getDrawable(this, R.drawable.blackbuttonsetting));
+//                button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
+//                button2.setTextColor(Color.rgb(255, 255, 255));
+//                button2.setTextSize(10);
+//
+//                button2.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        aliseon.aliseon_setParam_subscribe_type("delete");
+////                        // 단순히 클릭하면 구독 해제됨, 주의
+//////                        param_unsubscr_id = creator_subscr_id;
+////                        subscribe_checker = 0;
+////                        creatorapiload = 0;
+//                        SubscribePost("delete");
+////                        NetworkTaskSubscribeUnsubscribe networktasksubscribeunsubscribe = new NetworkTaskSubscribeUnsubscribe(api_subscribe_unsubscribe, null);
+////                        networktasksubscribeunsubscribe.execute();
+//                    }
+//                });
+//            }
 
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1327,6 +1365,7 @@ public class CreatorActivity extends AppCompatActivity {
                 aliseon.aliseon_setSubscribe_voyage_list_photo(subscribe_voyage_list_photo);
                 aliseon.aliseon_setSubscribe_voyage_list_p_thumbnail(subscribe_voyage_list_p_thumbnail);
 
+
             }
 
             @Override
@@ -1338,11 +1377,76 @@ public class CreatorActivity extends AppCompatActivity {
         });
     }
 
+    private void SubscribeFromPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+
+        int userid = aliseon.aliseon_getLoginid();
+        Log.d("USERID", String.valueOf(userid));
+
+        int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+        int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
+
+        Call<SubscribeFrom> call = AliseonAPI.SubscribeFromPost(access_token, String.valueOf(userid));
+
+        call.enqueue(new Callback<SubscribeFrom>() {
+            @Override
+            public void onResponse(Call<SubscribeFrom> call, Response<SubscribeFrom> response) {
+                SubscribeFrom postResponse = (SubscribeFrom) response.body();
+
+                Log.d("VALUETEST", String.valueOf(postResponse));
+
+                ArrayList<Integer> subscribe_creator_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_photo = new ArrayList<>();
+
+                for (int i = 0; i < postResponse.subscribe_from_list.size(); i++) {
+                    subscribe_creator_list_id.add(postResponse.subscribe_from_list.get(i).getId());
+                    subscribe_creator_list_nickname.add(postResponse.subscribe_from_list.get(i).getNickname());
+                    subscribe_creator_list_photo.add(postResponse.subscribe_from_list.get(i).getPhoto());
+                }
+
+                aliseon.aliseon_setSubscribe_creator_list_id(subscribe_creator_list_id);
+                aliseon.aliseon_setSubscribe_creator_list_nickname(subscribe_creator_list_nickname);
+                aliseon.aliseon_setSubscribe_creator_list_photo(subscribe_creator_list_photo);
+
+
+                // 구독 여부 확인 (버튼 색 변화 위함)
+                // 구독중이 아닐 경우, 미리 준비한 설정 및 디폴트 버튼으로 지정해줌
+                Button button2 = findViewById(R.id.creator_subscribe);
+                button2.setText(getResources().getString(R.string.subscribe));
+                button2.setBackground(ContextCompat.getDrawable(button2.getContext(), R.drawable.buttonsetting));
+
+                aliseon.aliseon_setSubscribe_checker(0);
+
+                for (int i = 0; i < subscribe_creator_list_id.size(); i++) {
+
+                    if(subscribe_creator_list_id.get(i) == aliseon.aliseon_getParam_creator_info()){
+                        // 구독 중임을 확인하였을 경우 단어 및 색 변화 적용
+                        aliseon.aliseon_setSubscribe_checker(1);
+                        button2.setText(getResources().getString(R.string.subscribed));
+                        button2.setBackground(ContextCompat.getDrawable(button2.getContext(), R.drawable.blackbuttonsetting));
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribeFrom> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void SubscribePost(String type) {
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
         String user_id = String.valueOf(aliseon.aliseon_getLoginid());
         String creator_id = String.valueOf(aliseon.aliseon_getParam_creator_info());
+
+        Button button2 = findViewById(R.id.creator_subscribe);
 
         Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, user_id, creator_id, type);
 
@@ -1367,9 +1471,31 @@ public class CreatorActivity extends AppCompatActivity {
 
                 } else {
 
+
                     Log.d("CREATORSTATUS", String.valueOf(postResponse.getStatus()));
-                    SubscribeMyListPost();
-                    onResume();
+
+//                    switch (type) {
+//                        case "add":
+//                            aliseon.aliseon_setSubscribe_checker(1);
+//                            button2.setText(getResources().getString(R.string.subscribed));
+//                            button2.setBackground(ContextCompat.getDrawable(button2.getContext(), R.drawable.blackbuttonsetting));
+////                            button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
+////                            button2.setTextColor(Color.rgb(255, 255, 255));
+////                            button2.setTextSize(10);
+//                            break;
+//
+//                        case "delete":
+//                            aliseon.aliseon_setSubscribe_checker(0);
+//                            button2.setText(getResources().getString(R.string.subscribe));
+//                            button2.setBackground(ContextCompat.getDrawable(button2.getContext(), R.drawable.buttonsetting));
+////                            button2.setLayoutParams(new ViewGroup.LayoutParams(180, 70));
+////                            button2.setTextColor(Color.rgb(255, 255, 255));
+////                            button2.setTextSize(10);
+//                            break;
+//                    }
+
+                    SubscribeFromPost();
+//                    onResume();
 
                 }
 
@@ -1381,5 +1507,7 @@ public class CreatorActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
