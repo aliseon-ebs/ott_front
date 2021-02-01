@@ -1421,7 +1421,7 @@ public class CreatorActivity extends AppCompatActivity {
 
                 for (int i = 0; i < subscribe_creator_list_id.size(); i++) {
 
-                    if(subscribe_creator_list_id.get(i) == aliseon.aliseon_getParam_creator_info()){
+                    if(subscribe_creator_list_id.get(i).equals(aliseon.aliseon_getParam_creator_info())) {
                         // 구독 중임을 확인하였을 경우 단어 및 색 변화 적용
                         aliseon.aliseon_setSubscribe_checker(1);
                         button2.setText(getResources().getString(R.string.subscribed));

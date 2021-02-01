@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.aliseon.ott.API.MyList;
+import com.aliseon.ott.API.SubscribeFrom;
 import com.aliseon.ott.API.SubscribePost;
 import com.aliseon.ott.API.SubscribeTo;
 import com.aliseon.ott.Aliseon;
@@ -28,6 +29,10 @@ import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -539,11 +544,22 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
                     CircleImageView CIV = new CircleImageView(this);
                     CIV.setLayoutParams(new ViewGroup.LayoutParams(120, 120));
-                    if (creatordetail_list_photo.get(i).contains("null")) {
+
+                    try {
+
+                        if (creatordetail_list_photo.get(i).contains("null")) {
+                            CIV.setImageResource(R.drawable.noimg_profile);
+                        } else {
+                            Glide.with(this).load(imageurl + creatordetail_list_photo.get(i)).into(CIV);
+                        }
+
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
                         CIV.setImageResource(R.drawable.noimg_profile);
-                    } else {
-                        Glide.with(this).load(imageurl + creatordetail_list_photo.get(i)).into(CIV);
+
                     }
+
 
                     TextView TV1 = new TextView(this);
                     TV1.setTextColor(Color.rgb(255, 255, 255));
@@ -558,10 +574,12 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
                     for(int ii = 0; ii < subscribe_creator_list_id.size(); ii++){
 
+                        Log.d("SUBSCRIBECHECKER", String.valueOf(creatordetail_list_id.get(i)));
+                        Log.d("SUBSCRIBECHECKER", String.valueOf(subscribe_creator_list_id.get(ii)));
+
                         if(creatordetail_list_id.get(i) == subscribe_creator_list_id.get(ii)){
-
                             subscribe_checker = 1;
-
+                            Log.d("SUBSCRIBECHECKER", "ID MATCH FOUND");
                         }
 
                     }
@@ -841,6 +859,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
         overridePendingTransition(0,0);
     }
 
+    // 해당 크리에이터를 구독중인 크리에이터 목록
     private void SubscribeToPost() {
 
         Aliseon aliseon = (Aliseon) getApplicationContext();
@@ -907,6 +926,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
         });
     }
 
+    // 크리에이터 구독시 사용하는 API
     private void SubscribePost() {
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
@@ -920,10 +940,76 @@ public class CreatorDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
 
+                SubscribePost postResponse = (SubscribePost) response.body();
+
+                if (response.code() == 404) {
+                    Log.d("404ERROR", "" + response.message());
+                    Log.d("404ERROR", "" + response.errorBody().toString());
+                    try {
+                        JSONObject jsonObject = null;
+                        jsonObject = new JSONObject(response.errorBody().string());
+                        String userMessage = jsonObject.getString("message");
+                        Log.d("RESULTERROR", userMessage);
+
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Log.d("CREATORSTATUS", String.valueOf(postResponse.getStatus()));
+                    SubscribeFromPost();
+                }
+
             }
 
             @Override
             public void onFailure(Call<SubscribePost> call, Throwable t) {
+
+            }
+        });
+    }
+
+    // 구독 후 '사용자'가 해당 크리에이터를 구독중인지 표시하기 위함
+    // 구독 목록 갱신
+    private void SubscribeFromPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+
+        int userid = aliseon.aliseon_getLoginid();
+        Log.d("USERID", String.valueOf(userid));
+
+        int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+        int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
+
+        Call<SubscribeFrom> call = AliseonAPI.SubscribeFromPost(access_token, String.valueOf(userid));
+
+        call.enqueue(new Callback<SubscribeFrom>() {
+            @Override
+            public void onResponse(Call<SubscribeFrom> call, Response<SubscribeFrom> response) {
+                SubscribeFrom postResponse = (SubscribeFrom) response.body();
+
+                Log.d("VALUETEST", String.valueOf(postResponse));
+
+                ArrayList<Integer> subscribe_creator_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_photo = new ArrayList<>();
+
+                for (int i = 0; i < postResponse.subscribe_from_list.size(); i++) {
+                    subscribe_creator_list_id.add(postResponse.subscribe_from_list.get(i).getId());
+                    subscribe_creator_list_nickname.add(postResponse.subscribe_from_list.get(i).getNickname());
+                    subscribe_creator_list_photo.add(postResponse.subscribe_from_list.get(i).getPhoto());
+                }
+
+                aliseon.aliseon_setSubscribe_creator_list_id(subscribe_creator_list_id);
+                aliseon.aliseon_setSubscribe_creator_list_nickname(subscribe_creator_list_nickname);
+                aliseon.aliseon_setSubscribe_creator_list_photo(subscribe_creator_list_photo);
+
+                onResume();
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribeFrom> call, Throwable t) {
 
             }
         });

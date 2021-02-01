@@ -2069,10 +2069,12 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                 for (int i = 0; i < subscribe_creator_list_id.size(); i++) {
 
-                    Log.d("CHECKER", "$" + aliseon.aliseon_getCreator_author_id() + "$");
-                    Log.d("PLAYERSUBSCRIBE", "$" +subscribe_creator_list_id.get(i) + "$");
+                    // 문자열 비교를 위해서는 .equals를 사용해야함
+                    if(subscribe_creator_list_id.get(i).equals(Integer.valueOf(aliseon.aliseon_getCreator_author_id()))) {
 
-                    if(subscribe_creator_list_id.get(i) == Integer.valueOf(aliseon.aliseon_getCreator_author_id())) {
+                        Log.d("PLAYERSUBSCRIBE", "FOUND IT!");
+                        Log.d("PLAYERSUBSCRIBE", String.valueOf(aliseon.aliseon_getSubscribe_checker()));
+
                         // 구독 중임을 확인하였을 경우 단어 및 색 변화 적용
                         aliseon.aliseon_setSubscribe_checker(1);
                         Log.d("PLAYERSUBSCRIBE", "FOUND IT!");
