@@ -900,11 +900,11 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                 }
                 else {
                     if (subscribe_checker == 0) {
-//                        SubscribePost("add");
+                        SubscribePost("add");
                     }
 
                     if (subscribe_checker == 1) {
-//                        SubscribePost("delete");
+                        SubscribePost("delete");
                     }
                 }
             }
@@ -2067,6 +2067,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
                 Log.d("PLAYERSUBSCRIBE", aliseon.aliseon_getCreator_author_id());
 
+                // 구독 여부 확인용 반복문
                 for (int i = 0; i < subscribe_creator_list_id.size(); i++) {
 
                     // 문자열 비교를 위해서는 .equals를 사용해야함

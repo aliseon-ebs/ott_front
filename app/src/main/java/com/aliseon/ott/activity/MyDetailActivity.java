@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aliseon.ott.API.SubscribeFrom;
 import com.aliseon.ott.API.SubscribePost;
 import com.aliseon.ott.API.SubscribeTo;
 import com.aliseon.ott.Aliseon;
@@ -27,6 +28,10 @@ import com.aliseon.ott.AliseonAPI;
 import com.aliseon.ott.R;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -41,6 +46,8 @@ public class MyDetailActivity extends AppCompatActivity {
     CircleImageView My;
 
     private AliseonAPI AliseonAPI;
+
+    private ArrayList<Integer> btnId = new ArrayList<>();
 
     public static MyActivityDetailHandler myactivitydetailhandler;
 
@@ -505,7 +512,16 @@ public class MyDetailActivity extends AppCompatActivity {
             } else {
 
                 // FOR
+                Log.d("MYDETAIL", mydetail_list_id.toString());
+                mydetail_list_is_subscribe.clear();
+                btnId.clear();
                 for (int i = 0; i < mydetail_list_id.size(); i++) {
+                    mydetail_list_is_subscribe.add(0);
+                    aliseon.aliseon_setMydetail_list_is_subscribe(mydetail_list_is_subscribe);
+                }
+
+                for (int i = 0; i < mydetail_list_id.size(); i++) {
+                    Log.d("MYDETAIL", String.valueOf(mydetail_list_id.get(i)));
 
                     LinearLayout Layout4 = new LinearLayout(this);
                     Layout4.setLayoutParams(params4);
@@ -546,16 +562,25 @@ public class MyDetailActivity extends AppCompatActivity {
                     TV2.setText(getResources().getString(R.string.subscriber) + " " + mydetail_list_subscribeto_cnt.get(i) + "   ·   " + getResources().getString(R.string.contents) + " " + mydetail_list_contents_cnt.get(i));
 
                     Button button = new Button(this);
+                    button.setId(button.generateViewId());
+                    String sample = String.valueOf(button.getId());
 
+                    btnId.add(button.getId());
+
+                    Log.d("TESTINGBTN", sample);
+
+                    subscribe_creator_list_id = aliseon.aliseon_getSubscribe_creator_list_id();
+                    subscribe_checker = 0;
                     for(int ii = 0; ii < subscribe_creator_list_id.size(); ii++){
 
                         Log.d("my_list_id", " >>  " + mydetail_list_id.get(i));
                         Log.d("subscribe_creator_list", " >>  " + subscribe_creator_list_id.get(ii));
                         Log.d("ii 카운트 증가수", " >>  " + ii);
 
-                        if(mydetail_list_id.get(i) == subscribe_creator_list_id.get(ii)){
+                        if(mydetail_list_id.get(i).equals(subscribe_creator_list_id.get(ii))){
 
-                            aliseon.aliseon_setSubscribe_checker(1);
+//                            aliseon.aliseon_setSubscribe_checker(1);
+                            subscribe_checker = 1;
 
                         }
 
@@ -563,66 +588,17 @@ public class MyDetailActivity extends AppCompatActivity {
 
                     if(subscribe_checker == 0){
 
-                        mydetail_list_is_subscribe.add(0);
+                        mydetail_list_is_subscribe.set(i, 0);
+                        aliseon.aliseon_setMydetail_list_is_subscribe(mydetail_list_is_subscribe);
 
                     } else if(subscribe_checker == 1){
 
-                        mydetail_list_is_subscribe.add(1);
+                        mydetail_list_is_subscribe.set(i, 1);
+                        aliseon.aliseon_setMydetail_list_is_subscribe(mydetail_list_is_subscribe);
 
                     }
 
                     final int j = i;
-
-                    if (mydetail_list_is_subscribe.get(i) == 0) {
-                        button.setText(getResources().getString(R.string.subscribe));
-                        button.setBackground(ContextCompat.getDrawable(this, R.drawable.buttonsetting));
-                        button.setLayoutParams(new ViewGroup.LayoutParams(250, 70));
-                        button.setTextColor(Color.rgb(255, 255, 255));
-                        button.setTextSize(10);
-
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                aliseon.aliseon_setParam_subscribe_to_id(mydetail_list_id.get(j));
-                                aliseon.aliseon_setParam_subscribe_activity(2);
-                                aliseon.aliseon_setParam_subscribe_type("add");
-
-                                myactivitydetailhandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        SubscribePost();
-                                    }
-                                });
-
-                            }
-                        });
-                    } else if (mydetail_list_is_subscribe.get(i) == 1) {
-                        button.setText(getResources().getString(R.string.subscribed));
-                        button.setBackground(ContextCompat.getDrawable(this, R.drawable.blackbuttonsetting));
-                        button.setLayoutParams(new ViewGroup.LayoutParams(250, 70));
-                        button.setTextColor(Color.rgb(255, 255, 255));
-                        button.setTextSize(10);
-
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // 구독 해제할 sbscr_id는 상단 확인
-
-                                aliseon.aliseon_setParam_subscribe_to_id(mydetail_list_id.get(j));
-                                aliseon.aliseon_setParam_subscribe_activity(2);
-                                aliseon.aliseon_setParam_subscribe_type("delete");
-
-                                myactivitydetailhandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        SubscribePost();
-                                    }
-                                });
-
-                            }
-                        });
-                    }
 
                     Log.d("is_subscri", "" + mydetail_list_is_subscribe);
 
@@ -631,10 +607,7 @@ public class MyDetailActivity extends AppCompatActivity {
                     Layout4_2.addView(TV2);
                     Layout4_3.addView(button);
 
-                    if (loginid == mydetail_list_id.get(i)) {
-                        Log.d("일치", mydetail_list_id.get(i) + " / " + loginid);
-                        Layout4_3.removeView(button);
-                    }
+
 
                     Layout4.addView(Layout4_0);
                     Layout4.addView(Layout4_1);
@@ -842,7 +815,7 @@ public class MyDetailActivity extends AppCompatActivity {
         String access_token = aliseon.aliseon_getAccesstoken();
         int user_id = aliseon.aliseon_getLoginid();
 
-        Call<SubscribeTo> call = AliseonAPI.SubscribeToPost(access_token, "1");
+        Call<SubscribeTo> call = AliseonAPI.SubscribeToPost(access_token, String.valueOf(user_id));
 
         call.enqueue(new Callback<SubscribeTo>() {
             @Override
@@ -894,6 +867,8 @@ public class MyDetailActivity extends AppCompatActivity {
                 } else if (mydetailapiload == 1) {
                     myactivitydetailhandler.sendEmptyMessage(800);
                 }
+
+                SubscribeFromPost();
             }
 
             @Override
@@ -903,18 +878,176 @@ public class MyDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void SubscribePost() {
+    private void SubscribeFromPost() {
+        Aliseon aliseon = (Aliseon) getApplicationContext();
+        String access_token = aliseon.aliseon_getAccesstoken();
+
+        int userid = aliseon.aliseon_getLoginid();
+        Log.d("USERID", String.valueOf(userid));
+
+        int subscribeapiload = aliseon.aliseon_getSubscribeAPIload();
+        int param_subscribe_activity = aliseon.aliseon_getParam_subscribe_activity();
+
+        Call<SubscribeFrom> call = AliseonAPI.SubscribeFromPost(access_token, String.valueOf(userid));
+
+        call.enqueue(new Callback<SubscribeFrom>() {
+            @Override
+            public void onResponse(Call<SubscribeFrom> call, Response<SubscribeFrom> response) {
+                SubscribeFrom postResponse = (SubscribeFrom) response.body();
+
+                Log.d("VALUETEST", String.valueOf(postResponse));
+
+                ArrayList<Integer> subscribe_creator_list_id = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_nickname = new ArrayList<>();
+                ArrayList<String> subscribe_creator_list_photo = new ArrayList<>();
+
+                for (int i = 0; i < postResponse.subscribe_from_list.size(); i++) {
+                    subscribe_creator_list_id.add(postResponse.subscribe_from_list.get(i).getId());
+                    subscribe_creator_list_nickname.add(postResponse.subscribe_from_list.get(i).getNickname());
+                    subscribe_creator_list_photo.add(postResponse.subscribe_from_list.get(i).getPhoto());
+                }
+
+                aliseon.aliseon_setSubscribe_creator_list_id(subscribe_creator_list_id);
+                aliseon.aliseon_setSubscribe_creator_list_nickname(subscribe_creator_list_nickname);
+                aliseon.aliseon_setSubscribe_creator_list_photo(subscribe_creator_list_photo);
+
+                // 총돌 대비 Try&Catch문 사용
+                try {
+
+                    ArrayList<Integer> mydetail_list_is_subscribe = aliseon.aliseon_getMydetail_list_is_subscribe();
+
+                    for (int i = 0; i < aliseon.aliseon_getMydetail_list_id().size(); i++) {
+
+                        // 버튼이 생성될 때마다 버튼의 고유 ID를 생성하여 btnId 배열에 저장하도록 하였음, 하단은 배열 내의 ID를 불러옴
+                        Log.d("HEYWHAT", String.valueOf(btnId.get(i)));
+                        Button btn = findViewById(btnId.get(i));
+//                        btn.setText(String.valueOf(btnId.get(i)));
+
+                        mydetail_list_is_subscribe.set(i, 0);
+                        aliseon.aliseon_setMydetail_list_is_subscribe(mydetail_list_is_subscribe);
+
+                        final int j = i;
+
+                        // 구독 여부 확인 (버튼 색 변화 위함)
+                        // 구독중이 아닐 경우, 미리 준비한 설정 및 디폴트 버튼으로 지정해줌
+                        btn.setText(getResources().getString(R.string.subscribe));
+                        btn.setBackground(ContextCompat.getDrawable(btn.getContext(), R.drawable.buttonsetting));
+                        btn.setLayoutParams(new LinearLayout.LayoutParams(250, 70));
+                        btn.setTextColor(Color.rgb(255, 255, 255));
+                        btn.setTextSize(10);
+
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                aliseon.aliseon_setParam_subscribe_to_id(aliseon.aliseon_getMydetail_list_id().get(j));
+                                myactivitydetailhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        SubscribePost(j, "add");
+                                    }
+                                });
+
+                            }
+                        });
+
+                        for (int ii = 0; ii < aliseon.aliseon_getSubscribe_creator_list_id().size(); ii++) {
+
+                            if (aliseon.aliseon_getMydetail_list_id().get(i).equals(aliseon.aliseon_getSubscribe_creator_list_id().get(ii))) {
+
+                                // 구독 중임을 확인하였을 경우 단어 및 색 변화 적용, 기능 수정
+                                mydetail_list_is_subscribe.set(i, 1);
+                                aliseon.aliseon_getMydetail_list_is_subscribe().get(i);
+
+                                btn.setText(getResources().getString(R.string.subscribed));
+                                btn.setBackground(ContextCompat.getDrawable(btn.getContext(), R.drawable.blackbuttonsetting));
+                                btn.setLayoutParams(new LinearLayout.LayoutParams(250, 70));
+                                btn.setTextColor(Color.rgb(255, 255, 255));
+
+                                btn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        aliseon.aliseon_setParam_subscribe_to_id(aliseon.aliseon_getMydetail_list_id().get(j));
+                                        myactivitydetailhandler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                SubscribePost(j, "delete");
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+
+                        }
+
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SubscribeFrom> call, Throwable t) {
+
+                // ERROR!!
+                Log.d("SubscribeFromPost", "ERROR FROM THIS API");
+                Log.d("SubscribeFromPost", t.toString());
+
+
+
+            }
+        });
+    }
+
+    private void SubscribePost(int num, String type) {
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
         int user_id = aliseon.aliseon_getLoginid();
         int to_user_id = aliseon.aliseon_getParam_subscribe_to_id();
-        String type = aliseon.aliseon_getParam_subscribe_type();
+
 
         Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, String.valueOf(user_id), String.valueOf(to_user_id), type);
 
         call.enqueue(new Callback<SubscribePost>() {
             @Override
             public void onResponse(Call<SubscribePost> call, Response<SubscribePost> response) {
+
+                SubscribePost postResponse = (SubscribePost) response.body();
+
+                if (response.code() == 404) {
+                    Log.d("404ERROR", "" + response.message());
+                    Log.d("404ERROR", "" + response.errorBody().toString());
+                    try {
+                        JSONObject jsonObject = null;
+                        jsonObject = new JSONObject(response.errorBody().string());
+                        String userMessage = jsonObject.getString("message");
+                        Log.d("RESULTERROR", userMessage);
+
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Log.d("MyDetailSTATUS", String.valueOf(postResponse.getStatus()));
+                    ArrayList<Integer> mydetail_list_is_subscribe = aliseon.aliseon_getMydetail_list_is_subscribe();
+
+                    if (type == "add") {
+                        mydetail_list_is_subscribe.set(num, 1);
+                    } else {
+                        mydetail_list_is_subscribe.set(num, 0);
+                    }
+
+                    MySubscribeToPost();
+
+                }
 
             }
 

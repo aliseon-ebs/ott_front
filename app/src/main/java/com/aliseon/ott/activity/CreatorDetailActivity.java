@@ -49,6 +49,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
     CircleImageView My;
 
     private AliseonAPI AliseonAPI;
+    private ArrayList<Integer> btnId = new ArrayList<>();
 
     public static CreatorActivityDetailHandler creatoractivitydetailhandler;
 
@@ -518,6 +519,12 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
             } else {
 
+                creatordetail_list_is_subscribe.clear();
+                for (int i = 0; i < creatordetail_list_id.size(); i++) {
+                    creatordetail_list_is_subscribe.add(0);
+                    aliseon.aliseon_setCreatordetail_list_is_subscribe(creatordetail_list_is_subscribe);
+                }
+
                 // FOR
                 for (int i = 0; i < creatordetail_list_id.size(); i++) {
 
@@ -571,6 +578,9 @@ public class CreatorDetailActivity extends AppCompatActivity {
                     TV2.setText(getResources().getString(R.string.subscriber) + " " + creatordetail_list_subscribeto_cnt.get(i) + "   ·   " + getResources().getString(R.string.contents) + " " + creatordetail_list_contents_cnt.get(i));
 
                     Button button = new Button(this);
+                    button.setId(button.generateViewId());
+
+                    btnId.add(button.getId());
 
                     for(int ii = 0; ii < subscribe_creator_list_id.size(); ii++){
 
@@ -596,56 +606,6 @@ public class CreatorDetailActivity extends AppCompatActivity {
                     }
 
                     final int j = i;
-
-                    if (creatordetail_list_is_subscribe.get(i) == 0) {
-                        button.setText(getResources().getString(R.string.subscribe));
-                        button.setBackground(ContextCompat.getDrawable(this, R.drawable.buttonsetting));
-                        button.setLayoutParams(new ViewGroup.LayoutParams(250, 70));
-                        button.setTextColor(Color.rgb(255, 255, 255));
-                        button.setTextSize(10);
-
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                aliseon.aliseon_setParam_subscribe_to_id(creatordetail_list_id.get(j));
-                                aliseon.aliseon_setParam_subscribe_activity(1);
-                                aliseon.aliseon_setParam_subscribe_type("add");
-
-                                creatoractivitydetailhandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        SubscribePost();
-                                    }
-                                });
-
-                            }
-                        });
-                    } else if (creatordetail_list_is_subscribe.get(i) == 1) {
-                        button.setText(getResources().getString(R.string.subscribed));
-                        button.setBackground(ContextCompat.getDrawable(this, R.drawable.blackbuttonsetting));
-                        button.setLayoutParams(new ViewGroup.LayoutParams(250, 70));
-                        button.setTextColor(Color.rgb(255, 255, 255));
-                        button.setTextSize(10);
-
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                aliseon.aliseon_setParam_subscribe_to_id(creatordetail_list_id.get(j));
-                                aliseon.aliseon_setParam_subscribe_activity(1);
-                                aliseon.aliseon_setParam_subscribe_type("delete");
-
-                                creatoractivitydetailhandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        SubscribePost();
-                                    }
-                                });
-
-                            }
-                        });
-                    }
 
                     Layout4_1.addView(CIV);
                     Layout4_2.addView(TV1);
@@ -854,6 +814,7 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
         Aliseon aliseon = (Aliseon) getApplicationContext();
         aliseon.aliseon_setRefresh_num(0);
+        aliseon.aliseon_setCreatorDetailAPIload(0);
 
         CreatorDetailClear();
         overridePendingTransition(0,0);
@@ -917,6 +878,8 @@ public class CreatorDetailActivity extends AppCompatActivity {
                     creatoractivitydetailhandler.sendEmptyMessage(800);
                 }
 
+                SubscribeFromPost();
+
             }
 
             @Override
@@ -927,12 +890,11 @@ public class CreatorDetailActivity extends AppCompatActivity {
     }
 
     // 크리에이터 구독시 사용하는 API
-    private void SubscribePost() {
+    private void SubscribePost(int num, String type) {
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
         int user_id = aliseon.aliseon_getLoginid();
         int to_user_id = aliseon.aliseon_getParam_subscribe_to_id();
-        String type = aliseon.aliseon_getParam_subscribe_type();
 
         Call<SubscribePost> call = AliseonAPI.SubscribePost(access_token, String.valueOf(user_id), String.valueOf(to_user_id), type);
 
@@ -957,7 +919,15 @@ public class CreatorDetailActivity extends AppCompatActivity {
 
                 } else {
                     Log.d("CREATORSTATUS", String.valueOf(postResponse.getStatus()));
-                    SubscribeFromPost();
+                    ArrayList<Integer> creatordetail_list_is_subscribe = aliseon.aliseon_getCreatordetail_list_is_subscribe();
+
+                    if (type == "add") {
+                        creatordetail_list_is_subscribe.set(num, 1);
+                    } else {
+                        creatordetail_list_is_subscribe.set(num, 0);
+                    }
+
+                    SubscribeToPost();
                 }
 
             }
@@ -1004,7 +974,75 @@ public class CreatorDetailActivity extends AppCompatActivity {
                 aliseon.aliseon_setSubscribe_creator_list_nickname(subscribe_creator_list_nickname);
                 aliseon.aliseon_setSubscribe_creator_list_photo(subscribe_creator_list_photo);
 
-                onResume();
+                try {
+
+                    ArrayList<Integer> creatordetail_list_is_subscribe = aliseon.aliseon_getCreatordetail_list_is_subscribe();
+                    ArrayList<Integer> creatordetail_list_id = aliseon.aliseon_getCreatordetail_list_id();
+
+                    for (int i = 0; i < aliseon.aliseon_getCreatordetail_list_id().size(); i++) {
+
+                        // 버튼이 생성될 때마다 버튼의 고유 ID를 생성하여 btnId 배열에 저장하도록 하였음, 하단은 배열 내의 ID를 불러옴
+                        Button btn = findViewById(btnId.get(i));
+
+                        final int j = i;
+
+                        // 구독 여부 확인 (버튼 색 변화 위함)
+                        // 구독중이 아닐 경우, 미리 준비한 설정 및 디폴트 버튼으로 지정해줌
+                        btn.setText(getResources().getString(R.string.subscribe));
+                        btn.setBackground(ContextCompat.getDrawable(btn.getContext(), R.drawable.buttonsetting));
+                        btn.setLayoutParams(new LinearLayout.LayoutParams(250, 70));
+                        btn.setTextColor(Color.rgb(255, 255, 255));
+                        btn.setTextSize(10);
+
+                        btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                aliseon.aliseon_setParam_subscribe_to_id(creatordetail_list_id.get(j));
+                                creatoractivitydetailhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        SubscribePost(j, "add");
+                                    }
+                                });
+
+                            }
+                        });
+
+                        for (int ii = 0; ii < aliseon.aliseon_getSubscribe_creator_list_id().size(); ii++) {
+
+                            if (aliseon.aliseon_getCreatordetail_list_id().get(i).equals(aliseon.aliseon_getSubscribe_creator_list_id().get(ii))) {
+                                btn.setText(getResources().getString(R.string.subscribed));
+                                btn.setBackground(ContextCompat.getDrawable(btn.getContext(), R.drawable.blackbuttonsetting));
+                                btn.setLayoutParams(new LinearLayout.LayoutParams(250, 70));
+                                btn.setTextColor(Color.rgb(255, 255, 255));
+                                btn.setTextSize(10);
+
+                                btn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        aliseon.aliseon_setParam_subscribe_to_id(creatordetail_list_id.get(j));
+                                        creatoractivitydetailhandler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                SubscribePost(j, "delete");
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+
+                        }
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 
