@@ -134,22 +134,22 @@ public class SubscribeActivity extends AppCompatActivity {
             Layout1.setLayoutParams(params);
 
             ImageView Home = new ImageView(this);
-            Home.setFocusableInTouchMode(true);
+//            Home.setFocusableInTouchMode(true);
             Home.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Search = new ImageView(this);
-            Search.setFocusableInTouchMode(true);
+//            Search.setFocusableInTouchMode(true);
             Search.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             User = new ImageView(this);
             User.setFocusableInTouchMode(true);
             User.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Cart = new ImageView(this);
-            Cart.setFocusableInTouchMode(true);
+//            Cart.setFocusableInTouchMode(true);
             Cart.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             CircleImageView My = new CircleImageView(this);
-            My.setFocusableInTouchMode(true);
+//            My.setFocusableInTouchMode(true);
             My.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Setting = new ImageView(this);
-            Setting.setFocusableInTouchMode(true);
+//            Setting.setFocusableInTouchMode(true);
             Setting.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             CircleImageView Profile = new CircleImageView(this);
             Home.setPadding(15, 15, 15, 15);
@@ -756,7 +756,11 @@ public class SubscribeActivity extends AppCompatActivity {
                 subscribe_tv2.setText(subscribe_creator_list_nickname.get(i));
                 subscribe_tv2.setTextColor(Color.rgb(255, 255, 255));
 
-                Glide.with(this).load(imageurl + subscribe_creator_list_photo.get(i)).into(subscribe_image2);
+                if (subscribe_creator_list_photo.get(i) == null) {
+                    subscribe_image2.setImageResource(R.drawable.noimg_profile);
+                } else {
+                    Glide.with(this).load(imageurl + subscribe_creator_list_photo.get(i)).into(subscribe_image2);
+                }
 
                 subscribe_tv2.setPadding(0, 15, 0, 0);
 
@@ -768,6 +772,7 @@ public class SubscribeActivity extends AppCompatActivity {
 
                 Layout3_1.addView(Layout3_1_1);
 
+                Layout3_1_1_1.setId(R.id.subscribe1);
                 Layout3_1_1_1.setNextFocusUpId(R.id.subscribe1);
                 Layout3_1_1_1.setNextFocusDownId(R.id.subscribe2);
 
@@ -1018,6 +1023,10 @@ public class SubscribeActivity extends AppCompatActivity {
                         });
                         j++;
 
+                        if (i == 0) {
+                            Layout3_6_1_1.setNextFocusUpId(R.id.all1);
+                        }
+
                         if(i == 0 && ii == 0){
                             Layout3_6_1_1.setId(R.id.homedetaillayout);
 //                        Layout3_6_1_1.requestFocus();
@@ -1143,6 +1152,10 @@ public class SubscribeActivity extends AppCompatActivity {
                         });
                         j++;
 
+                        if (i == 0) {
+                            Layout3_6_1_1.setNextFocusUpId(R.id.all1);
+                        }
+
                         if(i == 0 && ii == 0){
                             Layout3_6_1_1.setId(R.id.homedetaillayout);
 //                        Layout3_6_1_1.requestFocus();
@@ -1150,6 +1163,13 @@ public class SubscribeActivity extends AppCompatActivity {
 
                         if (ii == 0) {
                             Layout3_6_1_1.setNextFocusLeftId(R.id.viewback);
+                        }
+
+                        if (ii == 3) {
+                            Layout3_6_1_1.setId(Layout3_6_1_1.generateViewId());
+                            int dummyid = Layout3_6_1_1.getId();
+                            Layout3_6_1_1.setNextFocusRightId(dummyid);
+
                         }
 
                         // 만약 나머지가 없고 마지막 생성줄인 경우
@@ -1502,10 +1522,11 @@ public class SubscribeActivity extends AppCompatActivity {
 
         Aliseon aliseon = (Aliseon) getApplicationContext();
         String access_token = aliseon.aliseon_getAccesstoken();
+        String userid = String.valueOf(aliseon.aliseon_getLoginid());
         int subscribevoyagestart = aliseon.aliseon_getSubscribeVoyageStart();
         int subscribevoyagelimit = aliseon.aliseon_getSubscribeVoyageLimit();
 
-        Call<Voyage> call = AliseonAPI.VoyagePost(access_token, "1", 1 ,0, 0, 50, "en");
+        Call<Voyage> call = AliseonAPI.VoyagePost(access_token, userid, 1 ,0, 0, 50, "en");
 
         call.enqueue(new Callback<Voyage>() {
             @Override

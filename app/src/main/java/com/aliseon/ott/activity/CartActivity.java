@@ -126,22 +126,22 @@ public class CartActivity extends AppCompatActivity {
 
 
             ImageView Home = new ImageView(this);
-            Home.setFocusableInTouchMode(true);
+//            Home.setFocusableInTouchMode(true);
             Home.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Search = new ImageView(this);
-            Search.setFocusableInTouchMode(true);
+//            Search.setFocusableInTouchMode(true);
             Search.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView User = new ImageView(this);
-            User.setFocusableInTouchMode(true);
+//            User.setFocusableInTouchMode(true);
             User.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             Cart = new ImageView(this);
             Cart.setFocusableInTouchMode(true);
             Cart.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             CircleImageView My = new CircleImageView(this);
-            My.setFocusableInTouchMode(true);
+//            My.setFocusableInTouchMode(true);
             My.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Setting = new ImageView(this);
-            Setting.setFocusableInTouchMode(true);
+//            Setting.setFocusableInTouchMode(true);
             Setting.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             Home.setPadding(15, 15, 15, 15);
             User.setPadding(15, 15, 15, 15);

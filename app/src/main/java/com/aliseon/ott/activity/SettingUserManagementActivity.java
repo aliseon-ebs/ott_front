@@ -676,6 +676,9 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                         Layout4_4_2_2_1.addView(acc1changebtn);
                         Layout4_4_2_2_2.addView(acc1disconnectbtn);
 
+                        acc1changebtn.setNextFocusUpId(R.id.changebtn1);
+                        acc1disconnectbtn.setNextFocusUpId(R.id.disconnectbtn1);
+
                         Layout4_5.addView(Layout4_5_1);
                         Layout4_5.addView(Layout4_5_2);
                         Layout4_5_2.addView(Layout4_5_2_1);
@@ -754,6 +757,9 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                         params4_3.bottomMargin = 150;
                         params4_4_1.topMargin = 2;
 
+                        acc1changebtn.setNextFocusUpId(R.id.changebtn1);
+                        acc1disconnectbtn.setNextFocusUpId(R.id.disconnectbtn1);
+
                     } throw new Exception("error");
 
                 } catch (Exception e) {
@@ -785,6 +791,9 @@ public class SettingUserManagementActivity extends AppCompatActivity {
                         params4_3.topMargin = 20;
                         params4_3.bottomMargin = 50;
                         params4_4_1.bottomMargin = 35;
+
+                        acc1changebtn.setNextFocusUpId(R.id.changebtn1);
+                        acc1disconnectbtn.setNextFocusUpId(R.id.disconnectbtn1);
 
                     }
 

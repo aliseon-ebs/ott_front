@@ -126,13 +126,13 @@ public class VoyageActivity extends AppCompatActivity {
             Layout1.setLayoutParams(params);
 
             ImageView Home = new ImageView(this);
-            Home.setFocusableInTouchMode(true);
+//            Home.setFocusableInTouchMode(true);
             Home.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             Search = new ImageView(this);
             Search.setFocusableInTouchMode(true);
             Search.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView User = new ImageView(this);
-            User.setFocusableInTouchMode(true);
+//            User.setFocusableInTouchMode(true);
             User.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             Home.setPadding(15, 15, 15, 15);
             User.setPadding(15, 15, 15, 15);
@@ -140,12 +140,12 @@ public class VoyageActivity extends AppCompatActivity {
             EditText edittext = new EditText(this);
             ImageView logo = new ImageView(this);
             ImageView Cart = new ImageView(this);
-            Cart.setFocusableInTouchMode(true);
+//            Cart.setFocusableInTouchMode(true);
             Cart.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             Cart.setPadding(15, 15, 15, 15);
 
             CircleImageView My = new CircleImageView(this);
-            My.setFocusableInTouchMode(true);
+//            My.setFocusableInTouchMode(true);
             My.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             My.setPadding(15, 15, 15, 15);
 
@@ -156,7 +156,7 @@ public class VoyageActivity extends AppCompatActivity {
             }
 
             ImageView Setting = new ImageView(this);
-            Setting.setFocusableInTouchMode(true);
+//            Setting.setFocusableInTouchMode(true);
             Setting.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             Setting.setPadding(15, 15, 15, 15);
 
@@ -1782,10 +1782,96 @@ public class VoyageActivity extends AppCompatActivity {
             for (int i = 0; i < cate_name.size(); i++) {
 
                 if (i == 0) {
-                    LinearLayout LayoutNull = new LinearLayout(this);
-                    LayoutNull.setLayoutParams(params3_1);
-                    LayoutNull.setPadding(40, 50, 0, 50);
-                    Layout3.addView(LayoutNull);
+                    Layout3_0 = new LinearLayout(this);
+                    Layout3_0.setLayoutParams(params3_1);
+                    TV0 = new TextView(this);
+                    int ll_set_id = View.generateViewId();
+                    int tv_set_id = View.generateViewId();
+                    Layout3_0.setId(ll_set_id);
+                    TV0.setId(tv_set_id);
+                    TV0.setFocusableInTouchMode(true);
+                    TV0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
+                    TV0.setText("ALL");
+                    TV0.setTextSize(14);
+                    TV0.setTextColor(Color.rgb(255, 255, 255));
+                    TV0.setPadding(40, 25, 0, 25);
+                    Layout3_0.addView(TV0);
+                    ViewGroup.MarginLayoutParams margin3_0 = new ViewGroup.MarginLayoutParams(TV0.getLayoutParams());
+//                margin3_0.setMargins(30, 17, 0, 0);
+                    Layout3.addView(Layout3_0);
+
+                    final int ii = i;
+
+                    int tv_get_id = TV0.getId();
+                    int ll_get_id = Layout3_0.getId();
+                    TextView TV1 = (TextView) findViewById(tv_get_id);
+                    LinearLayout Layout3_1 = (LinearLayout) findViewById(ll_get_id);
+                    final TextView TV2 = TV1;
+                    final LinearLayout Layout3_2 = Layout3_1;
+
+                    TV1.setOnFocusChangeListener(new View.OnFocusChangeListener() { // 포커스를 얻으면
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
+
+                            if (hasFocus) {
+
+                                int voyageapiload = aliseon.aliseon_getVoyageAPIload();
+                                int voyagefocusapiload = aliseon.aliseon_getVoyageFocusAPIload();
+
+                                Log.d("if 현재 id : ", "" + ii);
+                                Log.d("if Voyage_id : ", "" + voyage_id);
+                                TV2.setTextColor(Color.rgb(66, 66, 66));
+                                Layout3_2.setBackgroundColor(Color.rgb(255, 255, 255));
+
+                                Log.d("focus searchapiload : ", "" + aliseon.aliseon_getVoyageAPIload());
+                                Log.d("focus focusapiload : ", "" + aliseon.aliseon_getVoyageFocusAPIload());
+
+                                Log.d("focus iii : ", "" + iii);
+                                Log.d("focus ii : ", "" + ii);
+
+                                if (voyageapiload == 0 && voyagefocusapiload == 0) {
+
+                                    aliseon.aliseon_clearVoyage();
+
+                                    searchactivityvoyagehandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+//                                            aliseon.aliseon_clearVoyage();
+                                            int category_num = aliseon.aliseon_getCategory_num();
+                                            int category_id = aliseon.aliseon_getCategory_id();
+                                            ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
+
+                                            category_num = ii;
+                                            category_id = cate_number.get(ii);
+                                            aliseon.aliseon_setCategory_id(0);
+                                            VoyagePost();
+                                            aliseon.aliseon_setVoyageFocusAPIload(1);
+
+//                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
+//                                        networktasktvottsearchvoyage.execute();
+
+                                        }
+                                    });
+                                }
+                            } else {
+                                iii = ii;
+                                Log.d("else 현재 id : ", "" + ii);
+                                TV2.setTextColor(Color.rgb(255, 255, 255));
+                                Layout3_2.setBackground(null);
+
+//                            Log.d("un searchapiload : ", "" + searchapiload);
+//                            Log.d("un focusapiload : ", "" + searchcfocusapiload);
+//                            Log.d("un iii : ", "" + iii);
+//                            Log.d("un ii : ", "" + ii);
+
+                                Log.d("else Voyage_id : ", "" + voyage_id);
+
+                                aliseon.aliseon_setVoyageAPIload(0);
+
+                            }
+                        }
+                    });
                 }
 
                 Layout3_0 = new LinearLayout(this);

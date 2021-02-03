@@ -136,22 +136,22 @@ public class MyActivity extends AppCompatActivity {
             Layout1.setLayoutParams(params);
 
             ImageView Home = new ImageView(this);
-            Home.setFocusableInTouchMode(true);
+//            Home.setFocusableInTouchMode(true);
             Home.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Search = new ImageView(this);
-            Search.setFocusableInTouchMode(true);
+//            Search.setFocusableInTouchMode(true);
             Search.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView User = new ImageView(this);
-            User.setFocusableInTouchMode(true);
+//            User.setFocusableInTouchMode(true);
             User.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Cart = new ImageView(this);
-            Cart.setFocusableInTouchMode(true);
+//            Cart.setFocusableInTouchMode(true);
             Cart.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             My = new CircleImageView(this);
             My.setFocusableInTouchMode(true);
             My.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             ImageView Setting = new ImageView(this);
-            Setting.setFocusableInTouchMode(true);
+//            Setting.setFocusableInTouchMode(true);
             Setting.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ovalbuttonsetting));
             CircleImageView Profile = new CircleImageView(this);
             Home.setPadding(15, 15, 15, 15);
