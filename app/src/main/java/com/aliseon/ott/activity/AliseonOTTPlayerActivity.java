@@ -1052,8 +1052,8 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
                                 typeselector = typeselector + 10;
                             }
 
-                            Log.d("VIDEOCHECKER", String.valueOf(playerfeedid));
-                            Log.d("VIDEOCHECKER", playerfeedid.get(j));
+//                            Log.d("VIDEOCHECKER", String.valueOf(playerfeedid));
+//                            Log.d("VIDEOCHECKER", playerfeedid.get(j));
                             Log.d("VIDEONUM", String.valueOf(j));
 
                             aliseon.aliseon_setSelect(j);
