@@ -2152,8 +2152,6 @@ public class VoyageActivity extends AppCompatActivity {
 
                 }
 
-                Log.d("보야지 아이디 체크", "" + category_id);
-
                 aliseon.aliseon_setVoyage_cate_number(category_id);
                 aliseon.aliseon_setVoyage_cate_name(category_dept);
 
