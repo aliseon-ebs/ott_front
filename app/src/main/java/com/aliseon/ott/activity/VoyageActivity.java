@@ -1781,7 +1781,6 @@ public class VoyageActivity extends AppCompatActivity {
 
             for (int i = 0; i < cate_name.size(); i++) {
 
-                if (i == 0) {
                     Layout3_0 = new LinearLayout(this);
                     Layout3_0.setLayoutParams(params3_1);
                     TV0 = new TextView(this);
@@ -1791,7 +1790,7 @@ public class VoyageActivity extends AppCompatActivity {
                     TV0.setId(tv_set_id);
                     TV0.setFocusableInTouchMode(true);
                     TV0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
-                    TV0.setText("ALL");
+                    TV0.setText(cate_name.get(i));
                     TV0.setTextSize(14);
                     TV0.setTextColor(Color.rgb(255, 255, 255));
                     TV0.setPadding(40, 25, 0, 25);
@@ -1829,7 +1828,7 @@ public class VoyageActivity extends AppCompatActivity {
                                 Log.d("focus iii : ", "" + iii);
                                 Log.d("focus ii : ", "" + ii);
 
-                                if (voyageapiload == 0 && voyagefocusapiload == 0) {
+                                if (iii != ii && voyageapiload == 0 && voyagefocusapiload == 0) {
 
                                     aliseon.aliseon_clearVoyage();
 
@@ -1837,14 +1836,13 @@ public class VoyageActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
 
-//                                            aliseon.aliseon_clearVoyage();
                                             int category_num = aliseon.aliseon_getCategory_num();
                                             int category_id = aliseon.aliseon_getCategory_id();
                                             ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
 
                                             category_num = ii;
                                             category_id = cate_number.get(ii);
-                                            aliseon.aliseon_setCategory_id(0);
+                                            aliseon.aliseon_setCategory_id(category_id);
                                             VoyagePost();
                                             aliseon.aliseon_setVoyageFocusAPIload(1);
 
@@ -1853,7 +1851,29 @@ public class VoyageActivity extends AppCompatActivity {
 
                                         }
                                     });
+                                } else if (iii == 0 && ii == 1 && voyageapiload == 0 && voyagefocusapiload == 0) {
+
+                                    aliseon.aliseon_clearVoyage();
+
+                                    searchactivityvoyagehandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            int category_num = aliseon.aliseon_getCategory_num();
+                                            int category_id = aliseon.aliseon_getCategory_id();
+                                            ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
+
+                                            category_num = ii;
+                                            category_id = cate_number.get(ii);
+                                            aliseon.aliseon_setVoyageFocusAPIload(1);
+
+//                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
+//                                        networktasktvottsearchvoyage.execute();
+
+                                        }
+                                    });
                                 }
+
                             } else {
                                 iii = ii;
                                 Log.d("else 현재 id : ", "" + ii);
@@ -1872,128 +1892,15 @@ public class VoyageActivity extends AppCompatActivity {
                             }
                         }
                     });
-                }
 
-                Layout3_0 = new LinearLayout(this);
-                Layout3_0.setLayoutParams(params3_1);
-                TV0 = new TextView(this);
-                int ll_set_id = View.generateViewId();
-                int tv_set_id = View.generateViewId();
-                Layout3_0.setId(ll_set_id);
-                TV0.setId(tv_set_id);
-                TV0.setFocusableInTouchMode(true);
-                TV0.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.mainbuttonsetting));
-                TV0.setText(cate_name.get(i));
-                TV0.setTextSize(14);
-                TV0.setTextColor(Color.rgb(255, 255, 255));
-                TV0.setPadding(40, 25, 0, 25);
-                Layout3_0.addView(TV0);
-                ViewGroup.MarginLayoutParams margin3_0 = new ViewGroup.MarginLayoutParams(TV0.getLayoutParams());
-//                margin3_0.setMargins(30, 17, 0, 0);
-                Layout3.addView(Layout3_0);
+                    int category_id = aliseon.aliseon_getCategory_id();
 
-                final int ii = i;
-
-                int tv_get_id = TV0.getId();
-                int ll_get_id = Layout3_0.getId();
-                TextView TV1 = (TextView) findViewById(tv_get_id);
-                LinearLayout Layout3_1 = (LinearLayout) findViewById(ll_get_id);
-                final TextView TV2 = TV1;
-                final LinearLayout Layout3_2 = Layout3_1;
-
-                TV1.setOnFocusChangeListener(new View.OnFocusChangeListener() { // 포커스를 얻으면
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
-
-                        if (hasFocus) {
-
-                            int voyageapiload = aliseon.aliseon_getVoyageAPIload();
-                            int voyagefocusapiload = aliseon.aliseon_getVoyageFocusAPIload();
-
-                            Log.d("if 현재 id : ", "" + ii);
-                            Log.d("if Voyage_id : ", "" + voyage_id);
-                            TV2.setTextColor(Color.rgb(66, 66, 66));
-                            Layout3_2.setBackgroundColor(Color.rgb(255, 255, 255));
-
-                            Log.d("focus searchapiload : ", "" + aliseon.aliseon_getVoyageAPIload());
-                            Log.d("focus focusapiload : ", "" + aliseon.aliseon_getVoyageFocusAPIload());
-
-                            Log.d("focus iii : ", "" + iii);
-                            Log.d("focus ii : ", "" + ii);
-
-                            if (iii != ii && voyageapiload == 0 && voyagefocusapiload == 0) {
-
-                                aliseon.aliseon_clearVoyage();
-
-                                searchactivityvoyagehandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        int category_num = aliseon.aliseon_getCategory_num();
-                                        int category_id = aliseon.aliseon_getCategory_id();
-                                        ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
-
-                                        category_num = ii;
-                                        category_id = cate_number.get(ii);
-                                        aliseon.aliseon_setCategory_id(category_id);
-                                        VoyagePost();
-                                        aliseon.aliseon_setVoyageFocusAPIload(1);
-
-//                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
-//                                        networktasktvottsearchvoyage.execute();
-
-                                    }
-                                });
-                            } else if (iii == 0 && ii == 1 && voyageapiload == 0 && voyagefocusapiload == 0) {
-
-                                aliseon.aliseon_clearVoyage();
-
-                                searchactivityvoyagehandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-
-                                        int category_num = aliseon.aliseon_getCategory_num();
-                                        int category_id = aliseon.aliseon_getCategory_id();
-                                        ArrayList<Integer> cate_number = aliseon.aliseon_getVoyage_cate_number();
-
-                                        category_num = ii;
-                                        category_id = cate_number.get(ii);
-                                        aliseon.aliseon_setVoyageFocusAPIload(1);
-
-//                                        NetworkTaskTvottSearchVoyage networktasktvottsearchvoyage = new NetworkTaskTvottSearchVoyage(api_voyage, null);
-//                                        networktasktvottsearchvoyage.execute();
-
-                                    }
-                                });
-                            }
-
-                        } else {
-                            iii = ii;
-                            Log.d("else 현재 id : ", "" + ii);
-                            TV2.setTextColor(Color.rgb(255, 255, 255));
-                            Layout3_2.setBackground(null);
-
-//                            Log.d("un searchapiload : ", "" + searchapiload);
-//                            Log.d("un focusapiload : ", "" + searchcfocusapiload);
-//                            Log.d("un iii : ", "" + iii);
-//                            Log.d("un ii : ", "" + ii);
-
-                            Log.d("else Voyage_id : ", "" + voyage_id);
-
-                            aliseon.aliseon_setVoyageAPIload(0);
-
-                        }
+                    if (aliseon.aliseon_getVoyage_cate_number().get(i) == category_id) {
+                        TV0.requestFocus();
                     }
-                });
-
-                int category_id = aliseon.aliseon_getCategory_id();
-
-                if (aliseon.aliseon_getVoyage_cate_number().get(i) == category_id) {
-                    TV0.requestFocus();
-                }
 
 //                Layout3_0.setNextFocusLeftId();
-                TV0.setNextFocusLeftId(R.id.allsearch);
+                    TV0.setNextFocusLeftId(R.id.allsearch);
 
             }
 
@@ -2219,6 +2126,16 @@ public class VoyageActivity extends AppCompatActivity {
 
         Call<Categories> call = AliseonAPI.CategoriesPost(access_token, loginlanguage, 1);
 
+        ArrayList<Integer> category_id = new ArrayList<>();
+        ArrayList<String> category_dept = new ArrayList<>();
+
+        category_id.add(0);
+        if(loginlanguage == "kr"){
+            category_dept.add("전체");
+        } else {
+            category_dept.add("All");
+        }
+
         call.enqueue(new Callback<Categories>() {
             @Override
             public void onResponse(Call<Categories> call, Response<Categories> response) {
@@ -2228,15 +2145,14 @@ public class VoyageActivity extends AppCompatActivity {
                 Log.d("Categories Code : ", "" + response.code());
 //                Log.d("Categories Status : ", "" + postResponse.getStatus());
 
-                ArrayList<Integer> category_id = new ArrayList<>();
-                ArrayList<String> category_dept = new ArrayList<>();
-
                 for(int i = 0; i < postResponse.categories_list.size(); i++) {
 
                     category_id.add(postResponse.categories_list.get(i).getId());
                     category_dept.add(postResponse.categories_list.get(i).getDept1());
 
                 }
+
+                Log.d("보야지 아이디 체크", "" + category_id);
 
                 aliseon.aliseon_setVoyage_cate_number(category_id);
                 aliseon.aliseon_setVoyage_cate_name(category_dept);
