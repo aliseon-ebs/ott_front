@@ -1033,7 +1033,7 @@ public class SubscribeActivity extends AppCompatActivity {
                         }
 
                         if (ii == 0) {
-                            Layout3_6_1_1.setNextFocusLeftId(R.id.viewback);
+                            Layout3_6_1_1.setNextFocusLeftId(R.id.subscribeuser);
                         }
                     }
 
@@ -1162,7 +1162,7 @@ public class SubscribeActivity extends AppCompatActivity {
                         }
 
                         if (ii == 0) {
-                            Layout3_6_1_1.setNextFocusLeftId(R.id.viewback);
+                            Layout3_6_1_1.setNextFocusLeftId(R.id.subscribeuser);
                         }
 
                         if (ii == 3) {
@@ -1304,6 +1304,8 @@ public class SubscribeActivity extends AppCompatActivity {
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
 //                                        Search.setImageResource(R.drawable.searchselect);
+                                    aliseon.aliseon_setSubscribeAPIload(0);
+                                    aliseon.aliseon_clearSubscribeCreator();
                                     aliseon.aliseon_setSubscribe_select_creator_num(0);
                                     Cart.setImageResource(R.drawable.cart);
                                     Intent intent = new Intent(SubscribeActivity.this, CartActivity.class);
@@ -1339,6 +1341,14 @@ public class SubscribeActivity extends AppCompatActivity {
             });
 
 
+        } else {
+//            subscribeactivityhandler = new SubscribeActivityHandler();
+            subscribeactivityhandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    SubscribeFromPost();
+                }
+            });
         }
 
     }
