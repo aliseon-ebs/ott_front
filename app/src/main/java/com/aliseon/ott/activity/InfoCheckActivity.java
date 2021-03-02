@@ -398,6 +398,7 @@ public class InfoCheckActivity extends AppCompatActivity {
 
         int adduserapiload = aliseon.aliseon_getAddUserAPIload();
 
+        Log.d("CHEKCINGWORKS", access_token + " / " + infocheck_id);
 
         Call<TvottAddUser> call = AliseonAPI.TvottAddUserPost(access_token, infocheck_id);
 

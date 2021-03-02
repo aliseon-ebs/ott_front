@@ -1522,6 +1522,9 @@ public class HomeActivity extends AppCompatActivity {
                             @Override
                             public void onFocusChange(View v, boolean hasFocus) { // 포커스가 한뷰에서 다른뷰로 바뀔때
                                 if (hasFocus) {
+
+                                    aliseon.aliseon_setMenu_voyage_focus(1);
+
                                     Intent intent = new Intent(HomeActivity.this, VoyageActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     startActivity(intent);

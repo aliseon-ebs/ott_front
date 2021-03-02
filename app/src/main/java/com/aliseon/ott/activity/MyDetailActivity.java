@@ -786,6 +786,13 @@ public class MyDetailActivity extends AppCompatActivity {
             Layout1.addView(Layout3);
 
             setContentView(Layout1);
+        } else {
+            myactivitydetailhandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    MySubscribeToPost();
+                }
+            });
         }
     }
 
@@ -804,6 +811,7 @@ public class MyDetailActivity extends AppCompatActivity {
         super.onBackPressed();
 
         Aliseon aliseon = (Aliseon) getApplicationContext();
+        aliseon.aliseon_setMyDetailAPIload(0);
 
         aliseon.MyDetailClear();
         overridePendingTransition(0,0);

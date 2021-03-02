@@ -501,7 +501,10 @@ public class VoyageActivity extends AppCompatActivity {
                         }
                     }
 
-                    Search.requestFocus();
+                    if (aliseon.aliseon_getMenu_voyage_focus() == 1) {
+                        Search.requestFocus();
+                    }
+
 
                     setContentView(Layout1);
 
@@ -671,12 +674,12 @@ public class VoyageActivity extends AppCompatActivity {
                                     Layout4_2_1_1.setId(R.id.LayoutAll);
 //                    Layout4_2_1_1.requestFocus();
                                     TV0.setNextFocusRightId(R.id.LayoutAll);
-                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                                 }
 
                                 if (ii == 0) {
                                     Layout4_2_1_1.setId(R.id.LayoutAll);
-                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                                 }
 
                                 final int jjj = j;
@@ -889,12 +892,12 @@ public class VoyageActivity extends AppCompatActivity {
                                     Layout4_2_1_1.setId(R.id.LayoutAll);
 //                    Layout4_2_1_1.requestFocus();
                                     TV0.setNextFocusRightId(R.id.LayoutAll);
-                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                                 }
 
                                 if (ii == 0) {
                                     Layout4_2_1_1.setId(R.id.LayoutAll);
-                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                    Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                                 }
 
                                 final int jjj = j;
@@ -1269,6 +1272,7 @@ public class VoyageActivity extends AppCompatActivity {
                         Log.d("활성화된 라인 :", String.valueOf(i));
                         if (y == 0) {
                             Layout4.removeView(Layout4_2);
+                            Log.d("활성화된 라인 :", "삭제됨 : " + String.valueOf(i));
                         }
                         for (int ii = 0; ii < y; ii++) {
                             LinearLayout Layout4_2_1 = new LinearLayout(this);
@@ -1413,16 +1417,21 @@ public class VoyageActivity extends AppCompatActivity {
                                 }
                             });
 
+                            Layout4_2_1_1.setId(R.id.LayoutAll);
+                            Layout4_2_1_1.setNextFocusDownId(R.id.LayoutAll);
+                            Log.d("ITACTIVATED", "WHAT LINE>??");
+
                             if (i == 0 && ii == 0) {
                                 Layout4_2_1_1.setId(R.id.LayoutAll);
 //                    Layout4_2_1_1.requestFocus();
 //                                TV0.setNextFocusRightId(R.id.LayoutAll);
-                                Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                             }
 
                             if (ii == 0) {
                                 Layout4_2_1_1.setId(R.id.LayoutAll);
-                                Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
+                                Layout4_2_1_1.setNextFocusDownId(R.id.LayoutAll);
                             }
 
                             final int jjj = j;
@@ -1634,16 +1643,23 @@ public class VoyageActivity extends AppCompatActivity {
                                 }
                             });
 
+                            // 나머지가 0이고 마지막 줄일 경우, 하단에 컨텐츠가 없을때 하단 이동시 다른 포커스가 잡히는 것을 막기 위함
+                            if (i == jj - 2 && y == 0) {
+                                Log.d("CHECKINGTHIS", "WWW");
+                                Layout4_2_1_1.setId(R.id.LayoutAll);
+                                Layout4_2_1_1.setNextFocusDownId(R.id.LayoutAll);
+                            }
+
                             if (i == 0 && ii == 0) {
                                 Layout4_2_1_1.setId(R.id.LayoutAll);
 //                    Layout4_2_1_1.requestFocus();
 //                                TV0.setNextFocusRightId(R.id.LayoutAll);
-                                Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                             }
 
                             if (ii == 0) {
                                 Layout4_2_1_1.setId(R.id.LayoutAll);
-                                Layout4_2_1_1.setNextFocusLeftId(R.id.all1);
+                                Layout4_2_1_1.setNextFocusLeftId(R.id.all15);
                             }
 
                             // 만약 나머지가 없고 마지막 생성줄인 경우
@@ -1672,7 +1688,9 @@ public class VoyageActivity extends AppCompatActivity {
                 }
             }
 
-            Search.requestFocus();
+            if (aliseon.aliseon_getMenu_voyage_focus() == 1) {
+                Search.requestFocus();
+            }
 //            TV0.setTextColor(Color.rgb(255, 255, 255));
             Search.setOnFocusChangeListener(new View.OnFocusChangeListener() { // 포커스를 얻으면
                 @Override
@@ -1702,6 +1720,9 @@ public class VoyageActivity extends AppCompatActivity {
                                     Intent intent = new Intent(VoyageActivity.this, SubscribeActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                     startActivity(intent);
+                                    aliseon.aliseon_setVoyageAPIload(0);
+                                    aliseon.aliseon_setVoyageCategoryAPIload(0);
+                                    aliseon.aliseon_setCategory_num(0);
                                 } else {
                                     User.setImageResource(R.drawable.user);
                                 }
@@ -1720,6 +1741,7 @@ public class VoyageActivity extends AppCompatActivity {
                         });
 
                     } else {
+                        aliseon.aliseon_setMenu_voyage_focus(1);
 //                            Search.setImageResource(R.drawable.searchselect);
                         TV0.setTextColor(Color.rgb(255, 255, 255));
                         Layout3_0.setBackground(null);
@@ -1814,6 +1836,10 @@ public class VoyageActivity extends AppCompatActivity {
 
                             if (hasFocus) {
 
+                                TV0.setId(R.id.all15);
+
+                                aliseon.aliseon_setMenu_voyage_focus(0);
+
                                 int voyageapiload = aliseon.aliseon_getVoyageAPIload();
                                 int voyagefocusapiload = aliseon.aliseon_getVoyageFocusAPIload();
 
@@ -1895,8 +1921,22 @@ public class VoyageActivity extends AppCompatActivity {
 
                     int category_id = aliseon.aliseon_getCategory_id();
 
-                    if (aliseon.aliseon_getVoyage_cate_number().get(i) == category_id) {
+                    if (aliseon.aliseon_getMenu_voyage_focus() == 0 && aliseon.aliseon_getVoyage_cate_number().get(i) == category_id) {
                         TV0.requestFocus();
+                    }
+
+                    if (aliseon.aliseon_getMenu_voyage_focus() == 1) {
+                        Search.setNextFocusRightId(R.id.all15);
+                        TV0.setId(R.id.all15);
+                    }
+
+                    // ALL 카테고리에서 우방향 이동시 검색창이 먼저 잡히는 것을 막기 위함
+                    if ( i == 0 ) {
+                        TV0.setNextFocusRightId(R.id.LayoutAll);
+                    }
+
+                    if (i == cate_name.size() - 1) {
+                        TV0.setNextFocusDownId(TV0.getId());
                     }
 
 //                Layout3_0.setNextFocusLeftId();
@@ -1905,7 +1945,7 @@ public class VoyageActivity extends AppCompatActivity {
             }
 
             Home.setNextFocusRightId(R.id.all1);
-            Search.setNextFocusRightId(R.id.all1);
+            Search.setNextFocusRightId(R.id.all15);
             User.setNextFocusRightId(R.id.all1);
             Home.setNextFocusUpId(R.id.alluser);
             User.setNextFocusDownId(R.id.allhome);
@@ -1927,7 +1967,7 @@ public class VoyageActivity extends AppCompatActivity {
 //            TV15.setNextFocusLeftId(R.id.allsearch);
 //            TV0.setNextFocusUpId(R.id.all16);
 //            TV15.setNextFocusDownId(R.id.all1);
-            edittext.setNextFocusLeftId(R.id.all1);
+            edittext.setNextFocusLeftId(R.id.all15);
             edittext.setNextFocusUpId(R.id.editAll);
             edittext.setNextFocusRightId(R.id.editAll);
 

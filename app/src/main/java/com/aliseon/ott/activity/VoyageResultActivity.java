@@ -1006,7 +1006,14 @@ public class VoyageResultActivity extends AppCompatActivity {
                     subscribe_tv.setText(recommend_nickname.get(i));
                     subscribe_tv.setTextColor(Color.rgb(255, 255, 255));
 
-                    Glide.with(this).load(imageurl + recommend_photo.get(i)).into(subscribe_image);
+                    if (recommend_photo.get(i) == null) {
+                        subscribe_image.setImageResource(R.drawable.noimg_profile);
+                    } else {
+                        Glide.with(this).load(imageurl + recommend_photo.get(i)).into(subscribe_image);
+
+                    }
+
+                    Log.d("PHOTOLOG", "IMAGE : " + recommend_photo.get(i));
 
 
                     Layout3_4_1_1_1.addView(subscribe_image);
@@ -1054,9 +1061,12 @@ public class VoyageResultActivity extends AppCompatActivity {
                     Layout3_4_1_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            Intent intent = new Intent(VoyageResultActivity.this, CreatorActivity.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                            startActivity(intent);
+
+                            aliseon.aliseon_setParam_creator_info(Integer.parseInt(recommend_id.get(j)));
+
+                            Intent intent = new Intent(VoyageResultActivity.this, CreatorActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
                         }
                     });
                 }
@@ -1245,17 +1255,17 @@ public class VoyageResultActivity extends AppCompatActivity {
                                 public void onClick(View v) {
 ////                              nowurl = imageurl + feedresult_video.get(0);
 ////                              maintitle = feed_content.get(0);
-//                                    Intent intent = new Intent(VoyageResultActivity.this, AliseonOTTPlayerActivity.class);
+                                    Intent intent = new Intent(VoyageResultActivity.this, AliseonOTTPlayerActivity.class);
 ////                                    nowurl = imageurl;
 ////                                    maintitle = voyageresult_description.get(jjj);
 ////                                    subtitle = voyageresult_description.get(jjj);
 ////                                    creatortitle = voyageresult_nickname.get(jjj);
 ////                                    creatorprofile = imageurl + voyageresult_photo.get(jjj);
 ////                                    creatorauthorid = voyageresult_user_id.get(jjj);
-//                                    intent.putExtra("index", jjj);
-//                                    intent.putExtra("category", 5);
-//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                    startActivity(intent);
+                                    intent.putExtra("index", jjj);
+                                    intent.putExtra("category", 5);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    startActivity(intent);
                                 }
                             });
 
@@ -1398,12 +1408,12 @@ public class VoyageResultActivity extends AppCompatActivity {
                             Layout3_8_1_1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-//                                    Intent intent = new Intent(VoyageResultActivity.this, AliseonOTTPlayerActivity.class);
-//
-//                                    intent.putExtra("index", jjj);
-//                                    intent.putExtra("category", 5);
-//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                                    startActivity(intent);
+                                    Intent intent = new Intent(VoyageResultActivity.this, AliseonOTTPlayerActivity.class);
+
+                                    intent.putExtra("index", jjj);
+                                    intent.putExtra("category", 5);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    startActivity(intent);
                                 }
                             });
 

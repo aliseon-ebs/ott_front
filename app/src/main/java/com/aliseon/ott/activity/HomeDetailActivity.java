@@ -3,7 +3,11 @@ package com.aliseon.ott.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.tv.TvContract;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +41,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+
+// for channel
+import androidx.tvprovider.media.tv.Channel;
+import androidx.tvprovider.media.tv.PreviewChannel;
+import androidx.tvprovider.media.tv.TvContractCompat;
+import androidx.tvprovider.media.tv.ChannelLogoUtils;
+import androidx.tvprovider.media.tv.PreviewProgram;
+import androidx.tvprovider.media.tv.WatchNextProgram;
+
 
 
 
@@ -87,6 +101,30 @@ public class HomeDetailActivity extends AppCompatActivity {
                 getResources().updateConfiguration(config3,getResources().getDisplayMetrics());
 
         }
+
+        // some images...
+        Bitmap logoimage = BitmapFactory.decodeResource(getResources(), R.drawable.aliseoncolor);
+        Bitmap resizelogo = Bitmap.createScaledBitmap(logoimage, 80, 80, true);
+
+
+
+//        PreviewChannel previewChannel = new PreviewChannel.Builder()
+//                .setDisplayName("SAMPLE NAME")
+//                .setDescription("Sample Description")
+//                .setAppLinkIntentUri()
+//                .setInternalProviderId()
+//                .setLogo(resizelogo)
+//                .build();
+
+//        WatchNextProgram program = new WatchNextProgram.Builder()
+//                .setWatchNextType(TvContractCompat.WatchNextPrograms.WATCH_NEXT_TYPE_CONTINUE)
+//                .setContentId()
+//                .setType(TvContract.PreviewPrograms.TYPE_MOVIE)
+//                .setTitle("SAMPLE TITLE")
+//                .setDescription("SAMPLE DESCRIPTION")
+//                .setPosterArtUri(Uri.parse("https://2020aliseon.s3.ap-northeast-2.amazonaws.com/images/a-trend/2020/11/16/174957LTA5QPEWa6.png"))
+//                .setLastEngagementTimeUtcMillis(System.currentTimeMillis())
+//                .build();
 
         homeactivitydetailcontentsloadinghandler = new HomeActivityDetailContentsLoadingHandler();
 
@@ -527,11 +565,11 @@ public class HomeDetailActivity extends AppCompatActivity {
                     Layout3_6_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            Intent intent = new Intent(HomeDetailActivity.this, AliseonOTTPlayerActivity.class);
-//                            intent.putExtra("index", jjj);
-//                            intent.putExtra("category",2);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                            startActivity(intent);
+                            Intent intent = new Intent(HomeDetailActivity.this, AliseonOTTPlayerActivity.class);
+                            intent.putExtra("index", jjj);
+                            intent.putExtra("category",2);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
                         }
                     });
                     j++;
@@ -651,11 +689,11 @@ public class HomeDetailActivity extends AppCompatActivity {
                     Layout3_6_1_1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            Intent intent = new Intent(HomeDetailActivity.this, AliseonOTTPlayerActivity.class);
-//                            intent.putExtra("index", jjj);
-//                            intent.putExtra("category",2);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//                            startActivity(intent);
+                            Intent intent = new Intent(HomeDetailActivity.this, AliseonOTTPlayerActivity.class);
+                            intent.putExtra("index", jjj);
+                            intent.putExtra("category",2);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
                         }
                     });
                     j++;

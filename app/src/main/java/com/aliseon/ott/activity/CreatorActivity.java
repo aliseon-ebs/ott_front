@@ -381,6 +381,7 @@ public class CreatorActivity extends AppCompatActivity {
         super.onBackPressed();
 
         Aliseon aliseon = (Aliseon) getApplicationContext();
+        aliseon.aliseon_setMyDetailAPIload(0);
 
         aliseon.CreatorClear();
         overridePendingTransition(0,0);
@@ -514,7 +515,11 @@ public class CreatorActivity extends AppCompatActivity {
             CircleImageView My = new CircleImageView(this);
 
             My.setLayoutParams(new ViewGroup.LayoutParams(150, 150));
-            Glide.with(this).load(imageurl + creator_photo).into(My);
+            if (creator_photo == null) {
+                My.setImageResource(R.drawable.noimg_profile);
+            } else {
+                Glide.with(this).load(imageurl + creator_photo).into(My);
+            }
 
             TextView TV1 = new TextView(this);
             TextView TV2 = new TextView(this);

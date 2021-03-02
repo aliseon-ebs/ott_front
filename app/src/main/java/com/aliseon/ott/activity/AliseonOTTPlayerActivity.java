@@ -806,7 +806,7 @@ public class AliseonOTTPlayerActivity extends AppCompatActivity {
 
 
         // Acon을 클릭시 일부 뷰를 보이지 않게 만듬
-        if (typeselector == 1) {
+        if (typeselector == 1 || typeselector == 11) {
             button.setVisibility(View.GONE);
             CIV.setVisibility(View.GONE);
             TV4.setVisibility(View.GONE);

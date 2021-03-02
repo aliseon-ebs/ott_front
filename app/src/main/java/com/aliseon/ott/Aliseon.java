@@ -70,6 +70,9 @@ public class Aliseon extends Application {
     private int category_num = 0;
     private int category_id = 0;
 
+    // Voyage Focus, 해당 번호가 1일 경우 VoyageActivity에서 좌측 돋보기 아이콘을 포커스함
+    private int menu_voyage_focus = 0;
+
     //검색
     private String keyword = null;
 
@@ -1540,6 +1543,8 @@ public class Aliseon extends Application {
         return category_id;
     }
 
+    public int aliseon_getMenu_voyage_focus() { return menu_voyage_focus; }
+
     //set
     public void aliseon_setSubscribe_checker(int subscribe_checker){
         this.subscribe_checker = subscribe_checker;
@@ -1584,6 +1589,8 @@ public class Aliseon extends Application {
     public void aliseon_setCategory_id(int category_id){
         this.category_id = category_id;
     }
+
+    public void aliseon_setMenu_voyage_focus(int menu_voyage_focus) { this.menu_voyage_focus = menu_voyage_focus; }
 
 
     // subscribe param
@@ -2036,7 +2043,7 @@ public class Aliseon extends Application {
     public void aliseon_setVoyageresult_create_at (ArrayList<String> voyageresult_create_at) { this.voyageresult_create_at = voyageresult_create_at; }
     public void aliseon_setVoyageresult_update_at (ArrayList<String> voyageresult_update_at) { this.voyageresult_update_at = voyageresult_update_at; }
     public void aliseon_setVoyageresult_like_count (ArrayList<Integer> voyageresult_like_count) { this.voyageresult_like_count = voyageresult_like_count; }
-    public void aliseon_setVoyageresult_view_count (ArrayList<Integer> voyageresult_category_id) { this.voyageresult_view_count = voyageresult_view_count; }
+    public void aliseon_setVoyageresult_view_count (ArrayList<Integer> voyageresult_view_count) { this.voyageresult_view_count = voyageresult_view_count; }
     public void aliseon_setVoyageresult_comment_count (ArrayList<Integer> voyageresult_comment_count) { this.voyageresult_comment_count = voyageresult_comment_count; }
     public void aliseon_setVoyageresult_category_en (ArrayList<String> voyageresult_category_en) { this.voyageresult_category_en = voyageresult_category_en; }
     public void aliseon_setVoyageresult_category_kr (ArrayList<String> voyageresult_category_kr) { this.voyageresult_category_kr = voyageresult_category_kr; }

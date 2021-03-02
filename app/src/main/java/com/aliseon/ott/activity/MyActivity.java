@@ -717,6 +717,10 @@ public class MyActivity extends AppCompatActivity {
             button1.setNextFocusUpId(R.id.LayoutMy);
             button1.setNextFocusLeftId(R.id.my);
 
+            if (my_list_id.size() == 0) {
+                button1.setNextFocusDownId(R.id.LayoutMy);
+            }
+
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
