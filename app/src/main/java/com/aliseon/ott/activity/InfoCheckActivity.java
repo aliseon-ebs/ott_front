@@ -83,7 +83,7 @@ public class InfoCheckActivity extends AppCompatActivity {
 
         AliseonAPI = retrofit.create(AliseonAPI.class);
 
-        pref = getSharedPreferences("login_session", MODE_PRIVATE);
+        pref = getSharedPreferences("login_session", MODE_PRIVATE); // android tv cloent 의 자체 저장소, 어플리케이션 범위 내에 영구 저장됨
 
         switch (pref.getString("language", "")) {
             case "kr":
@@ -378,8 +378,6 @@ public class InfoCheckActivity extends AppCompatActivity {
                 } else {
                     AddUserPost();
                 }
-
-
             }
 
             @Override
@@ -388,7 +386,6 @@ public class InfoCheckActivity extends AppCompatActivity {
                 Log.d("STATUS:", t.getMessage());
             }
         });
-
     }
 
     private void AddUserPost() {

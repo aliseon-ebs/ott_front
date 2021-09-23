@@ -11,7 +11,7 @@ public class Aliseon extends Application {
 
     private String imageurl = "https://2020aliseon.s3.ap-northeast-2.amazonaws.com";
 
-    private String aliseonapi = "http://api.aliseon.com/api/";
+    private String aliseonapi = "http://api2.aliseon.com/api/";
 
     private String api_auth = aliseonapi + "/auth";
     private String api_usersetting_user_phone = aliseonapi + "/usersetting/user/phone";

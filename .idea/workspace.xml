@@ -8,29 +8,128 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9b16562c-cb00-4c40-ac42-6d5a0658c0fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+    <list default="true" id="9b16562c-cb00-4c40-ac42-6d5a0658c0fd" name="Default Changelist" comment="210302 업로드 안된 파일 재업로드">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/aliseon-ott.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_0_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_0_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_2_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_android_networking_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_android_networking_1_0_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_9_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_9_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_core_2_10_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_core_2_10_4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_hls_2_10_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_hls_2_10_4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_ui_2_10_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_exoplayer_exoplayer_ui_2_10_4_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_5_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_10_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_3_31_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_3_31_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_3_31_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_31_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/AdapterSpinner5.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/AdapterSpinner5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/activity/CartDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/activity/CartDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/spinner_spinner_normal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_spinner_normal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-en/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-en/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-ko/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-ko/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/Aliseon.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/Aliseon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/Variable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/activity/InfoCheckActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/aliseon/ott/activity/InfoCheckActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Android_TV_1080p_API_28" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Android_TV_1080p_API_28_2_test210806]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -39,7 +138,12 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -48,47 +152,56 @@
       <list>
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="GenerateSignedApkSettings">
-    <option name="BUILD_TARGET_KEY" value="apk" />
+    <option name="EXPORT_PRIVATE_KEY" value="false" />
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../aliseontvkey" />
+    <option name="KEY_ALIAS" value="aliseontvkey" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1eTKdymOGXuHNggd9zfSWphYwKK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
-    <property name="ApkExportedModule" value="app" />
+    <property name="ApkExportedModule" value="aliseon_ott_copy.app" />
+    <property name="BundleExportedModule" value="aliseon_ott_copy.app" />
     <property name="DEBUGGABLE_DEVICE" value="emulator-5554" />
     <property name="DEBUGGABLE_PROCESS" value="com.aliseon.ott" />
     <property name="DEBUGGER_ID" value="Auto" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Android_TV_1080p_API_28" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-08-27T08:14:28.191Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Android_TV_1080p_API_28_2_test210806" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-08-06T01:40:42.748Z" />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
+    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="android-custom-view/Users/crefun/Desktop/HazDev/aliseon_ott_copy/app/src/main/java/com/aliseon/ott/CartPlayer.java_SELECTED" value="CartPlayer" />
+    <property name="android-custom-view/Users/crefun/Desktop/HazDev/aliseon_ott_copy/app/src/main/java/com/aliseon/ott/ContentsPlayer.java_SELECTED" value="ContentsPlayer" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1607573462377" />
+    <property name="multi-representation-preview/Users/crefun/Desktop/HazDev/aliseon_ott_copy/app/src/main/java/com/aliseon/ott/CartPlayer.java_selected" value="Custom views" />
+    <property name="multi-representation-preview/Users/crefun/Desktop/HazDev/aliseon_ott_copy/app/src/main/java/com/aliseon/ott/ContentsPlayer.java_selected" value="Custom views" />
+    <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.aliseon.ott.API" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -99,12 +212,13 @@
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="app" />
+      <module name="aliseon_ott_copy_3.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -140,15 +254,23 @@
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",VISIBILITY_SORTER" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -160,97 +282,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1594340233474</updated>
-    </task>
-    <task id="LOCAL-00001" summary="s3 버킷주소 변경">
-      <created>1594340502592</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1594340502592</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Acon -&gt; Atrend로 변경 및 값 파싱">
-      <created>1594345655917</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1594345655917</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Atrend 및 Popular API 연결">
-      <created>1594357868761</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1594357868761</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Atrend 및 Popular API 연결">
-      <created>1594377715189</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1594377715189</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Atrend Detail API 디버깅 및 OTTPlayer로 데이터 연결">
-      <created>1594603574114</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1594603574114</updated>
-    </task>
-    <task id="LOCAL-00006" summary="홈 액티비티 atrenddetail 주석">
-      <created>1594604232565</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1594604232565</updated>
-    </task>
-    <task id="LOCAL-00007" summary="최신화">
-      <created>1596070165078</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1596070165078</updated>
-    </task>
-    <task id="LOCAL-00008" summary="API 연결을 위한 주석처리 및 연결작업">
-      <created>1596078125782</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1596078125782</updated>
-    </task>
-    <task id="LOCAL-00009" summary="클래스명 전면 변경(Feed-&gt;Voyage) 및 다양한 버그 수정">
-      <created>1596088998517</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1596088998517</updated>
-    </task>
-    <task id="LOCAL-00010" summary="변수명 변경">
-      <created>1596096999598</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1596096999598</updated>
-    </task>
-    <task id="LOCAL-00011" summary="보야지 액티비티 16페이지 1페이지로 통합 작업(동적 할당)">
-      <created>1596184889394</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1596184889394</updated>
-    </task>
-    <task id="LOCAL-00012" summary="보야지 페이지 16페이지 1페이지로 통합 및 기타 버그 수정(예전 코드는 1뎁스 카테고리가 많아도 최대 16개까지밖에 나오지 않았는데, 1뎁스 카테고리가 몇개가 있던지 대응 가능)">
-      <created>1597133551480</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1597133551480</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Auth 전면 수정 및 API 프로세스 최적화">
-      <created>1597208220030</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1597208220030</updated>
     </task>
     <task id="LOCAL-00014" summary="보야지 액티비티 버그 수정">
       <created>1597210922989</created>
@@ -497,7 +528,105 @@
       <option name="project" value="LOCAL" />
       <updated>1600765464708</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="OTT 디버깅">
+      <created>1605271699706</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1605271699706</updated>
+    </task>
+    <task id="LOCAL-00050" summary="OTT 디버깅">
+      <created>1605501414421</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1605501414422</updated>
+    </task>
+    <task id="LOCAL-00051" summary="OTT 재구성 업로드">
+      <created>1611552070384</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1611552070386</updated>
+    </task>
+    <task id="LOCAL-00052" summary="OTT 재구성 업로드">
+      <created>1611552104691</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1611552104691</updated>
+    </task>
+    <task id="LOCAL-00053" summary="유저 계정 해제시 발생하는 문제 수정됨&#10;변수 추가&#10;영상 플레이어의 이슈 수정&#10;&gt; 1. 하단 영상 선택시 다른 영상이 나오는 문제 수정&#10;&gt; 2. 하단 영상 선택시 다른 영상 제목이 나오는 문제 수정&#10;&gt; 3. 영상에 포함된 상품이 표시되지 않는 문제 수정&#10;상품 페이지 수정&#10;&gt; 상품 판매 상점의 이름이 보이지 않는 문제 수정&#10;상품 상세정보 페이지 수정&#10;&gt; 영상 플레이어에서 진입시 발생하는 충돌 해결&#10;구독 페이지 수정&#10;&gt; 구독한 크리에이터의 페이지로 이동 시도시 발생하는 충돌 해결&#10;크리에이터 페이지 수정&#10;&gt; 크리에이터의 닉네임이 보이지 않는 문제 해결">
+      <created>1611729304813</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1611729304813</updated>
+    </task>
+    <task id="LOCAL-00054" summary="잘못된 API 주소 기재 수정&#10;영상 플레이어, 크리에이터 페이지 구독 기능 추가 (재검사 필요)">
+      <created>1611815135769</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1611815135770</updated>
+    </task>
+    <task id="LOCAL-00055" summary="크리에이터 페이지의 구독 기능 복구&#10;- 영상 플레이어 내에서의 구독 기능 복구중, 지속적 개선 예정">
+      <created>1611912605835</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1611912605836</updated>
+    </task>
+    <task id="LOCAL-00056" summary="구독중인지 표시를 명확하게 수정하였음&#10;예) 영상 플레이어 내에서 Voyage 크리에이터를 구독중임에도 구독중이라는 표시가 되지 않는 문제">
+      <created>1612146732568</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1612146732569</updated>
+    </task>
+    <task id="LOCAL-00057" summary="구독 기능 전체 복구, 재검사 필요">
+      <created>1612252240923</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1612252240925</updated>
+    </task>
+    <task id="LOCAL-00058" summary="하단 영상 진입 오류 수정">
+      <created>1612318861486</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1612318861490</updated>
+    </task>
+    <task id="LOCAL-00059" summary="리모컨 조작 일부 개선&#10;1. 각 화면의 초기화(진입)중 다른 아이콘으로 이동해 발생하는 오류 개선&#10;2. SubscribeActivity에서의 리모컨 조작 상당 개선">
+      <created>1612338621973</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1612338621973</updated>
+    </task>
+    <task id="LOCAL-00060" summary="리모컨 오류 수정 위주 작업">
+      <created>1614646506298</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1614646506300</updated>
+    </task>
+    <task id="LOCAL-00061" summary="리모컨 오류 수정 위주 작업">
+      <created>1614646510111</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1614646510111</updated>
+    </task>
+    <task id="LOCAL-00062" summary="210302 업로드 안된 파일 재업로드">
+      <created>1614650436088</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1614650436088</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -515,27 +644,15 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="- 보야지 액티비티 영상재생 문제 수정&#10;- 서치 액티비티 -&gt; 보야지 액티비티 이름 변경" />
-    <MESSAGE value="프로필이미지 보이게 수정" />
-    <MESSAGE value="구독 페이지 버그 디버깅 및 설정 페이지 유저 추가 구현" />
-    <MESSAGE value="구독 페이지 사용변수 변경" />
-    <MESSAGE value="계정 변경, 삭제, 추가, auth 적용중" />
-    <MESSAGE value="계정 변경 적용중(디버깅 필요)" />
-    <MESSAGE value="변수 정리중" />
-    <MESSAGE value="변수 클래스" />
-    <MESSAGE value="모든 변수 Variable 클래스에 저장 및 모든 클래스 import 위치 변경" />
-    <MESSAGE value="프로젝트 구조 트리화" />
-    <MESSAGE value="기타 버그 수정" />
     <MESSAGE value="변수들 정리" />
     <MESSAGE value="버그 수정" />
     <MESSAGE value="액티비티 네이밍 변경(문서 정리를 위한작업)" />
@@ -550,12 +667,58 @@
     <MESSAGE value="user name-&gt;nickname으로 변경 업데이트(api 파라메타 변경 완료)" />
     <MESSAGE value="MyList 업데이트" />
     <MESSAGE value="상품 옵션 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="상품 옵션 구현" />
+    <MESSAGE value="OTT 디버깅" />
+    <MESSAGE value="OTT 재구성 업로드" />
+    <MESSAGE value="유저 계정 해제시 발생하는 문제 수정됨&#10;변수 추가&#10;영상 플레이어의 이슈 수정&#10;&gt; 1. 하단 영상 선택시 다른 영상이 나오는 문제 수정&#10;&gt; 2. 하단 영상 선택시 다른 영상 제목이 나오는 문제 수정&#10;&gt; 3. 영상에 포함된 상품이 표시되지 않는 문제 수정&#10;상품 페이지 수정&#10;&gt; 상품 판매 상점의 이름이 보이지 않는 문제 수정&#10;상품 상세정보 페이지 수정&#10;&gt; 영상 플레이어에서 진입시 발생하는 충돌 해결&#10;구독 페이지 수정&#10;&gt; 구독한 크리에이터의 페이지로 이동 시도시 발생하는 충돌 해결&#10;크리에이터 페이지 수정&#10;&gt; 크리에이터의 닉네임이 보이지 않는 문제 해결" />
+    <MESSAGE value="잘못된 API 주소 기재 수정&#10;영상 플레이어, 크리에이터 페이지 구독 기능 추가 (재검사 필요)" />
+    <MESSAGE value="크리에이터 페이지의 구독 기능 복구&#10;- 영상 플레이어 내에서의 구독 기능 복구중, 지속적 개선 예정" />
+    <MESSAGE value="구독중인지 표시를 명확하게 수정하였음&#10;예) 영상 플레이어 내에서 Voyage 크리에이터를 구독중임에도 구독중이라는 표시가 되지 않는 문제" />
+    <MESSAGE value="구독 기능 전체 복구, 재검사 필요" />
+    <MESSAGE value="하단 영상 진입 오류 수정" />
+    <MESSAGE value="리모컨 조작 일부 개선&#10;1. 각 화면의 초기화(진입)중 다른 아이콘으로 이동해 발생하는 오류 개선&#10;2. SubscribeActivity에서의 리모컨 조작 상당 개선" />
+    <MESSAGE value="리모컨 오류 수정 위주 작업" />
+    <MESSAGE value="210302 업로드 안된 파일 재업로드" />
+    <option name="LAST_COMMIT_MESSAGE" value="210302 업로드 안된 파일 재업로드" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1904" y="98" width="2448" height="786" key="AVDManager" timestamp="1632360665792">
+      <screen x="1792" y="63" width="2560" height="1057" />
+    </state>
+    <state x="1901" y="69" width="969" height="784" key="AVDManager/1680.23.2560.1057/0.23.1680.962@1680.23.2560.1057" timestamp="1628039974225" />
+    <state x="1901" y="66" width="987" height="736" key="AVDManager/1680.23.2560.992/0.23.1680.1027@1680.23.2560.992" timestamp="1628161813671" />
+    <state x="79" y="57" width="1713" height="754" key="AVDManager/1792.23.2560.1057/0.23.1792.1014@0.23.1792.1014" timestamp="1628814198519" />
+    <state x="2394" y="58" width="987" height="785" key="AVDManager/1792.23.2560.1057/0.23.1792.1014@1792.23.2560.1057" timestamp="1628214658412" />
+    <state x="79" y="57" width="1713" height="754" key="AVDManager/1792.63.2560.1057/0.23.1792.1014@0.23.1792.1014" timestamp="1630892118631" />
+    <state x="1904" y="98" width="2448" height="786" key="AVDManager/1792.63.2560.1057/0.23.1792.1014@1792.63.2560.1057" timestamp="1632360665792" />
+    <state width="1427" height="183" key="GridCell.Tab.0.bottom" timestamp="1628156113374">
+      <screen x="1680" y="23" width="2560" height="992" />
+    </state>
+    <state width="1122" height="151" key="GridCell.Tab.0.bottom/0.23.1680.1027/1680.23.2560.992@1680.23.2560.992" timestamp="1627865293690" />
+    <state width="1107" height="265" key="GridCell.Tab.0.bottom/1680.23.2560.1057/0.23.1680.962@1680.23.2560.1057" timestamp="1628121967419" />
+    <state width="1427" height="183" key="GridCell.Tab.0.bottom/1680.23.2560.992/0.23.1680.1027@1680.23.2560.992" timestamp="1628156113374" />
+    <state width="1427" height="183" key="GridCell.Tab.0.center" timestamp="1628156113373">
+      <screen x="1680" y="23" width="2560" height="992" />
+    </state>
+    <state width="1122" height="151" key="GridCell.Tab.0.center/0.23.1680.1027/1680.23.2560.992@1680.23.2560.992" timestamp="1627865293689" />
+    <state width="1107" height="265" key="GridCell.Tab.0.center/1680.23.2560.1057/0.23.1680.962@1680.23.2560.1057" timestamp="1628121967418" />
+    <state width="1427" height="183" key="GridCell.Tab.0.center/1680.23.2560.992/0.23.1680.1027@1680.23.2560.992" timestamp="1628156113373" />
+    <state width="1427" height="183" key="GridCell.Tab.0.left" timestamp="1628156113372">
+      <screen x="1680" y="23" width="2560" height="992" />
+    </state>
+    <state width="1122" height="151" key="GridCell.Tab.0.left/0.23.1680.1027/1680.23.2560.992@1680.23.2560.992" timestamp="1627865293688" />
+    <state width="1107" height="265" key="GridCell.Tab.0.left/1680.23.2560.1057/0.23.1680.962@1680.23.2560.1057" timestamp="1628121967418" />
+    <state width="1427" height="183" key="GridCell.Tab.0.left/1680.23.2560.992/0.23.1680.1027@1680.23.2560.992" timestamp="1628156113372" />
+    <state width="1427" height="183" key="GridCell.Tab.0.right" timestamp="1628156113374">
+      <screen x="1680" y="23" width="2560" height="992" />
+    </state>
+    <state width="1122" height="151" key="GridCell.Tab.0.right/0.23.1680.1027/1680.23.2560.992@1680.23.2560.992" timestamp="1627865293689" />
+    <state width="1107" height="265" key="GridCell.Tab.0.right/1680.23.2560.1057/0.23.1680.962@1680.23.2560.1057" timestamp="1628121967418" />
+    <state width="1427" height="183" key="GridCell.Tab.0.right/1680.23.2560.992/0.23.1680.1027@1680.23.2560.992" timestamp="1628156113374" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-defaults>
-        <breakpoint suspend="ALL" type="java-line" />
+        <breakpoint type="java-line" />
       </breakpoints-defaults>
     </breakpoint-manager>
   </component>
